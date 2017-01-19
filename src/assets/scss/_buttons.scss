@@ -1,0 +1,67 @@
+@import './_palette.scss';
+
+@mixin button {
+    border: none;
+    border-radius: 2px;
+    color: #000;
+    height: 36px;
+    line-height: 36px;
+    min-width: 64px;
+    margin: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    padding: 0 16px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    font-weight: 600;
+}
+@mixin button-raised {
+    background: rgba(158,158,158,.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+@mixin button-primary {
+    background: $primary-color;
+    color: #fff;
+}
+
+@mixin button-accent {
+    background: $accent-color;
+    color: #fff;
+}
+
+@mixin button-primary-inverted {
+    background: #fff;
+    color: $primary-color;
+
+    &:focus {
+        color: $primary-color-dark;
+    }
+}
+
+.button {
+    @include button;
+}
+
+.button--raised {
+    @include button-raised;
+}
+
+.button--primary {
+    @include button-primary;
+}
+
+.button--accent {
+    @include button-accent;
+}
+
+.button--primary-inverted {
+    @include button-primary-inverted;
+}
+
