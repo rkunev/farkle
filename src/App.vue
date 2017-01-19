@@ -1,21 +1,23 @@
 <template>
     <div id="app">
-        <img src="./assets/logo.png">
-        <hello></hello>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Hello from './components/Hello';
+import LoginContainer from './containers/LoginContainer';
 
 export default {
     name: 'app',
     components: {
-        Hello
+        Hello,
+        LoginContainer
     }
 }
 </script>
 
+<style lang="scss" src="./assets/scss/_reset.scss"></style>
 <style>
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
