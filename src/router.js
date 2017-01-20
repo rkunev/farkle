@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 export const routes = [
     {
         path: '/auth',
-        component: LoginContainer
+        component: LoginContainer,
     },
     {
         path: '/',
@@ -65,4 +65,4 @@ router.beforeEach((to, from, next) => {
                 next(); // proceed as usual, because no auth is required
             }
         });
-})
+});

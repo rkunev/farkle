@@ -4,7 +4,9 @@ import userService from './userService';
 
 class AuthService {
     isAuthenticated() {
-        if (!offlineService.isOffline()) {
+        if (offlineService.isOffline() || userService.isUsingAnonymousAccount()) {
+            return Promise.resolve(userService.getAnonymousUser());
+        } else {
             return new Promise(resolve => {
                 function observer(user) {
                     unsubscribe(); // Unsubscribe on first call
@@ -13,8 +15,6 @@ class AuthService {
 
                 const unsubscribe = firebase.auth().onAuthStateChanged(observer);
             });
-        } else {
-            return Promise.resolve(userService.getAnonymousUser());
         }
     }
 
@@ -23,17 +23,25 @@ class AuthService {
             ? userService.getAnonymousUser()
             : userService.generateAnonymousUser() && userService.getAnonymousUser();
 
+        userService.useAnonymousAccount(true);
+
         return Promise.resolve(user);
     }
 
     signIn() {
         let provider = new firebase.auth.GoogleAuthProvider();
         return firebase.auth().signInWithPopup(provider)
-            .then(result => result.user)
+            .then(result => {
+                userService.useAnonymousAccount(false);
+
+                return result.user;
+            })
             .catch(error => console.log('Something went wrong while signing in with user\'s Google account', error));
     }
 
     signOut() {
+        userService.removeAnonymousUser();
+
         return firebase.auth().signOut()
             .catch(error => console.log('Something went wrong while signing out the user', error));
     }

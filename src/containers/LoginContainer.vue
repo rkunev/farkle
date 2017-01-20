@@ -2,7 +2,7 @@
     <div class="login-page">
         <img src="static/dice-logo.svg">
         <p>
-            <md-button primary v-if="!isOffline" @click="">Google</md-button>
+            <md-button primary v-if="!isOffline" @click="login">Google</md-button>
             <md-button primary @click="loginAnonymously">Incognito</md-button>
         </p>
     </div>
@@ -36,15 +36,15 @@
     };
 
     function _onSuccessfulSignIn(isAuthenticated) {
-        const toPath = ('redirect' in this.$router.currentRoute.query)
+        const path = ('redirect' in this.$router.currentRoute.query)
             ? this.$router.currentRoute.query.redirect
             : '/';
 
-        this.$router.push(toPath);
+        this.$router.push(path);
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .login-page {
         text-align: center;
     }

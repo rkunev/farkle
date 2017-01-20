@@ -5,15 +5,8 @@
 </template>
 
 <script>
-import Hello from './components/Hello';
-import LoginContainer from './containers/LoginContainer';
-
 export default {
     name: 'app',
-    components: {
-        Hello,
-        LoginContainer
-    }
 }
 </script>
 
