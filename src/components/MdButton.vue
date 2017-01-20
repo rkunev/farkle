@@ -1,0 +1,46 @@
+<template>
+  <button class="md-button" :type="type" :disabled="disabled" @click="$emit('click', $event)" v-if="!href">
+    <slot></slot>
+  </button>
+
+  <a class="md-button" :href="href" :disabled="disabled" :target="target" :rel="rel" @click="$emit('click', $event)" v-else>
+    <slot></slot>
+  </a>
+</template>
+
+<script>
+    // require()
+    export default {
+        name: 'md-button',
+        props: {
+            href: String,
+            target: String,
+            rel: String,
+            type: {
+                type: String,
+                default: 'button'
+            },
+            disabled: Boolean
+        }
+    };
+</script>
+
+<style lang="scss" scoped>
+    @import '~assets/scss/_buttons.scss';
+
+    button {
+        @include button;
+
+        &[raised] {
+            @include button-raised;
+        }
+
+        &[primary] {
+            @include button-primary;
+        }
+
+        &[accent] {
+            @include button-accent;
+        }
+    }
+</style>
