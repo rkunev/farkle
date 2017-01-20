@@ -25,7 +25,11 @@
             disabled: Boolean
         },
         mounted() {
-            Waves.attach(this.$el);
+            const wavesColor = (this.$el.hasAttribute('primary') || this.$el.hasAttribute('accent'))
+                ? 'waves-light'
+                : '';
+
+            Waves.attach(this.$el, wavesColor);
             Waves.init();
         }
     };
@@ -43,6 +47,10 @@
 
         &[primary] {
             @include button-primary;
+        }
+
+        &[primary-inverted] {
+            @include button-primary-inverted;
         }
 
         &[accent] {

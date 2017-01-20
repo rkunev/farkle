@@ -3,7 +3,7 @@
         <img src="static/dice-logo.svg">
         <p>
             <md-button primary v-if="!isOffline" @click="login">Google</md-button>
-            <md-button primary @click="loginAnonymously">Incognito</md-button>
+            <md-button primary-inverted @click="loginAnonymously">Incognito</md-button>
         </p>
     </div>
 </template>

@@ -3,6 +3,7 @@
 @import '_settings.scss';
 
 @mixin button {
+    background: transparent;
     border: none;
     border-radius: 2px;
     color: #000;
@@ -29,8 +30,8 @@
 }
 
 @mixin button-raised {
-    @include shadow(2);
-    background: rgba(158,158,158,.2);
+    @include shadow(4);
+    background: rgba(153, 153, 153, .2);
     transition: box-shadow $transition-duration-quick $transition-timing-function-deceleration;
 }
 
@@ -45,24 +46,56 @@
     &:hover {
         background: $primary-color-dark;
     }
+
     &:focus {
         @include shadow(4);
     }
+
+    &:hover:focus {
+        @include shadow(6);
+    }
+}
+
+@mixin button-primary-inverted {
+    @include shadow(2);
+    background: #fff;
+    color: $primary-color;
+    transition-property: background, box-shadow;
+    transition-duration: $transition-duration-quick;
+    transition-timing-function: $transition-timing-function-deceleration;
+
+    &:hover {
+        color: $primary-color-dark;
+        background: #ddd;
+    }
+
+    &:focus {
+        @include shadow(4);
+        color: $primary-color-dark;
+    }
+
     &:hover:focus {
         @include shadow(6);
     }
 }
 
 @mixin button-accent {
+    @include shadow(2);
     background: $accent-color;
     color: #fff;
-}
+    transition-property: background, box-shadow;
+    transition-duration: $transition-duration-quick;
+    transition-timing-function: $transition-timing-function-deceleration;
 
-@mixin button-primary-inverted {
-    background: #fff;
-    color: $primary-color;
+    &:hover {
+        background: #79b03b;
+    }
 
     &:focus {
-        color: $primary-color-dark;
+        @include shadow(4);
+    }
+
+    &:hover:focus {
+        @include shadow(6);
     }
 }
