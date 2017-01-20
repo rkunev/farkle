@@ -2,9 +2,8 @@
     <div class="login-page">
         <img src="static/dice-logo.svg">
         <p>
-            <md-button v-if="!isOffline" primary @click="">Google</md-button>
-            <!-- <button class="button button--primary-inverted" v-if="!isOffline" @click="">Google</button> -->
-            <!-- <button class="button button--accent" @click="loginAnonymously">Incognito</button> -->
+            <md-button primary v-if="!isOffline" @click="">Google</md-button>
+            <md-button primary @click="loginAnonymously">Incognito</md-button>
         </p>
     </div>
 </template>

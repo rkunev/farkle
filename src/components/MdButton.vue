@@ -9,7 +9,9 @@
 </template>
 
 <script>
-    // require()
+    import wavesCss from 'assets/scss/waves.scss';
+    import Waves from 'node-waves/src/js/waves.js';
+
     export default {
         name: 'md-button',
         props: {
@@ -21,6 +23,10 @@
                 default: 'button'
             },
             disabled: Boolean
+        },
+        mounted() {
+            Waves.attach(this.$el);
+            Waves.init();
         }
     };
 </script>
