@@ -1,0 +1,7 @@
+// @todo Research what are the durations
+$transition-duration-quick: .28s;
+
+$transition-timing-function-standard: cubic-bezier(.4, 0, .2, 1);
+$transition-timing-function-deceleration: cubic-bezier(0, 0, .2, 1);
+$transition-timing-function-acceleration: cubic-bezier(.4, 0, 1, 1);
+$transition-timing-function-sharp: cubic-bezier(.4, 0, .6, 1);
