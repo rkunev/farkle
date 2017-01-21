@@ -14,7 +14,7 @@
     import offlineService from 'src/services/offlineService';
 
     export default {
-        name: 'dashboard-container',
+        name: 'dashboard',
         data() {
             return {
                 isOffline: offlineService.isOffline()
