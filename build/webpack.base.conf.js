@@ -26,6 +26,7 @@ module.exports = {
             'vue$': 'vue/dist/vue.common.js',
             'src': path.resolve(__dirname, '../src'),
             'assets': path.resolve(__dirname, '../src/assets'),
+            'services': path.resolve(__dirname, '../src/services'),
             'components': path.resolve(__dirname, '../src/components')
         }
     },
@@ -53,7 +54,7 @@ module.exports = {
                 loader: 'url',
                 query: {
                     limit: 10000,
-                    name: utils.assetsPath('img/[name].[hash:7].[ext]')
+                    name: utils.assetsPath('images/[name].[hash:7].[ext]')
                 }
             },
             {
