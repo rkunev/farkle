@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import LoginContainer from 'src/containers/LoginContainer';
-import DashboardContainer from 'src/containers/DashboardContainer';
-import UsersContainer from 'src/containers/UsersContainer';
-import NotFoundContainer from 'src/containers/NotFoundContainer';
+import Login from 'src/containers/Login';
+import Dashboard from 'src/containers/Dashboard';
+import Users from 'src/containers/Users';
+import NotFound from 'src/containers/NotFound';
 
 import authService from 'src/services/authService';
 
@@ -13,25 +13,25 @@ Vue.use(VueRouter);
 export const routes = [
     {
         path: '/auth',
-        component: LoginContainer,
+        component: Login,
     },
     {
         path: '/',
-        component: DashboardContainer,
+        component: Dashboard,
         meta: {
             requiresAuth: true
         }
     },
     {
         path: '/users',
-        component: UsersContainer,
+        component: Users,
         meta: {
             requiresAuth: true
         }
     },
     {
         path: '*',
-        component: NotFoundContainer
+        component: NotFound
     }
 ];
 

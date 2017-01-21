@@ -14,7 +14,7 @@
     import MdButton from 'src/components/MdButton';
 
     export default {
-        name: 'login-container',
+        name: 'login',
         components: {
             MdButton
         },
