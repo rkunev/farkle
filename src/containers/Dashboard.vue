@@ -30,7 +30,7 @@
         },
         mounted() {
             const user = userService.getCurrentUser();
-            console.log(user.displayName);
+            // console.log(user.displayName);
         }
     };
 </script>

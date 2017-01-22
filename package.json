@@ -16,7 +16,7 @@
     "dependencies": {
         "firebase": "^3.6.5",
         "node-waves": "^0.7.5",
-        "vue": "^2.1.0",
+        "vue": "^2.1.10",
         "vue-router": "^2.1.1",
         "vuex": "^2.1.1"
     },

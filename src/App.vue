@@ -1,11 +1,12 @@
 <template>
     <div id="app">
-        <navigation-drawer></navigation-drawer>
+        <navigation-drawer :is-open="isOpen" @close="closeMenu"></navigation-drawer>
 
         <div class="layout">
+            <!-- Toolbar placeholder -->
             <div class="header">
                 <div class="menu-icon">
-                    <md-button><img src="~assets/svg/menu.svg"></md-button>
+                    <md-button @click.stop="openMenu"><img src="~assets/svg/menu.svg"></md-button>
                 </div>
             </div>
 
@@ -24,6 +25,19 @@
             NavigationDrawer,
             MdButton
         },
+        data() {
+            return {
+                isOpen: false
+            }
+        },
+        methods: {
+            openMenu() {
+                this.isOpen = true;
+            },
+            closeMenu() {
+                this.isOpen = false;
+            }
+        }
     }
 </script>
 
@@ -33,33 +47,5 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        padding-top: 60px;
-    }
-
-
-    .layout {
-        width: 375px;
-        height: 667px;
-        background-color: #f5f5f5;
-        position: relative;
-    }
-
-    // throw out style
-    .header {
-        background-color: #ccc;
-    }
-
-    .app-menu {
-        width: 300px;
-        height: 667px;
-        box-shadow: none;
-        background-color: #ddd;
-    }
-
-    .menu:after {
-        width: 375px;
-        height: 667px;
     }
 </style>

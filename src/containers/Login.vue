@@ -47,6 +47,7 @@
 <style lang="scss">
     .login-page {
         text-align: center;
+        padding-top: 60px;
     }
 </style>
 <style lang="scss">
