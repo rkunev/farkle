@@ -1,3 +1,5 @@
+@import '_fonts';
+
 html, body {
     height: 100%;
 }
@@ -20,6 +22,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     outline: 0;
 }
 body {
+    font-family: $family;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     line-height: 1;
 }
 ol, ul {

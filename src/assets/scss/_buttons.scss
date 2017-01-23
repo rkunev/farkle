@@ -1,6 +1,6 @@
-@import '_palette.scss';
-@import '_shadows.scss';
-@import '_settings.scss';
+@import '_palette';
+@import '_shadows';
+@import '_settings';
 
 @mixin button {
     background: transparent;
