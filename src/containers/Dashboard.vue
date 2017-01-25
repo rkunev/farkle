@@ -1,7 +1,10 @@
 <template>
     <div class="dashboard-page">
-        Dashboard
+        Hello again,
+        <p>{{ userName }}</p>
+
         <button type="button" v-if="!isOffline" @click="signOut">Sign out</button>
+
         <p>
             <router-link to="/users">Users</router-link>
         </p>
@@ -12,6 +15,7 @@
     import authService from 'src/services/authService';
     import userService from 'src/services/userService';
     import offlineService from 'src/services/offlineService';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'dashboard',
@@ -20,6 +24,9 @@
                 isOffline: offlineService.isOffline()
             }
         },
+        computed: {
+            ...mapGetters(['userName']),
+        },
         methods: {
             signOut() {
                 authService.signOut()
@@ -27,10 +34,6 @@
                         this.$router.push('/auth');
                     });
             }
-        },
-        mounted() {
-            const user = userService.getCurrentUser();
-            // console.log(user.displayName);
         }
     };
 </script>

@@ -1,2 +1,9 @@
-// Assemble all Vuex modules
-// https://github.com/vuejs/vuex/blob/dev/examples/shopping-cart/store/index.js
+import Vue from 'vue';
+import Vuex from 'vuex';
+import user from 'src/store/modules/user';
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+    modules: { user }
+});

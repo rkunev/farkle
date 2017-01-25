@@ -12,6 +12,7 @@
     import authService from 'src/services/authService';
     import offlineService from 'src/services/offlineService';
     import MdButton from 'src/components/MdButton';
+    import { mapActions } from 'vuex';
 
     export default {
         name: 'login',
@@ -31,14 +32,17 @@
             loginAnonymously() {
                 authService.createAndSignInAsAnonymous()
                     .then(_onSuccessfulSignIn.bind(this));
-            }
+            },
+            ...mapActions(['updateUser']),
         },
     };
 
-    function _onSuccessfulSignIn(isAuthenticated) {
+    function _onSuccessfulSignIn(user) {
         const path = ('redirect' in this.$router.currentRoute.query)
             ? this.$router.currentRoute.query.redirect
             : '/';
+
+        this.updateUser(user);
 
         this.$router.push(path);
     }

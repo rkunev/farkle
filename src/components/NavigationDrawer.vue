@@ -15,8 +15,8 @@
                         R
                     </div>
 
-                    <h2 class="navigation-drawer__user-name">Rosen Kunev</h2>
-                    <h3 class="navigation-drawer__user-email">rkunev@gmail.com</h3>
+                    <h2 class="navigation-drawer__user-name">{{ userName }}</h2>
+                    <h3 class="navigation-drawer__user-email">{{ userEmail }}</h3>
                 </div>
             </div>
 
@@ -111,6 +111,7 @@
 
 <script>
     import MdButton from 'src/components/MdButton';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'navigation-drawer',
@@ -119,6 +120,9 @@
             closeMenu(event) {
                 this.$emit('close', event);
             }
+        },
+        computed: {
+            ...mapGetters(['userName', 'userEmail']),
         },
         props: {
             isOpen: Boolean
