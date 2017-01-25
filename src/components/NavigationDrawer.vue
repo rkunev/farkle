@@ -180,9 +180,9 @@
     // @todo make a mixin for media queries
     @media screen and (min-width: 960px) {
         .navigation-drawer__logo {
+            display: block;
             padding: 16px;
             height: 64px;
-            border-bottom: 1px solid $divider-color;
 
             svg {
                 vertical-align: middle;
@@ -198,6 +198,14 @@
         background-size: cover;
         border-bottom: 1px solid $divider-color;
         color: #fff;
+    }
+
+    // @todo make a mixin for media queries
+    @media screen and (min-width: 960px) {
+        .navigation-drawer__panel-header {
+            background: #fff;
+            color: #333;
+        }
     }
 
     // @todo make a mixin for media queries

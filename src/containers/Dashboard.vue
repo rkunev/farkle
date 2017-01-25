@@ -13,7 +13,6 @@
 
 <script>
     import authService from 'src/services/authService';
-    import userService from 'src/services/userService';
     import offlineService from 'src/services/offlineService';
     import { mapGetters } from 'vuex';
 

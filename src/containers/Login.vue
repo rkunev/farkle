@@ -38,8 +38,8 @@
     };
 
     function _onSuccessfulSignIn(user) {
-        const path = ('redirect' in this.$router.currentRoute.query)
-            ? this.$router.currentRoute.query.redirect
+        const path = ('redirect' in this.$route.query)
+            ? this.$route.query.redirect
             : '/';
 
         this.updateUser(user);
