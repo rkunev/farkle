@@ -56,25 +56,16 @@
 }
 
 @mixin button-primary-inverted {
-    @include shadow(2);
-    background: #fff;
+    @include button-primary;
     color: $primary-color;
-    transition-property: background, box-shadow;
-    transition-duration: $transition-duration-quick;
-    transition-timing-function: $transition-timing-function-deceleration;
+    background: #fff;
 
     &:hover {
-        color: $primary-color-dark;
         background: #ddd;
     }
 
     &:focus {
-        @include shadow(4);
         color: $primary-color-dark;
-    }
-
-    &:hover:focus {
-        @include shadow(6);
     }
 }
 
