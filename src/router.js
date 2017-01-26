@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import AppWrapper from 'src/containers/AppWrapper';
+import AppWrapper from 'containers/AppWrapper';
 
-import Login from 'src/containers/Login';
-import Dashboard from 'src/containers/Dashboard';
-import Users from 'src/containers/Users';
-import About from 'src/containers/About';
-import GameRules from 'src/containers/GameRules';
+import Login from 'containers/Login';
+import Dashboard from 'containers/Dashboard';
+import Users from 'containers/Users';
+import About from 'containers/About';
+import GameRules from 'containers/GameRules';
 
-import NotFound from 'src/containers/NotFound';
+import NotFound from 'containers/NotFound';
 
-import authService from 'src/services/authService';
+import authService from 'services/authService';
 
 Vue.use(VueRouter);
 

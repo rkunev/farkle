@@ -110,7 +110,7 @@
 </template>
 
 <script>
-    import MdButton from 'src/components/MdButton';
+    import MdButton from 'components/MdButton';
     import { mapGetters } from 'vuex';
 
     export default {
