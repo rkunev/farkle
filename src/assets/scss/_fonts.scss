@@ -1,0 +1,62 @@
+$_regular: 400;
+$_medium: 500;
+
+$family: Roboto, Noto, sans-serif;
+
+$display-2-size: 45px;
+$display-1-height: 1.066;
+$display-2-weight: $_regular;
+
+$display-1-size: 34px;
+$display-1-height: 1.176;
+$display-1-weight: $_regular;
+
+$headline-size: 24px;
+$headline-height: 1.333;
+$headline-weight: $_regular;
+
+$title-size: 20px;
+$title-weight: $_medium;
+
+$subheading-size: 16px;
+$subheading-height: 1.5;
+$subheading-weight: $_regular;
+
+@mixin subheading {
+    font-size: $subheading-size;
+    font-weight: $subheading-weight;
+    line-height: $subheading-height;
+}
+
+$navigation-drawer-subheader-size: 14px;
+$navigation-drawer-subheader-height: 1;
+$navigation-drawer-subheader-weight: $_medium;
+
+@mixin navigation-drawer-subheader {
+    font-size: $navigation-drawer-subheader-size;
+    font-weight: $navigation-drawer-subheader-weight;
+    line-height: $navigation-drawer-subheader-height;
+}
+
+$body-2-size: 14px;
+$body-2-height: 1.714;
+$body-2-weight: $_medium;
+
+@mixin font-body-2 {
+    font-size: $body-2-size;
+    font-weight: $body-2-weight;
+    line-height: $body-2-height;
+}
+
+$body-1-size: 14px;
+$body-1-height: 1.428;
+$body-1-weight: $_regular;
+
+@mixin font-body-1 {
+    font-size: $body-1-size;
+    font-weight: $body-1-weight;
+    line-height: $body-1-height;
+}
+
+$caption-size: 12px;
+$caption-weight: $_regular;

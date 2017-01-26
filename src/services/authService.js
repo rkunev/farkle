@@ -21,7 +21,7 @@ class AuthService {
     createAndSignInAsAnonymous() {
         const user = userService.hasAnonymousUser()
             ? userService.getAnonymousUser()
-            : userService.generateAnonymousUser() && userService.getAnonymousUser();
+            : userService.generateAnonymousUser() || userService.getAnonymousUser();
 
         userService.useAnonymousAccount(true);
 

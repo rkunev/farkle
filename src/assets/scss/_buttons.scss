@@ -1,6 +1,6 @@
-@import '_palette.scss';
-@import '_shadows.scss';
-@import '_settings.scss';
+@import '_palette';
+@import '_shadows';
+@import '_settings';
 
 @mixin button {
     background: transparent;
@@ -22,7 +22,6 @@
     text-decoration: none;
     vertical-align: middle;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    font-weight: 600;
 
     &[disabled] {
         color: rgba(0, 0, 0, .26);

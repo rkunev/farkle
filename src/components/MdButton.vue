@@ -1,11 +1,11 @@
 <template>
-  <button class="md-button" :type="type" :disabled="disabled" @click="$emit('click', $event)" v-if="!href">
+  <button class="md-button" :type="type" :disabled="disabled" @click="$emit('click', $event)" v-if="!to">
     <slot></slot>
   </button>
 
-  <a class="md-button" :href="href" :disabled="disabled" :target="target" :rel="rel" @click="$emit('click', $event)" v-else>
+  <router-link class="md-button waves-effect" :active-class="activeClass" :to="to" :disabled="disabled" :target="target" :rel="rel" @click.native="$emit('click', $event)" v-else>
     <slot></slot>
-  </a>
+  </router-link>
 </template>
 
 <script>
@@ -15,12 +15,16 @@
     export default {
         name: 'md-button',
         props: {
-            href: String,
+            to: String,
             target: String,
             rel: String,
             type: {
                 type: String,
                 default: 'button'
+            },
+            activeClass: {
+                type: String,
+                default: 'router-link-active'
             },
             disabled: Boolean
         },
@@ -35,10 +39,10 @@
     };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     @import '~assets/scss/_buttons.scss';
 
-    button {
+    .md-button {
         @include button;
 
         &[raised] {
