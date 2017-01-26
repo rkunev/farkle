@@ -11,3 +11,8 @@
 </script>
 
 <style lang="scss" src="assets/scss/_reset.scss"></style>
+<style lang="scss">
+    #app {
+        height: 100%;
+    }
+</style>
