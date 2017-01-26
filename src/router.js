@@ -11,7 +11,7 @@ import GameRules from 'containers/GameRules';
 
 import NotFound from 'containers/NotFound';
 
-import authService from 'services/authService';
+import * as authService from 'services/authService';
 
 Vue.use(VueRouter);
 

@@ -18,7 +18,7 @@
 <script>
     import NavigationDrawer from 'components/NavigationDrawer';
     import MdButton from 'components/MdButton';
-    import authService from 'services/authService';
+    import * as authService from 'services/authService';
     import userService from 'services/userService';
 
     export default {

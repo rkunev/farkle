@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import authService from 'services/authService';
+    import * as authService from 'services/authService';
     import offlineService from 'services/offlineService';
     import MdButton from 'components/MdButton';
     import { mapActions } from 'vuex';
