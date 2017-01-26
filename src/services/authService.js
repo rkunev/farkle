@@ -1,9 +1,9 @@
 import { firebase } from './firebaseService';
-import offlineService from './offlineService';
+import { isOffline } from './offlineService';
 import * as userService from './userService';
 
 export function isAuthenticated() {
-    if (offlineService.isOffline() || userService.isUsingAnonymousAccount()) {
+    if (isOffline() || userService.isUsingAnonymousAccount()) {
         const isUserAuthenticated = userService.hasAnonymousUser();
 
         return Promise.resolve(isUserAuthenticated);

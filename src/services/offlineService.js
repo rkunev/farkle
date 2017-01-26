@@ -1,15 +1,10 @@
 const SW = 'sw.js';
 
-export default {
-    initServiceWorker: initServiceWorker,
-    isOffline: isOffline,
-}
-
-function isOffline() {
+export function isOffline() {
     return !navigator.onLine;
 }
 
-function initServiceWorker() {
+export function initServiceWorker() {
     if ('serviceWorker' in navigator) {
         if (process.env.NODE_ENV === 'production') {
             console.log('Offline module activated');

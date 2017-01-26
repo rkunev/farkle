@@ -2,7 +2,7 @@
     <div class="login-page">
         <img src="static/dice-logo.svg">
         <p>
-            <md-button primary v-if="!isOffline" @click="login">Google</md-button>
+            <md-button primary v-if="!isUserOffline" @click="login">Google</md-button>
             <md-button primary-inverted @click="loginAnonymously">Incognito</md-button>
         </p>
     </div>
@@ -10,7 +10,7 @@
 
 <script>
     import { signIn, createAndSignInAsAnonymous } from 'services/authService';
-    import offlineService from 'services/offlineService';
+    import { isOffline } from 'services/offlineService';
 
     import MdButton from 'components/MdButton';
 
@@ -21,7 +21,7 @@
         },
         data() {
             return {
-                isOffline: offlineService.isOffline()
+                isUserOffline: isOffline()
             }
         },
         methods: {
