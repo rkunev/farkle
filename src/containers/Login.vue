@@ -9,9 +9,9 @@
 </template>
 
 <script>
-    import authService from 'src/services/authService';
-    import offlineService from 'src/services/offlineService';
-    import MdButton from 'src/components/MdButton';
+    import authService from 'services/authService';
+    import offlineService from 'services/offlineService';
+    import MdButton from 'components/MdButton';
     import { mapActions } from 'vuex';
 
     export default {

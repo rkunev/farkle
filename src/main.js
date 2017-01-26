@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App';
 import { router } from './router';
 import offlineService from 'services/offlineService';
-import focusDirective from 'src/directives/focus';
+import focusDirective from 'directives/focus';
 import store from 'src/store';
 
 Vue.directive(focusDirective.name, focusDirective.definition);

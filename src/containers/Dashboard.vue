@@ -12,8 +12,8 @@
 </template>
 
 <script>
-    import authService from 'src/services/authService';
-    import offlineService from 'src/services/offlineService';
+    import authService from 'services/authService';
+    import offlineService from 'services/offlineService';
     import { mapGetters } from 'vuex';
 
     export default {
