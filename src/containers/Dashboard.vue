@@ -3,7 +3,7 @@
         Hello again,
         <p>{{ userName }}</p>
 
-        <button type="button" v-if="!isOffline" @click="signOut">Sign out</button>
+        <button type="button" v-if="!isOffline" @click="logOut">Sign out</button>
 
         <p>
             <router-link to="/users">Users</router-link>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import * as authService from 'services/authService';
+    import { signOut } from 'services/authService';
     import offlineService from 'services/offlineService';
     import { mapGetters } from 'vuex';
 
@@ -27,11 +27,10 @@
             ...mapGetters(['userName']),
         },
         methods: {
-            signOut() {
-                authService.signOut()
-                    .then(isAuthenticated => {
-                        this.$router.push('/auth');
-                    });
+            logOut() {
+                signOut().then(() => {
+                    this.$router.push('/auth');
+                });
             }
         }
     };

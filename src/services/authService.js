@@ -1,15 +1,17 @@
 import { firebase } from './firebaseService';
 import offlineService from './offlineService';
-import userService from './userService';
+import * as userService from './userService';
 
 export function isAuthenticated() {
     if (offlineService.isOffline() || userService.isUsingAnonymousAccount()) {
-        return Promise.resolve(userService.getAnonymousUser());
+        const isUserAuthenticated = userService.hasAnonymousUser();
+
+        return Promise.resolve(isUserAuthenticated);
     } else {
         return new Promise(resolve => {
             function observer(user) {
                 unsubscribe(); // Unsubscribe on first call
-                resolve(user); // Resolve with current state
+                resolve(!!user); // Resolve with current state
             }
 
             const unsubscribe = firebase.auth().onAuthStateChanged(observer);

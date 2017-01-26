@@ -9,10 +9,10 @@
 </template>
 
 <script>
-    import * as authService from 'services/authService';
+    import { signIn, createAndSignInAsAnonymous } from 'services/authService';
     import offlineService from 'services/offlineService';
+
     import MdButton from 'components/MdButton';
-    import { mapActions } from 'vuex';
 
     export default {
         name: 'login',
@@ -26,25 +26,19 @@
         },
         methods: {
             login() {
-                authService.signIn()
-                    .then(_onSuccessfulSignIn.bind(this));
+                signIn().then(_onSuccessfulSignIn.bind(this));
             },
             loginAnonymously() {
-                authService.createAndSignInAsAnonymous()
-                    .then(_onSuccessfulSignIn.bind(this));
-            },
-            ...mapActions(['updateUser']),
+                createAndSignInAsAnonymous().then(_onSuccessfulSignIn.bind(this));
+            }
         },
     };
 
     function _onSuccessfulSignIn(user) {
-        const path = ('redirect' in this.$route.query)
-            ? this.$route.query.redirect
-            : '/';
+        this.$store.dispatch('updateUser', user);
 
-        this.updateUser(user);
-
-        this.$router.push(path);
+        const path = this.$route.query.redirect || '/';
+        this.$router.replace(path);
     }
 </script>
 
