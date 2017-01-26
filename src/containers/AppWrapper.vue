@@ -43,3 +43,9 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .app-wrapper {
+        height: 100%;
+    }
+</style>

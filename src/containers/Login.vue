@@ -44,12 +44,9 @@
 
 <style lang="scss">
     .login-page {
+        height: 100%;
         text-align: center;
         padding-top: 60px;
-    }
-</style>
-<style lang="scss">
-    body {
         background-image: repeating-radial-gradient(at right bottom, rgb(0, 188, 212) 0%, rgb(76, 175, 80) 100%);
     }
 </style>
