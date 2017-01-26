@@ -2,17 +2,17 @@
     <div class="login-page">
         <img src="static/dice-logo.svg">
         <p>
-            <md-button primary v-if="!isOffline" @click="login">Google</md-button>
+            <md-button primary v-if="!isUserOffline" @click="login">Google</md-button>
             <md-button primary-inverted @click="loginAnonymously">Incognito</md-button>
         </p>
     </div>
 </template>
 
 <script>
-    import authService from 'services/authService';
-    import offlineService from 'services/offlineService';
+    import { signIn, createAndSignInAsAnonymous } from 'services/authService';
+    import { isOffline } from 'services/offlineService';
+
     import MdButton from 'components/MdButton';
-    import { mapActions } from 'vuex';
 
     export default {
         name: 'login',
@@ -21,30 +21,24 @@
         },
         data() {
             return {
-                isOffline: offlineService.isOffline()
+                isUserOffline: isOffline()
             }
         },
         methods: {
             login() {
-                authService.signIn()
-                    .then(_onSuccessfulSignIn.bind(this));
+                signIn().then(_onSuccessfulSignIn.bind(this));
             },
             loginAnonymously() {
-                authService.createAndSignInAsAnonymous()
-                    .then(_onSuccessfulSignIn.bind(this));
-            },
-            ...mapActions(['updateUser']),
+                createAndSignInAsAnonymous().then(_onSuccessfulSignIn.bind(this));
+            }
         },
     };
 
     function _onSuccessfulSignIn(user) {
-        const path = ('redirect' in this.$route.query)
-            ? this.$route.query.redirect
-            : '/';
+        this.$store.dispatch('updateUser', user);
 
-        this.updateUser(user);
-
-        this.$router.push(path);
+        const path = this.$route.query.redirect || '/';
+        this.$router.replace(path);
     }
 </script>
 

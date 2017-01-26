@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import App from './App';
 import { router } from './router';
-import offlineService from 'services/offlineService';
+import { initServiceWorker } from 'services/offlineService';
 import focusDirective from 'directives/focus';
 import store from 'src/store';
 
 Vue.directive(focusDirective.name, focusDirective.definition);
 
-offlineService.initServiceWorker();
+initServiceWorker();
 
 new Vue({
     el: '#app',

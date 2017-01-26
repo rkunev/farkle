@@ -1,11 +1,11 @@
 <template>
     <div class="app-wrapper">
-        <navigation-drawer v-show="isAuthenticated" :is-open="isOpen" @close="closeMenu"></navigation-drawer>
+        <navigation-drawer v-show="isUserAuthenticated" :is-open="isOpen" @close="closeMenu"></navigation-drawer>
 
         <div class="layout">
             <!-- Toolbar placeholder -->
             <div class="header">
-                <div class="menu-icon" v-show="isAuthenticated">
+                <div class="menu-icon" v-show="isUserAuthenticated">
                     <md-button @click.stop="openMenu"><img src="~assets/svg/menu.svg"></md-button>
                 </div>
             </div>
@@ -16,10 +16,11 @@
 </template>
 
 <script>
+    import { isAuthenticated } from 'services/authService';
+    import { getCurrentUser } from 'services/userService';
+
     import NavigationDrawer from 'components/NavigationDrawer';
     import MdButton from 'components/MdButton';
-    import authService from 'services/authService';
-    import userService from 'services/userService';
 
     export default {
         name: 'app-wrapper',
@@ -27,25 +28,18 @@
         data() {
             return {
                 isOpen: false,
-                isAuthenticated: false
+                isUserAuthenticated: false
             }
         },
         methods: {
-            openMenu() {
-                this.isOpen = true;
-            },
-            closeMenu() {
-                this.isOpen = false;
-            },
-        },
-        beforeRouteEnter(to, from, next) {
-            authService.isAuthenticated()
-                .then(user => next(vm => vm.isAuthenticated = !!user))
+            openMenu() { this.isOpen = true },
+            closeMenu() { this.isOpen = false },
         },
         created() {
-            const user = userService.getCurrentUser();
+            this.$store.dispatch('updateUser', getCurrentUser());
 
-            this.$store.dispatch('updateUser', user);
+            isAuthenticated()
+                .then(isUserAuth => this.isUserAuthenticated = isUserAuth);
         }
     }
 </script>

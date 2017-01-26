@@ -11,7 +11,7 @@ import GameRules from 'containers/GameRules';
 
 import NotFound from 'containers/NotFound';
 
-import authService from 'services/authService';
+import { isAuthenticated } from 'services/authService';
 
 Vue.use(VueRouter);
 
@@ -49,15 +49,15 @@ router.beforeEach((to, from, next) => {
         redirect = to.path;
     }
 
-    authService.isAuthenticated()
-        .then(isAuthenticated => {
-            if (isAuthOnly && !isAuthenticated) {
+    isAuthenticated()
+        .then((isUserAuth) => {
+            if (isAuthOnly && !isUserAuth) {
                 const authURL = (redirect.length)
                     ? encodeURI('/auth' + '?redirect=' + redirect)
                     : '/auth';
 
                 next(authURL); // redirecting to /auth, because user isn't authenticated
-            } else if (to.path === '/auth' && isAuthenticated) {
+            } else if (to.path === '/auth' && isUserAuth) {
                 next('/'); // redericting to dashboard, because we're already authenticated
             } else {
                 next(); // proceed as usual, because no auth is required

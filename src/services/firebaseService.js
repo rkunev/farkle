@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import auth from 'firebase/auth';
-import offlineService from './offlineService';
+import { isOffline } from './offlineService';
 
 var config = {
     apiKey: "AIzaSyByUNtfBfxAlj-sPTv2IBzDM5BOHvyXl6o",
@@ -10,7 +10,7 @@ var config = {
     messagingSenderId: "978310062335"
 };
 
-if (!offlineService.isOffline()) {
+if (!isOffline()) {
     firebase.initializeApp(config);
 }
 

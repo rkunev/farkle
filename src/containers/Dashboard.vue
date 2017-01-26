@@ -3,7 +3,7 @@
         Hello again,
         <p>{{ userName }}</p>
 
-        <button type="button" v-if="!isOffline" @click="signOut">Sign out</button>
+        <button type="button" v-if="!isUserOffline" @click="logOut">Sign out</button>
 
         <p>
             <router-link to="/users">Users</router-link>
@@ -12,26 +12,25 @@
 </template>
 
 <script>
-    import authService from 'services/authService';
-    import offlineService from 'services/offlineService';
+    import { signOut } from 'services/authService';
+    import { isOffline } from 'services/offlineService';
     import { mapGetters } from 'vuex';
 
     export default {
         name: 'dashboard',
         data() {
             return {
-                isOffline: offlineService.isOffline()
+                isUserOffline: isOffline()
             }
         },
         computed: {
             ...mapGetters(['userName']),
         },
         methods: {
-            signOut() {
-                authService.signOut()
-                    .then(isAuthenticated => {
-                        this.$router.push('/auth');
-                    });
+            logOut() {
+                signOut().then(() => {
+                    this.$router.push('/auth');
+                });
             }
         }
     };
