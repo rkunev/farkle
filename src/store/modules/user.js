@@ -20,7 +20,10 @@ export const mutations = {
 export const actions = {
     updateUserName: ({ commit }, name) => commit('UPDATE_USER_NAME', name),
     updateUserEmail: ({ commit }, email) => commit('UPDATE_USER_EMAIL', email),
-    updateUser: ({ commit }, user) => commit('UPDATE_USER', user),
+    updateUser: ({ commit }, user) => {
+        commit('UPDATE_USER_EMAIL', user.email);
+        commit('UPDATE_USER_NAME', user.displayName);
+    },
 };
 
 const getters = {

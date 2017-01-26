@@ -19,6 +19,7 @@
     import NavigationDrawer from 'components/NavigationDrawer';
     import MdButton from 'components/MdButton';
     import authService from 'services/authService';
+    import userService from 'services/userService';
 
     export default {
         name: 'app-wrapper',
@@ -41,5 +42,10 @@
             authService.isAuthenticated()
                 .then(user => next(vm => vm.isAuthenticated = !!user))
         },
+        created() {
+            const user = userService.getCurrentUser();
+
+            this.$store.dispatch('updateUser', user);
+        }
     }
 </script>
