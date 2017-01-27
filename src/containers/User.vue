@@ -9,6 +9,6 @@
 
 <script>
     export default {
-        name: 'users-container',
+        name: 'user',
     };
 </script>

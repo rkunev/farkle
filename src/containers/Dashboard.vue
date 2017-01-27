@@ -6,7 +6,7 @@
         <button type="button" v-if="!isUserOffline" @click="logOut">Sign out</button>
 
         <p>
-            <router-link to="/users">Users</router-link>
+            <router-link :to="profileLink">User Profile</router-link>
         </p>
     </div>
 </template>
@@ -24,7 +24,10 @@
             }
         },
         computed: {
-            ...mapGetters(['userName']),
+            ...mapGetters(['userName', 'userId']),
+            profileLink: function() {
+                return '/users/' + this.userId + '/profile'
+            }
         },
         methods: {
             logOut() {

@@ -5,7 +5,7 @@ import AppWrapper from 'containers/AppWrapper';
 
 import Login from 'containers/Login';
 import Dashboard from 'containers/Dashboard';
-import Users from 'containers/Users';
+import User from 'containers/User';
 import About from 'containers/About';
 import GameRules from 'containers/GameRules';
 
@@ -25,7 +25,7 @@ export const routes = [
         },
         children: [
             { path: '', component: Dashboard },
-            { path: '/users', component: Users },
+            { path: '/users/:userId', component: User, alias: '/users/:userId/profile' },
             { path: '/about', component: About, meta: { requiresAuth: false } },
             { path: '/game-rules', component: GameRules, meta: { requiresAuth: false } },
         ]
