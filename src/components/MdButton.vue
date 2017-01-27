@@ -3,7 +3,7 @@
     <slot></slot>
   </button>
 
-  <router-link class="md-button waves-effect" :active-class="activeClass" :to="to" :disabled="disabled" :target="target" :rel="rel" @click.native="$emit('click', $event)" v-else>
+  <router-link class="md-button waves-effect" :exact="exact" :active-class="activeClass" :to="to" :disabled="disabled" :target="target" :rel="rel" @click.native="$emit('click', $event)" v-else>
     <slot></slot>
   </router-link>
 </template>
@@ -26,6 +26,7 @@
                 type: String,
                 default: 'router-link-active'
             },
+            exact: Boolean,
             disabled: Boolean
         },
         mounted() {

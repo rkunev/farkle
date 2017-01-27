@@ -27,9 +27,9 @@ export const actions = {
 };
 
 const getters = {
-  userName: state => state.user.displayName,
-  userEmail: state => state.user.email,
-  user: state => state.user,
+    userName: state => state.user.displayName,
+    userEmail: state => state.user.email,
+    user: state => state.user,
 }
 
 export default {
