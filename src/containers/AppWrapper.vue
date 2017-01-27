@@ -6,7 +6,9 @@
             <!-- Toolbar placeholder -->
             <div class="header">
                 <div class="menu-icon" v-show="isUserAuthenticated">
-                    <md-button @click.stop="openMenu"><img src="~assets/svg/menu.svg"></md-button>
+                    <md-button @click.stop="openMenu">
+                        <svg-icon icon="menu"></svg-icon>
+                    </md-button>
                 </div>
             </div>
 
@@ -21,10 +23,11 @@
 
     import NavigationDrawer from 'components/NavigationDrawer';
     import MdButton from 'components/MdButton';
+    import SvgIcon from 'components/SvgIcon';
 
     export default {
         name: 'app-wrapper',
-        components: { NavigationDrawer, MdButton },
+        components: { NavigationDrawer, MdButton, SvgIcon },
         data() {
             return {
                 isOpen: false,
