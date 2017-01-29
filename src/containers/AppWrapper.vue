@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import { firebase } from 'services/firebaseService';
     import { isAuthenticated } from 'services/authService';
     import { getCurrentUser } from 'services/userService';
 
@@ -39,8 +40,10 @@
             closeMenu() { this.isOpen = false },
         },
         created() {
+            // Update store on every app load, because user might be already authenticated
             this.$store.dispatch('updateUser', getCurrentUser());
 
+            // @todo This might not be needed if we add `isAuthenticated` to the user store
             isAuthenticated()
                 .then(isUserAuth => this.isUserAuthenticated = isUserAuth);
         }

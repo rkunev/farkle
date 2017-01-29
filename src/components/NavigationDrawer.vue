@@ -12,11 +12,12 @@
 
                 <div class="navigation-drawer__user">
                     <div class="navigation-drawer__user-avatar">
-                        {{ userInitials }}
+                        <img v-if="user.avatar" :alt="user.name" :src="user.avatar">
+                        <span v-else>{{ userInitials }}</span>
                     </div>
 
-                    <h2 class="navigation-drawer__user-name">{{ userName }}</h2>
-                    <h3 class="navigation-drawer__user-email">{{ userEmail }}</h3>
+                    <h2 class="navigation-drawer__user-name">{{ user.name }}</h2>
+                    <h3 class="navigation-drawer__user-email">{{ user.email }}</h3>
                 </div>
             </div>
 
@@ -29,28 +30,28 @@
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" active-class="navigation-drawer__link--active">
+                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="play"></svg-icon>
 
                         <span>New Game</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" active-class="navigation-drawer__link--active">
+                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="load"></svg-icon>
 
                         <span>Load Game</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" active-class="navigation-drawer__link--active">
+                    <md-button @click="closeMenu" class="navigation-drawer__link" :to="profileLink" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="profile"></svg-icon>
 
                         <span>Profile</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item ">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" active-class="navigation-drawer__link--active">
+                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="leaderboard"></svg-icon>
 
                         <span>Leaderboard</span>
@@ -60,21 +61,21 @@
                     <h2>Help &amp; Feadback</h2>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" active-class="navigation-drawer__link--active">
+                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="settings"></svg-icon>
 
                         <span>Settings</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" active-class="navigation-drawer__link--active">
+                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="info"></svg-icon>
 
                         <span>About</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users">
+                    <md-button @click="logOut" class="navigation-drawer__link">
                         <svg-icon icon="exit"></svg-icon>
 
                         <span>Sign Out</span>
@@ -87,6 +88,7 @@
 
 <script>
     import { mapGetters } from 'vuex';
+    import { signOut } from 'services/authService';
 
     import SvgIcon from 'components/SvgIcon';
     import MdButton from 'components/MdButton';
@@ -94,19 +96,28 @@
     export default {
         name: 'navigation-drawer',
         components: { MdButton, SvgIcon },
+        props: {
+            isOpen: Boolean
+        },
+        computed: {
+            ...mapGetters(['user']),
+            userInitials: function() {
+                return this.user.name ? this.user.name[0] : '';
+            },
+            profileLink: function() {
+                return '/users/' + this.user.id + '/profile'
+            }
+        },
         methods: {
             closeMenu(event) {
                 this.$emit('close', event);
+            },
+            logOut() {
+                signOut().then(() => {
+                    this.closeMenu();
+                    this.$router.push('/auth');
+                });
             }
-        },
-        computed: {
-            ...mapGetters(['userName', 'userEmail']),
-            userInitials: function() {
-                return this.userName[0];
-            }
-        },
-        props: {
-            isOpen: Boolean
         }
     }
 </script>

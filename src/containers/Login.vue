@@ -9,8 +9,10 @@
 </template>
 
 <script>
+    import { firebase } from 'services/firebaseService';
     import { signIn, createAndSignInAsAnonymous } from 'services/authService';
     import { isOffline } from 'services/offlineService';
+    import { updateUser } from 'services/userService';
 
     import MdButton from 'components/MdButton';
 
@@ -26,7 +28,8 @@
         },
         methods: {
             login() {
-                signIn().then(_onSuccessfulSignIn.bind(this));
+                signIn()
+                    .then(_onSuccessfulSignIn.bind(this));
             },
             loginAnonymously() {
                 createAndSignInAsAnonymous().then(_onSuccessfulSignIn.bind(this));
@@ -35,9 +38,8 @@
     };
 
     function _onSuccessfulSignIn(user) {
-        this.$store.dispatch('updateUser', user);
-
         const path = this.$route.query.redirect || '/';
+
         this.$router.replace(path);
     }
 </script>

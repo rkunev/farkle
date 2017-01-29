@@ -1,8 +1,9 @@
 const state = {
     user: {
         id: '',
-        displayName: '',
+        name: '',
         email: '',
+        avatar: ''
     }
 };
 
@@ -11,10 +12,13 @@ export const mutations = {
         state.user.id = id;
     },
     UPDATE_USER_NAME(state, name) {
-        state.user.displayName = name;
+        state.user.name = name;
     },
     UPDATE_USER_EMAIL(state, email) {
         state.user.email = email;
+    },
+    UPDATE_USER_AVATAR(state, avatar) {
+        state.user.avatar = avatar;
     },
     UPDATE_USER(state, user) {
         state.user = user;
@@ -22,22 +26,21 @@ export const mutations = {
 };
 
 export const actions = {
-    updateUserName: ({ commit }, name) => commit('UPDATE_USER_NAME', name),
-    updateUserEmail: ({ commit }, email) => commit('UPDATE_USER_EMAIL', email),
-    updateUserId: ({ commit }, id) => commit('UPDATE_USER_ID', id),
     updateUser: ({ commit }, user) => {
-        commit('UPDATE_USER_EMAIL', user.email);
-        commit('UPDATE_USER_NAME', user.displayName);
         commit('UPDATE_USER_ID', user.uid);
+        commit('UPDATE_USER_NAME', user.displayName);
+        commit('UPDATE_USER_EMAIL', user.email);
+        commit('UPDATE_USER_AVATAR', user.photoURL);
     },
 };
 
 const getters = {
-    userName: state => state.user.displayName,
-    userEmail: state => state.user.email,
     userId: state => state.user.id,
+    userName: state => state.user.name,
+    userEmail: state => state.user.email,
+    userAvatar: state => state.user.avatar,
     user: state => state.user,
-}
+};
 
 export default {
     state, mutations, actions, getters
