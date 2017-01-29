@@ -9,18 +9,14 @@
 </template>
 
 <script>
-    import { firebase } from 'services/firebaseService';
     import { signIn, createAndSignInAsAnonymous } from 'services/authService';
     import { isOffline } from 'services/offlineService';
-    import { updateUser } from 'services/userService';
 
     import MdButton from 'components/MdButton';
 
     export default {
         name: 'login',
-        components: {
-            MdButton
-        },
+        components: { MdButton },
         data() {
             return {
                 isUserOffline: isOffline()
@@ -32,7 +28,8 @@
                     .then(_onSuccessfulSignIn.bind(this));
             },
             loginAnonymously() {
-                createAndSignInAsAnonymous().then(_onSuccessfulSignIn.bind(this));
+                createAndSignInAsAnonymous()
+                    .then(_onSuccessfulSignIn.bind(this));
             }
         },
     };
