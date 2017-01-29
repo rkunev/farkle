@@ -23,9 +23,9 @@ export function getUserById(id) {
         if (isOffline()) {
             user = Promise.resolve(null);
         } else {
-            // user is online and is requesting a different profile than his/hers
+            // user is online and is requesting other profile
             user = firebase.database()
-                .ref('/users/' + id)
+                .ref('/players/' + id)
                 .once('value')
                 .then(snap => snap.val())
         }
@@ -35,7 +35,7 @@ export function getUserById(id) {
 }
 
 /**
- * Updates the user in '/users' firebase database reference
+ * Updates the user in '/players' firebase database reference
  *
  * @todo Better function naming
  *
@@ -45,7 +45,7 @@ export function getUserById(id) {
  */
 export function updateUser(user) {
     return firebase.database()
-        .ref('/users/' + user.uid)
+        .ref('/players/' + user.uid)
         .update({
             name: user.displayName,
             email: user.email,
