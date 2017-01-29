@@ -38,6 +38,7 @@ export function signIn() {
 
             return result.user;
         })
+        .then(userService.updateUser)
         .catch(error => console.log('Something went wrong while signing in with user\'s Google account', error));
 }
 

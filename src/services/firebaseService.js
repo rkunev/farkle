@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import auth from 'firebase/auth';
+import database from 'firebase/database';
 import { isOffline } from './offlineService';
 
 var config = {

@@ -16,9 +16,7 @@
 
     export default {
         name: 'login',
-        components: {
-            MdButton
-        },
+        components: { MdButton },
         data() {
             return {
                 isUserOffline: isOffline()
@@ -26,18 +24,19 @@
         },
         methods: {
             login() {
-                signIn().then(_onSuccessfulSignIn.bind(this));
+                signIn()
+                    .then(_onSuccessfulSignIn.bind(this));
             },
             loginAnonymously() {
-                createAndSignInAsAnonymous().then(_onSuccessfulSignIn.bind(this));
+                createAndSignInAsAnonymous()
+                    .then(_onSuccessfulSignIn.bind(this));
             }
         },
     };
 
     function _onSuccessfulSignIn(user) {
-        this.$store.dispatch('updateUser', user);
-
         const path = this.$route.query.redirect || '/';
+
         this.$router.replace(path);
     }
 </script>
