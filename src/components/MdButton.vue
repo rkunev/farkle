@@ -1,11 +1,13 @@
 <template>
-  <button class="md-button" :type="type" :disabled="disabled" @click="$emit('click', $event)" v-if="!to">
-    <slot></slot>
-  </button>
+    <button class="md-button" :type="type" :disabled="disabled" @click="ripple" v-if="!to">
+        <span class="waves-effect">
+            <slot></slot>
+        </span>
+    </button>
 
-  <router-link class="md-button waves-effect" :exact="exact" :active-class="activeClass" :to="to" :disabled="disabled" :target="target" :rel="rel" @click.native="$emit('click', $event)" v-else>
-    <slot></slot>
-  </router-link>
+    <router-link class="md-button waves-effect" :exact="exact" :active-class="activeClass" :to="to" :disabled="disabled" :target="target" :rel="rel" @click.native="$emit('click', $event)" v-else>
+        <slot></slot>
+    </router-link>
 </template>
 
 <script>
@@ -34,8 +36,31 @@
                 ? 'waves-light'
                 : '';
 
-            Waves.attach(this.$el, wavesColor);
-            Waves.init();
+            const btnType = this.$el.hasAttribute('icon')
+                ? 'waves-circle'
+                : '';
+
+            if (wavesColor) {
+                this.$el.firstChild.classList.add(wavesColor);
+            }
+
+            if (btnType) {
+                this.$el.firstChild.classList.add(btnType);
+            }
+
+            // Waves.attach(this.$el, [wavesColor]);
+            // Waves.init();
+        },
+        methods: {
+            ripple($event) {
+                const position = this.$el.hasAttribute('icon')
+                    ? null
+                    : { x: $event.offsetX, y: $event.offsetY };
+
+                Waves.ripple(this.$el.firstChild, { position });
+
+                this.$emit('click', $event);
+            }
         }
     };
 </script>
@@ -60,6 +85,19 @@
 
         &[accent] {
             @include button-accent;
+        }
+
+        &[icon] {
+            > span {
+                display: block;
+                width: 24px;
+                height: 24px;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 50%;
+                padding: 0;
+                min-width: 0;
+            }
         }
     }
 </style>

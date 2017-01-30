@@ -14,6 +14,7 @@
         settings:    require('assets/svg/settings.svg'),
         info:        require('assets/svg/info.svg'),
         exit:        require('assets/svg/exit.svg'),
+        more:        require('assets/svg/more.svg'),
     };
 
     export default {

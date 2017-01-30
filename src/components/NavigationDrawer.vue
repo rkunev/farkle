@@ -110,7 +110,7 @@
         },
         methods: {
             closeMenu(event) {
-                this.$emit('close', event);
+                this.$emit('close-menu', event);
             },
             logOut() {
                 signOut().then(() => {

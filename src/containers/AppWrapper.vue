@@ -1,19 +1,10 @@
 <template>
     <div class="app-wrapper">
-        <navigation-drawer v-show="isUserAuthenticated" :is-open="isOpen" @close="closeMenu"></navigation-drawer>
+        <navigation-drawer v-show="isUserAuthenticated" :is-open="isOpen" @close-menu="closeMenu"></navigation-drawer>
 
-        <div class="layout">
-            <!-- Toolbar placeholder -->
-            <div class="header">
-                <div class="menu-icon" v-show="isUserAuthenticated">
-                    <md-button @click.stop="openMenu">
-                        <svg-icon icon="menu"></svg-icon>
-                    </md-button>
-                </div>
-            </div>
+        <app-bar v-show="isUserAuthenticated" @open-menu="openMenu"></app-bar>
 
-            <router-view></router-view>
-        </div>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -25,10 +16,11 @@
     import NavigationDrawer from 'components/NavigationDrawer';
     import MdButton from 'components/MdButton';
     import SvgIcon from 'components/SvgIcon';
+    import AppBar from 'components/AppBar';
 
     export default {
         name: 'app-wrapper',
-        components: { NavigationDrawer, MdButton, SvgIcon },
+        components: { NavigationDrawer, MdButton, SvgIcon, AppBar },
         data() {
             return {
                 isOpen: false,
