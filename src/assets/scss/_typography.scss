@@ -18,6 +18,11 @@ $headline-weight: $_regular;
 $title-size: 20px;
 $title-weight: $_medium;
 
+@mixin font-title {
+    font-size: $title-size;
+    font-weight: $title-weight;
+}
+
 $subheading-size: 16px;
 $subheading-height: 1.5;
 $subheading-weight: $_regular;

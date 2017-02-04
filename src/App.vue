@@ -11,6 +11,7 @@
 </script>
 
 <style lang="scss" src="assets/scss/_reset.scss"></style>
+<style lang="scss" src="assets/scss/fonts.scss"></style>
 <style lang="scss">
     #app {
         height: 100%;

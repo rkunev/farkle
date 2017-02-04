@@ -1,5 +1,5 @@
 <template>
-    <span v-html="svg"></span>
+    <span class="svg-icon" v-html="svg"></span>
 </template>
 
 <script>
@@ -14,6 +14,7 @@
         settings:    require('assets/svg/settings.svg'),
         info:        require('assets/svg/info.svg'),
         exit:        require('assets/svg/exit.svg'),
+        more:        require('assets/svg/more.svg'),
     };
 
     export default {
@@ -32,3 +33,13 @@
         },
     }
 </script>
+
+<style lang="scss">
+    .svg-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+
+        svg { vertical-align: top; }
+    }
+</style>

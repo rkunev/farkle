@@ -110,7 +110,7 @@
         },
         methods: {
             closeMenu(event) {
-                this.$emit('close', event);
+                this.$emit('close-menu', event);
             },
             logOut() {
                 signOut().then(() => {
@@ -125,7 +125,7 @@
 <style lang="scss">
     @import '~assets/scss/_settings.scss';
     @import '~assets/scss/_palette.scss';
-    @import '~assets/scss/_fonts.scss';
+    @import '~assets/scss/_typography.scss';
 
     .navigation-drawer {
         position: fixed;
@@ -243,11 +243,14 @@
     }
 
     .navigation-drawer__item {
+        .svg-icon {
+            margin-right: 28px;
+            vertical-align: middle;
+        }
+
         svg {
             fill: rgba(0, 0, 0, 0.5);
-            margin-right: 28px;
         }
-        svg, span { vertical-align: middle }
     }
 
     .navigation-drawer__item--subheader {

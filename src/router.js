@@ -24,10 +24,37 @@ export const routes = [
             requiresAuth: true
         },
         children: [
-            { path: '', component: Dashboard },
-            { path: '/users/:userId', component: User, alias: '/users/:userId/profile' },
-            { path: '/about', component: About, meta: { requiresAuth: false } },
-            { path: '/game-rules', component: GameRules, meta: { requiresAuth: false } },
+            {
+                path: '',
+                component: Dashboard,
+                meta: {
+                    title: 'Dashboard',
+                },
+            },
+            {
+                path: '/users/:userId',
+                component: User,
+                meta: {
+                    title: 'Profile',
+                },
+                alias: '/users/:userId/profile',
+            },
+            {
+                path: '/about',
+                component: About,
+                meta: {
+                    title: 'About',
+                    requiresAuth: false
+                },
+            },
+            {
+                path: '/game-rules',
+                component: GameRules,
+                meta: {
+                    title: 'Game Rules',
+                    requiresAuth: false
+                },
+            },
         ]
     },
     { path: '*', component: NotFound }

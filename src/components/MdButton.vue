@@ -1,11 +1,25 @@
 <template>
-  <button class="md-button" :type="type" :disabled="disabled" @click="$emit('click', $event)" v-if="!to">
-    <slot></slot>
-  </button>
+    <button v-if="!to" class="md-button"
+            :type="type"
+            :disabled="disabled"
+            @click="ripple">
+        <span class="waves-effect">
+            <slot></slot>
+        </span>
+    </button>
 
-  <router-link class="md-button waves-effect" :exact="exact" :active-class="activeClass" :to="to" :disabled="disabled" :target="target" :rel="rel" @click.native="$emit('click', $event)" v-else>
-    <slot></slot>
-  </router-link>
+    <router-link v-else class="md-button"
+                 :exact="exact"
+                 :active-class="activeClass"
+                 :to="to"
+                 :disabled="disabled"
+                 :target="target"
+                 :rel="rel"
+                 @click.native="ripple">
+        <span class="waves-effect">
+            <slot></slot>
+        </span>
+    </router-link>
 </template>
 
 <script>
@@ -34,8 +48,28 @@
                 ? 'waves-light'
                 : '';
 
-            Waves.attach(this.$el, wavesColor);
-            Waves.init();
+            const btnType = this.$el.hasAttribute('icon')
+                ? 'waves-circle'
+                : '';
+
+            if (wavesColor) {
+                this.$el.firstChild.classList.add(wavesColor);
+            }
+
+            if (btnType) {
+                this.$el.firstChild.classList.add(btnType);
+            }
+        },
+        methods: {
+            ripple(e) {
+                const position = this.$el.hasAttribute('icon')
+                    ? null
+                    : { x: e.offsetX, y: e.offsetY };
+
+                Waves.ripple(this.$el.firstChild, { position });
+
+                this.$emit('click', e);
+            }
         }
     };
 </script>
@@ -60,6 +94,27 @@
 
         &[accent] {
             @include button-accent;
+        }
+
+        &[icon] {
+            > .waves-effect {
+                display: block;
+                width: 36px;
+                min-height: 36px;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 50%;
+                padding: 0;
+                min-width: 0;
+
+                .svg-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin-top: -12px;
+                    margin-left: -12px;
+                }
+            }
         }
     }
 </style>
