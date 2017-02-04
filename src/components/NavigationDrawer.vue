@@ -243,11 +243,14 @@
     }
 
     .navigation-drawer__item {
+        .svg-icon {
+            margin-right: 28px;
+            vertical-align: middle;
+        }
+
         svg {
             fill: rgba(0, 0, 0, 0.5);
-            margin-right: 28px;
         }
-        svg, span { vertical-align: middle }
     }
 
     .navigation-drawer__item--subheader {

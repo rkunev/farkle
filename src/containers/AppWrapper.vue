@@ -9,7 +9,6 @@
 </template>
 
 <script>
-    import { firebase } from 'services/firebaseService';
     import { isAuthenticated } from 'services/authService';
     import { getCurrentUser } from 'services/userService';
 

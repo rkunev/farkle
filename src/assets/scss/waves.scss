@@ -26,23 +26,7 @@
         background: rgba(255,255,255,0.4);
         background: radial-gradient(rgba(255,255,255,0.2) 0,rgba(255,255,255,.3) 40%,rgba(255,255,255,.4) 50%,rgba(255,255,255,.5) 60%,rgba(255,255,255,0) 70%);
     }
-
-    &.waves-classic .waves-ripple {
-        background: rgba(0,0,0,0.2);
-    }
-
-    &.waves-classic.waves-light .waves-ripple {
-        background: rgba(255,255,255,0.4);
-    }
 }
-
-// .waves-circle {
-//     text-align: center;
-//     width: 2.5em;
-//     height: 2.5em;
-//     line-height: 2.5em;
-//     border-radius: 50%;
-// }
 
 .waves-button,
 .waves-circle {
