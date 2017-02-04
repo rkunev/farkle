@@ -37,6 +37,7 @@
         align-items: center;
         height: 56px;
         color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .26);
     }
 
     // @todo make a mixin for media queries
