@@ -1,28 +1,33 @@
-@import '_palette.scss';
-@import '_shadows.scss';
-@import '_settings.scss';
+@import '_palette';
+@import '_shadows';
+@import '_settings';
 
 @mixin button {
+    > span {
+        min-height: 36px;
+        min-width: 64px;
+        padding: 0 16px;
+        display: block;
+    }
+
     background: transparent;
     border: none;
     border-radius: 2px;
     color: #000;
-    height: 36px;
-    line-height: 36px;
-    min-width: 64px;
     margin: 0;
     outline: none;
     cursor: pointer;
     text-align: center;
-    padding: 0 16px;
+    padding: 0;
     display: inline-block;
+    height: 36px;
+    line-height: 36px;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
     text-decoration: none;
     vertical-align: middle;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    font-weight: 600;
 
     &[disabled] {
         color: rgba(0, 0, 0, .26);
@@ -57,25 +62,16 @@
 }
 
 @mixin button-primary-inverted {
-    @include shadow(2);
-    background: #fff;
+    @include button-primary;
     color: $primary-color;
-    transition-property: background, box-shadow;
-    transition-duration: $transition-duration-quick;
-    transition-timing-function: $transition-timing-function-deceleration;
+    background: #fff;
 
     &:hover {
-        color: $primary-color-dark;
         background: #ddd;
     }
 
     &:focus {
-        @include shadow(4);
         color: $primary-color-dark;
-    }
-
-    &:hover:focus {
-        @include shadow(6);
     }
 }
 

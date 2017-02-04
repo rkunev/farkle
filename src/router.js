@@ -1,38 +1,63 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import LoginContainer from 'src/containers/LoginContainer';
-import DashboardContainer from 'src/containers/DashboardContainer';
-import UsersContainer from 'src/containers/UsersContainer';
-import NotFoundContainer from 'src/containers/NotFoundContainer';
+import AppWrapper from 'containers/AppWrapper';
 
-import authService from 'src/services/authService';
+import Login from 'containers/Login';
+import Dashboard from 'containers/Dashboard';
+import User from 'containers/User';
+import About from 'containers/About';
+import GameRules from 'containers/GameRules';
+
+import NotFound from 'containers/NotFound';
+
+import { isAuthenticated } from 'services/authService';
 
 Vue.use(VueRouter);
 
 export const routes = [
+    { path: '/auth', component: Login, },
     {
-        path: '/auth',
-        component: LoginContainer,
-    },
-    {
-        path: '/',
-        component: DashboardContainer,
+        path: '',
+        component: AppWrapper,
         meta: {
             requiresAuth: true
-        }
+        },
+        children: [
+            {
+                path: '',
+                component: Dashboard,
+                meta: {
+                    title: 'Dashboard',
+                },
+            },
+            {
+                path: '/users/:userId',
+                component: User,
+                meta: {
+                    title: 'Profile',
+                },
+                alias: '/users/:userId/profile',
+            },
+            {
+                path: '/about',
+                component: About,
+                meta: {
+                    title: 'About',
+                    requiresAuth: false
+                },
+            },
+            {
+                path: '/game-rules',
+                component: GameRules,
+                meta: {
+                    title: 'Game Rules',
+                    requiresAuth: false
+                },
+            },
+        ]
     },
-    {
-        path: '/users',
-        component: UsersContainer,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '*',
-        component: NotFoundContainer
-    }
+    { path: '*', component: NotFound }
 ];
 
 export const config = {
@@ -45,21 +70,21 @@ export const router = new VueRouter(config);
 router.beforeEach((to, from, next) => {
     let redirect = '';
     const is404 = to.matched.some(m => m.path === '*');
-    const isAuthOnly = to.matched.some(m => m.meta.requiresAuth);
+    const isAuthOnly = (to.meta.requiresAuth !== false) && to.matched.some(m => m.meta.requiresAuth);
 
     if (to.path !== '/auth' && to.path !== '/' && !is404) {
         redirect = to.path;
     }
 
-    authService.isAuthenticated()
-        .then(isAuthenticated => {
-            if (isAuthOnly && !isAuthenticated) {
+    isAuthenticated()
+        .then((isUserAuth) => {
+            if (isAuthOnly && !isUserAuth) {
                 const authURL = (redirect.length)
                     ? encodeURI('/auth' + '?redirect=' + redirect)
                     : '/auth';
 
                 next(authURL); // redirecting to /auth, because user isn't authenticated
-            } else if (to.path === '/auth' && isAuthenticated) {
+            } else if (to.path === '/auth' && isUserAuth) {
                 next('/'); // redericting to dashboard, because we're already authenticated
             } else {
                 next(); // proceed as usual, because no auth is required

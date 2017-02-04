@@ -27,7 +27,9 @@ module.exports = {
             'src': path.resolve(__dirname, '../src'),
             'assets': path.resolve(__dirname, '../src/assets'),
             'services': path.resolve(__dirname, '../src/services'),
-            'components': path.resolve(__dirname, '../src/components')
+            'components': path.resolve(__dirname, '../src/components'),
+            'containers': path.resolve(__dirname, '../src/containers'),
+            'directives': path.resolve(__dirname, '../src/directives')
         }
     },
     resolveLoader: {
@@ -50,7 +52,7 @@ module.exports = {
                 loader: 'json'
             },
             {
-                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                test: /\.(png|jpe?g|gif)(\?.*)?$/,
                 loader: 'url',
                 query: {
                     limit: 10000,
@@ -58,12 +60,16 @@ module.exports = {
                 }
             },
             {
-                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                test: /\.(woff2|woff)(\?.*)?$/,
                 loader: 'url',
                 query: {
                     limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+                    name: utils.assetsPath('fonts/[name].[ext]')
                 }
+            },
+            {
+                test: /\.svg$/,
+                loader: 'raw'
             }
         ]
     },
