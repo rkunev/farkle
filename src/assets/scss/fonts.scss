@@ -1,0 +1,14 @@
+@import '_typography.scss';
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: $_regular;
+  src: url('~assets/fonts/roboto-regular.woff2') format('woff2'),
+       url('~assets/fonts/roboto-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-weight: $_medium;
+  src: url('~assets/fonts/roboto-medium.woff2') format('woff2'),
+       url('~assets/fonts/roboto-medium.woff') format('woff');
+}

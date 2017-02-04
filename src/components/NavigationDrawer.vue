@@ -125,7 +125,7 @@
 <style lang="scss">
     @import '~assets/scss/_settings.scss';
     @import '~assets/scss/_palette.scss';
-    @import '~assets/scss/_fonts.scss';
+    @import '~assets/scss/_typography.scss';
 
     .navigation-drawer {
         position: fixed;

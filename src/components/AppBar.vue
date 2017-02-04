@@ -35,7 +35,6 @@
         display: flex;
         align-items: center;
         height: 56px;
-        // align-items: center;
         color: #fff;
     }
 
