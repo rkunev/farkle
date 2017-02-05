@@ -5,6 +5,7 @@ import AppWrapper from 'containers/AppWrapper';
 
 import Login from 'containers/Login';
 import Dashboard from 'containers/Dashboard';
+import Game from 'containers/Game';
 import User from 'containers/User';
 import About from 'containers/About';
 import GameRules from 'containers/GameRules';
@@ -38,6 +39,13 @@ export const routes = [
                     title: 'Profile',
                 },
                 alias: '/users/:userId/profile',
+            },
+            {
+                path: '/play/new',
+                component: Game,
+                meta: {
+                    title: 'New Game',
+                },
             },
             {
                 path: '/about',
