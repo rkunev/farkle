@@ -6,6 +6,8 @@ import AppWrapper from 'containers/AppWrapper';
 import Login from 'containers/Login';
 import Dashboard from 'containers/Dashboard';
 import Game from 'containers/Game';
+import GameRobot from 'containers/GameRobot';
+import GameHotseat from 'containers/GameHotseat';
 import User from 'containers/User';
 import About from 'containers/About';
 import GameRules from 'containers/GameRules';
@@ -45,6 +47,20 @@ export const routes = [
                 component: Game,
                 meta: {
                     title: 'New Game',
+                },
+            },
+            {
+                path: '/play/robot',
+                component: GameRobot,
+                meta: {
+                    title: 'Game Room',
+                },
+            },
+            {
+                path: '/play/hotseat',
+                component: GameHotseat,
+                meta: {
+                    title: 'Game Room',
                 },
             },
             {
