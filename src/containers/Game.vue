@@ -1,6 +1,6 @@
 <template>
     <div class="new-game-page">
-        <h2>Pick your opponent</h2>
+        <h2 class="opponents-picker__title">Pick your opponent</h2>
 
         <div class="opponents-picker">
             <md-button to="/play/robot" raised class="opponents-picker__item">Robot</md-button>
@@ -22,7 +22,7 @@
 <style lang="scss">
     @import '~assets/scss/_typography';
 
-    h2 {
+    .opponents-picker__title {
         @include font-display-1;
         margin-top: 10px;
         margin-bottom: 30px;
@@ -31,12 +31,14 @@
 
     .opponents-picker {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     .opponents-picker__item {
         height: auto;
         line-height: normal;
+        margin: 20px;
 
         > .waves-effect {
             width: 144px;
