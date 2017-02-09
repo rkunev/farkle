@@ -14,7 +14,7 @@
     import MdButton from 'components/MdButton';
 
     export default {
-        name: 'Game',
+        name: 'new-game',
         components: { MdButton }
     }
 </script>
