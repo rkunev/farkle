@@ -23,35 +23,35 @@
 
             <ul class="navigation-drawer__list">
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/" exact active-class="navigation-drawer__link--active">
+                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="dashboard"></svg-icon>
 
                         <span>Dashboard</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="play"></svg-icon>
 
                         <span>New Game</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="load"></svg-icon>
 
                         <span>Load Game</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" :to="profileLink" exact active-class="navigation-drawer__link--active">
+                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" :to="profileLink" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="profile"></svg-icon>
 
                         <span>Profile</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item ">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="leaderboard"></svg-icon>
 
                         <span>Leaderboard</span>
@@ -61,21 +61,21 @@
                     <h2>Help &amp; Feadback</h2>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="settings"></svg-icon>
 
                         <span>Settings</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
                         <svg-icon icon="info"></svg-icon>
 
                         <span>About</span>
                     </md-button>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button @click="logOut" class="navigation-drawer__link">
+                    <md-button :tabindex="linkTabIndex" @click="logOut" class="navigation-drawer__link">
                         <svg-icon icon="exit"></svg-icon>
 
                         <span>Sign Out</span>
@@ -106,6 +106,9 @@
             },
             profileLink: function() {
                 return '/users/' + this.user.id + '/profile'
+            },
+            linkTabIndex: function() {
+                return this.isOpen ? 0 : -1;
             }
         },
         methods: {
@@ -276,7 +279,7 @@
         width: 100%;
 
         &.navigation-drawer__link--active,
-        &:hover {
+        &:hover, &:focus {
             background: rgba(0, 0, 0, .1);
             color: $primary-color;
 

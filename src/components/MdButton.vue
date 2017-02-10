@@ -32,14 +32,8 @@
             to: String,
             target: String,
             rel: String,
-            type: {
-                type: String,
-                default: 'button'
-            },
-            activeClass: {
-                type: String,
-                default: 'router-link-active'
-            },
+            type: { type: String, default: 'button' },
+            activeClass: { type: String, default: 'router-link-active' },
             exact: Boolean,
             disabled: Boolean
         },
