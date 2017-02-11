@@ -35,9 +35,9 @@
 }
 
 @mixin button-raised {
-    @include shadow(4);
+    @include shadow(2);
     background: rgba(153, 153, 153, .2);
-    transition: box-shadow $transition-duration-quick $transition-timing-function-deceleration;
+    transition: box-shadow $transition-duration-default $transition-timing-function-deceleration;
 }
 
 @mixin button-primary {
@@ -45,7 +45,7 @@
     background: $primary-color;
     color: #fff;
     transition-property: background, box-shadow;
-    transition-duration: $transition-duration-quick;
+    transition-duration: $transition-duration-default;
     transition-timing-function: $transition-timing-function-deceleration;
 
     &:hover {
@@ -80,7 +80,7 @@
     background: $accent-color;
     color: #fff;
     transition-property: background, box-shadow;
-    transition-duration: $transition-duration-quick;
+    transition-duration: $transition-duration-default;
     transition-timing-function: $transition-timing-function-deceleration;
 
     &:hover {

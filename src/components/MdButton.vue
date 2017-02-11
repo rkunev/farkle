@@ -41,32 +41,40 @@
                 default: 'router-link-active'
             },
             exact: Boolean,
-            disabled: Boolean
+            disabled: Boolean,
+            noRipple: {
+                type: Boolean,
+                default: false
+            },
         },
         mounted() {
-            const wavesColor = (this.$el.hasAttribute('primary') || this.$el.hasAttribute('accent'))
-                ? 'waves-light'
-                : '';
+            if (!this.noRipple) {
+                const wavesColor = (this.$el.hasAttribute('primary') || this.$el.hasAttribute('accent'))
+                    ? 'waves-light'
+                    : '';
 
-            const btnType = this.$el.hasAttribute('icon')
-                ? 'waves-circle'
-                : '';
+                const btnType = this.$el.hasAttribute('icon')
+                    ? 'waves-circle'
+                    : '';
 
-            if (wavesColor) {
-                this.$el.firstChild.classList.add(wavesColor);
-            }
+                if (wavesColor) {
+                    this.$el.firstChild.classList.add(wavesColor);
+                }
 
-            if (btnType) {
-                this.$el.firstChild.classList.add(btnType);
+                if (btnType) {
+                    this.$el.firstChild.classList.add(btnType);
+                }
             }
         },
         methods: {
             ripple(e) {
-                const position = this.$el.hasAttribute('icon')
-                    ? null
-                    : { x: e.offsetX, y: e.offsetY };
+                if (!this.noRipple) {
+                    const position = this.$el.hasAttribute('icon')
+                        ? null
+                        : { x: e.offsetX, y: e.offsetY };
 
-                Waves.ripple(this.$el.firstChild, { position });
+                    Waves.ripple(this.$el.firstChild, { position });
+                }
 
                 this.$emit('click', e);
             }
