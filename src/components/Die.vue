@@ -15,7 +15,7 @@
         props: ['die'],
         methods: {
             emit() {
-                this.$emit('click', this.die);
+                this.$emit('checked', this.die);
             }
         }
     }
@@ -33,7 +33,6 @@
         font-size: 32px;
 
         user-select: none;
-
         @include shadow(6);
 
         transition-property: box-shadow, background-color;

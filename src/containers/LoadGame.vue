@@ -4,16 +4,34 @@
 
         <div class="game-table__score">Score Sheet</div>
 
-        <dice class="game-table__dice"></dice>
+        <div class="game-table__controls">
+            <md-button class="game-table__control-button" primary>Roll</md-button>
+            <md-button class="game-table__control-button" primary>End Turn</md-button>
+            <md-button class="game-table__control-button" accent>Piggyback</md-button>
+        </div>
+
+        <dice :dice="dice" @checked="handleDiceCheck" class="game-table__dice"></dice>
     </div>
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex';
+
     import Dice from 'components/Dice';
+    import MdButton from 'components/MdButton';
 
     export default {
         name: 'load-game',
-        components: { Dice },
+        components: { Dice, MdButton },
+        computed: {
+            ...mapGetters({ dice: 'diceByRows' })
+        },
+        methods: {
+            ...mapActions(['toggleDie']),
+            handleDiceCheck(die) {
+                this.toggleDie(die.id);
+            }
+        }
     }
 </script>
 
@@ -27,12 +45,21 @@
         flex-direction: column;
     }
 
-    .game-table__dice {
-        margin-top: auto;
-        margin-bottom: 12px;
-    }
-
     .game-table__score {
         margin: auto;
     }
+
+    .game-table__controls {
+        display: flex;
+        justify-content: center;
+    }
+
+    .game-table__control-button {
+        margin: 12px;
+    }
+
+    .game-table__dice {
+        margin-bottom: 12px;
+    }
+
 </style>
