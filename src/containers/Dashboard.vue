@@ -8,7 +8,7 @@
             </div>
 
             <div class="dashboard-page__quick-start-item">
-                <md-button class="dashboard-page__quick-start-link" primary>Load Last Game</md-button>
+                <md-button class="dashboard-page__quick-start-link" to="/play/hotseat/1234567" primary>Load Last Game</md-button>
             </div>
 
             <div class="dashboard-page__quick-start-item">
