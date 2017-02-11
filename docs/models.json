@@ -75,7 +75,7 @@
                 },
             },
             "dice": {
-                // each die has an uid and a value
+                // each die has a uid and a value
                 "AN5aO2E2lUDCV0dzY9jYy5S1EM2a": 1,
                 "BN5aO2E2lUDCV0dzY9jYy5S1EM2a": 2,
                 "CN5aO2E2lUDCV0dzY9jYy5S1EM2a": 2,
