@@ -10,10 +10,10 @@ const state = {
 };
 
 export const mutations = {
-    UPDATE_DIE_VALUE(state, index, value) {
+    UPDATE_DIE_VALUE(state, { index, value }) {
         state.dice[index].value = value;
     },
-    UPDATE_DIE_CHECKED(state, index, checked) {
+    UPDATE_DIE_CHECKED(state, { index, checked }) {
         state.dice[index].checked = checked;
     },
     TOGGLE_DIE_CHECKED(state, index) {
@@ -27,12 +27,22 @@ export const actions = {
 
         commit('TOGGLE_DIE_CHECKED', index);
     },
-    updateDie: ({ commit }, die) => {
-        const index = state.dice.findIndex(d => d.id === die.id);
-
-        commit('UPDATE_DIE_VALUE', index, die.value);
-        commit('UPDATE_DIE_CHECKED', index, die.checked);
+    rollUncheckedDice: ({ commit }) => {
+        state.dice.forEach(({ checked }, index) => {
+            if (!checked) {
+                commit('UPDATE_DIE_VALUE', {
+                    index,
+                    value: (Math.random() * 5 | 0) + 1
+                });
+            }
+        });
     },
+    resetDice: ({ commit }) => {
+        state.dice.forEach((die, index) => {
+            commit('UPDATE_DIE_VALUE', { index, value: index + 1 });
+            commit('UPDATE_DIE_CHECKED', { index, checked: false });
+        });
+    }
 };
 
 const getters = {

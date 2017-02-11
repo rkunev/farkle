@@ -5,9 +5,9 @@
         <div class="game-table__score">Score Sheet</div>
 
         <div class="game-table__controls">
-            <md-button class="game-table__control-button" primary>Roll</md-button>
-            <md-button class="game-table__control-button" primary>End Turn</md-button>
-            <md-button class="game-table__control-button" accent>Piggyback</md-button>
+            <md-button class="game-table__control-button" primary @click="roll">Roll</md-button>
+            <md-button class="game-table__control-button" primary @click="endTurn">End Turn</md-button>
+            <md-button class="game-table__control-button" accent @click="stealPoints">Piggyback</md-button>
         </div>
 
         <dice :dice="dice" @checked="handleDiceCheck" class="game-table__dice"></dice>
@@ -27,10 +27,25 @@
             ...mapGetters({ dice: 'diceByRows' })
         },
         methods: {
-            ...mapActions(['toggleDie']),
+            ...mapActions(['toggleDie', 'rollUncheckedDice', 'resetDice']),
             handleDiceCheck(die) {
                 this.toggleDie(die.id);
+            },
+            roll() {
+                // @todo check if this is the first roll of the player
+                this.resetDice();
+            },
+            endTurn() {
+                // @todo update score
+            },
+            stealPoints() {
+                // @todo add opponent points to player's turn
+                this.rollUncheckedDice();
             }
+        },
+        destroyed() {
+            // @todo before unloading save the game state if the game is not finished
+            this.resetDice();
         }
     }
 </script>
