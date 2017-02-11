@@ -8,6 +8,7 @@ import Dashboard from 'containers/Dashboard';
 import Game from 'containers/Game';
 import GameRobot from 'containers/GameRobot';
 import GameHotseat from 'containers/GameHotseat';
+import LoadGame from 'containers/LoadGame';
 import User from 'containers/User';
 import About from 'containers/About';
 import GameRules from 'containers/GameRules';
@@ -61,6 +62,13 @@ export const routes = [
                 component: GameHotseat,
                 meta: {
                     title: 'Game Room',
+                },
+            },
+            {
+                path: '/play/hotseat/1234567',
+                component: LoadGame,
+                meta: {
+                    title: 'Go',
                 },
             },
             {
