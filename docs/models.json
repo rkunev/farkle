@@ -63,15 +63,11 @@
             "players": {
                 "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1": {
                     "type": "human",
-                    "score": 2550,
-                    "turn": true,
-                    "rolls": 1,
+                    "name": "Rosen Kunev",
                 },
                 "UN5aO2E2lUDCV0dzY9jYy5S1EM2a": {
                     "type": "robot",
-                    "score": -100,
-                    "turn": false,
-                    "rolls": 0
+                    "name": "Disco Robot",
                 },
             },
             "dice": {
@@ -95,7 +91,9 @@
                     "1pXBEDWdO3tjnhKepeUN5aO2E2lU": { "current": 500, "next": 0 },
                     "3Ok4dcLFW62L6TadJOAVKi0Dk4BS": { "current": 500, "next": null },
                 },
-            }
+            },
+            // which player is in turn
+            "turn": "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1"
         }
     }
 }

@@ -1,8 +1,10 @@
 <template>
     <div class="game-table-page">
-        <h2>Player turn: Offline</h2>
+        <h2>{{ activePlayer.name }}</h2>
 
-        <div class="game-table__score">Score Sheet</div>
+        <div class="game-table__score">
+            Score: {{ activePlayer.points }}
+        </div>
 
         <div class="game-table__controls">
             <md-button class="game-table__control-button" primary @click="roll">Roll</md-button>
@@ -24,10 +26,22 @@
         name: 'load-game',
         components: { Dice, MdButton },
         computed: {
-            ...mapGetters({ dice: 'diceByRows' })
+            ...mapGetters({
+                dice: 'diceByRows',
+                activePlayer: 'playerInTurn',
+            }),
+            activePlayerScore() {
+                return this.$store.getters.playerPoints(this.activePlayer.id);
+            }
         },
         methods: {
-            ...mapActions(['toggleDie', 'rollUncheckedDice', 'resetDice']),
+            ...mapActions([
+                'toggleDie',
+                'rollUncheckedDice',
+                'resetDice',
+                'changeTurn',
+                'addPoints',
+            ]),
             handleDiceCheck(die) {
                 this.toggleDie(die.id);
             },
@@ -37,6 +51,8 @@
             },
             endTurn() {
                 // @todo update score
+
+                this.changeTurn();
             },
             stealPoints() {
                 // @todo add opponent points to player's turn
@@ -76,5 +92,4 @@
     .game-table__dice {
         margin-bottom: 12px;
     }
-
 </style>
