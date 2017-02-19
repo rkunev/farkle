@@ -21,7 +21,6 @@ const state = {
                 ]
             },
         ],
-        // turn: "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1",
 
         // 1st: active player; 2nd: next player; change active player by moving first el to last position
         turns: ["xc3ocpLFcPPw9N7GeuZ6x4iLdaj1", "UN5aO2E2lUDCV0dzY9jYy5S1EM2a"],

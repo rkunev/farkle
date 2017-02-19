@@ -9,7 +9,7 @@
         <div class="game-table__controls">
             <md-button class="game-table__control-button" primary @click="roll">Roll</md-button>
             <md-button class="game-table__control-button" primary @click="endTurn">End Turn</md-button>
-            <md-button class="game-table__control-button" accent @click="stealPoints">Piggyback</md-button>
+            <md-button :disabled="!isFirstRoll" class="game-table__control-button" accent @click="stealPoints">Piggyback</md-button>
         </div>
 
         <dice :dice="dice" @checked="handleDiceCheck" class="game-table__dice"></dice>
@@ -25,6 +25,9 @@
     export default {
         name: 'load-game',
         components: { Dice, MdButton },
+        data() {
+            return { isFirstRoll: true }
+        },
         computed: {
             ...mapGetters({
                 dice: 'diceByRows',
@@ -42,21 +45,30 @@
                 'changeTurn',
                 'addPoints',
             ]),
-            handleDiceCheck(die) {
-                this.toggleDie(die.id);
+            handleDiceCheck({ id }) {
+                this.toggleDie(id);
             },
             roll() {
+                this.isFirstRoll = false;
                 // @todo check if this is the first roll of the player
-                this.resetDice();
+                this.rollUncheckedDice();
             },
             endTurn() {
-                // @todo update score
+                // some random points multiplier
+                const mpl = [...this.dice[0], ...this.dice[1]]
+                    .filter(d => d.checked)
+                    .length;
 
+                const points = mpl * 100;
+
+                this.addPoints({ playerId: this.activePlayer.id, points });
+                // this.resetDice();
                 this.changeTurn();
+                this.isFirstRoll = true;
             },
             stealPoints() {
                 // @todo add opponent points to player's turn
-                this.rollUncheckedDice();
+                this.roll();
             }
         },
         destroyed() {
