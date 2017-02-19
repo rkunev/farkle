@@ -21,17 +21,16 @@ const state = {
                 ]
             },
         ],
-        // turn: "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1",
 
         // 1st: active player; 2nd: next player; change active player by moving first el to last position
         turns: ["xc3ocpLFcPPw9N7GeuZ6x4iLdaj1", "UN5aO2E2lUDCV0dzY9jYy5S1EM2a"],
         dice: [
-            { id: 1, value: 1, checked: false },
-            { id: 2, value: 2, checked: false },
-            { id: 3, value: 3, checked: false },
-            { id: 4, value: 4, checked: false },
-            { id: 5, value: 5, checked: false },
-            { id: 6, value: 6, checked: false },
+            { id: 1, value: 1, saved: false, checked: false },
+            { id: 2, value: 1, saved: false, checked: false },
+            { id: 3, value: 1, saved: false, checked: false },
+            { id: 4, value: 1, saved: false, checked: false },
+            { id: 5, value: 1, saved: false, checked: false },
+            { id: 6, value: 1, saved: false, checked: false },
         ],
     }
 };
@@ -87,9 +86,15 @@ export const actions = {
             }
         });
     },
+    rollAllDice: ({ commit }) => {
+        state.game.dice.forEach((die, index) => {
+            commit('UPDATE_DIE_VALUE', { index, value: (Math.random() * 5 | 0) + 1 });
+            commit('UPDATE_DIE_CHECKED', { index, checked: false });
+        });
+    },
     resetDice: ({ commit }) => {
         state.game.dice.forEach((die, index) => {
-            commit('UPDATE_DIE_VALUE', { index, value: index + 1 });
+            commit('UPDATE_DIE_VALUE', { index, value: 1 });
             commit('UPDATE_DIE_CHECKED', { index, checked: false });
         });
     },

@@ -59,6 +59,10 @@
     &:hover:focus {
         @include shadow(6);
     }
+
+    &:disabled {
+        opacity: .5;
+    }
 }
 
 @mixin button-primary-inverted {
@@ -93,5 +97,9 @@
 
     &:hover:focus {
         @include shadow(6);
+    }
+
+    &:disabled {
+        opacity: .5;
     }
 }
