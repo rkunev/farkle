@@ -81,25 +81,24 @@
             }
             ~ .md-input__focus-underline {
                 transform: none;
-                transition: transform 0.25s;
+                transition: transform .2s;
             }
         }
 
         &::-webkit-input-placeholder { color: #d1d1d1 }
-        &:-moz-placeholder { color: #d1d1d1 }
-        &::-moz-placeholder { color: #d1d1d1 }
-        &:-ms-input-placeholder { color: #d1d1d1 }
+        &:-moz-placeholder           { color: #d1d1d1 }
+        &::-moz-placeholder          { color: #d1d1d1 }
+        &:-ms-input-placeholder      { color: #d1d1d1 }
     }
 
     .md-input__label {
         color: $divider-color;
         position: absolute;
-        top: 0.8rem;
+        top: 0.5rem;
         left: 0;
         font-size: 1rem;
         cursor: text;
-        transition: .2s ease-out;
-        transform: translateY(-20%);
+        transition: transform .2s ease-out, font .2s ease-out;
     }
 
     .md-input.active .md-input__label  {
