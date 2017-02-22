@@ -1,6 +1,6 @@
 <template>
     <div>
-        <md-input v-model="robotName" :label="label" :id="id"></md-input>
+        <md-input v-model="robotName" :label="label"></md-input>
         <md-button primary>+1</md-button>
     </div>
 </template>
@@ -14,9 +14,8 @@
         components: { MdButton, MdInput },
         data() {
             return {
-                robotName: 'Happy Plum',
+                robotName: '', // Happy Plum
                 label: 'Robot 1',
-                id: 'robot-1',
             }
         },
         watch: {
