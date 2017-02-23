@@ -64,6 +64,10 @@ export const routes = [
                 },
             },
             {
+                path: '/play/*',
+                redirect: '/play/new'
+            },
+            {
                 path: '/about',
                 component: About,
                 meta: {
