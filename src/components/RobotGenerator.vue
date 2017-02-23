@@ -1,7 +1,11 @@
 <template>
     <div>
-        <md-input v-model="robotName" :label="label"></md-input>
-        <md-button primary>+1</md-button>
+        <md-input v-model="robotName" :label="robotLabel" @on-submit="addRobot()"></md-input>
+        <md-button primary @click="addRobot">+1</md-button>
+        <hr>
+        <div class="robots" v-for="robot of robots">
+            {{ robot }}
+        </div>
     </div>
 </template>
 
@@ -14,13 +18,21 @@
         components: { MdButton, MdInput },
         data() {
             return {
-                robotName: '', // Happy Plum
-                label: 'Robot 1',
+                robotName: '',
+                robots: [
+                    'Happy Plum'
+                ]
             }
         },
-        watch: {
-            robotName: function(value) {
-                console.log(value);
+        computed: {
+            robotLabel: function() {
+                return 'Robot ' + (this.robots.length + 1);
+            }
+        },
+        methods: {
+            addRobot() {
+                this.robots.push(this.robotName);
+                this.robotName = '';
             }
         }
     }

@@ -7,6 +7,7 @@
                :readonly="readonly"
                :value="value"
                :placeholder="placeholder"
+               @keyup.13="onSubmit($event.target.value)"
                @input="updateValue($event.target.value)">
 
         <label class="md-input__label" :for="uid">{{ label }}</label>
@@ -34,6 +35,9 @@
         methods: {
             updateValue(value) {
                 this.$emit('input', value);
+            },
+            onSubmit(value) {
+                this.$emit('on-submit', value);
             }
         }
     }
