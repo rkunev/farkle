@@ -3,7 +3,6 @@
         <h2 class="opponents-picker__title">Pick your opponent</h2>
 
         <div class="opponents-picker">
-            <md-button to="/play/robot" raised class="opponents-picker__item">Robot</md-button>
             <md-button to="/play/hotseat" raised class="opponents-picker__item">Hotseat</md-button>
             <md-button disabled raised class="opponents-picker__item opponents-picker__item--disabled">Online</md-button>
         </div>

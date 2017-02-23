@@ -15,6 +15,7 @@
         info:        require('assets/svg/info.svg'),
         exit:        require('assets/svg/exit.svg'),
         more:        require('assets/svg/more.svg'),
+        delete:        require('assets/svg/delete.svg'),
     };
 
     export default {
