@@ -1,7 +1,7 @@
 <template>
     <div>
         <md-input v-model="robotName" :label="robotLabel" @on-submit="addRobot()"></md-input>
-        <md-button primary @click="addRobot">+1</md-button>
+        <md-button primary @click="addRobot()">+1</md-button>
         <hr>
         <div class="robots" v-for="robot of robots">
             {{ robot }}
@@ -31,8 +31,10 @@
         },
         methods: {
             addRobot() {
-                this.robots.push(this.robotName);
-                this.robotName = '';
+                if (this.robotName) {
+                    this.robots.push(this.robotName);
+                    this.robotName = '';
+                }
             }
         }
     }
