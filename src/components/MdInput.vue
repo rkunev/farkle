@@ -49,6 +49,7 @@
     @import '~assets/scss/_typography';
 
     @mixin md-input__label--float {
+        user-select: auto;
         font-size: .75em;
         transform: translateY(-130%);
     }
@@ -117,6 +118,7 @@
         transition-property: transform, font, color;
         transition-duration: .2s;
         transition-timing-function: $transition-timing-function-standard;
+        user-select: none;
     }
 
     .md-input.active .md-input__label {

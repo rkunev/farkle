@@ -1,4 +1,5 @@
 @import '_typography';
+@import '_palette';
 
 html, body {
     height: 100%;
@@ -50,4 +51,10 @@ blockquote, q {
 }
 button {
     font-family: inherit;
+}
+
+::selection {
+  background: $primary-color;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
 }

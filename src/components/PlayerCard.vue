@@ -1,13 +1,12 @@
 <template>
     <div class="player-card">
         <div class="player-card__avatar">
-            <img src="http://placekitten.com/144/144" width="144">
+            <img src="http://placekitten.com/144/144" width="144" height="144">
             <div class="player-card__name" :style="{ 'color': playerColor }">{{ player.name }}</div>
         </div>
 
         <div class="player-card__toolbar">
-            <input type="checkbox" id="player-type" v-model="player.isRobot">
-            <label for="player-type">{{ playerType }}</label>
+            <md-switch v-model="player.isRobot">{{ playerType }}</md-switch>
             <svg-icon icon="delete" />
         </div>
     </div>
@@ -15,11 +14,12 @@
 
 <script>
     import SvgIcon from 'components/SvgIcon';
+    import MdSwitch from 'components/MdSwitch';
 
     export default {
         name: 'player-card',
         props: ['player'],
-        components: { SvgIcon },
+        components: { SvgIcon, MdSwitch },
         computed: {
             playerColor: function() {
                 return this.player.isRobot ? 'white' : 'gold';
