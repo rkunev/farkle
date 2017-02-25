@@ -60,13 +60,17 @@
             roll() {
                 if (this.isFirstRoll) {
                     this.turnScore = 0;
+                    this.rollScore = 0; // ?
+                    this.rollAllDice();
+                } else if (checkIfAllDiceAreSaved([...this.dice[0], ...this.dice[1]])) {
                     this.rollAllDice();
                 } else {
                     this.rollUncheckedDice();
+                    this.rollScore = 0;
                 }
 
                 this.isFirstRoll = false;
-                this.rollScore = calculateUncheckedDicePoints([...this.dice[0], ...this.dice[1]]);
+                this.rollScore += calculateUncheckedDicePoints([...this.dice[0], ...this.dice[1]]);
 
                 if (this.rollScore === 0) {
                     this.endTurn();
@@ -110,6 +114,10 @@
             .filter(d => (d.value === 5 || d.value === 1))
             .map(d => d.value === 1 ? 100 : 50)
             .reduce((acc, next) => acc + next, 0);
+    }
+
+    function checkIfAllDiceAreSaved(dice) {
+        return dice.every(d => d.checked);
     }
 </script>
 

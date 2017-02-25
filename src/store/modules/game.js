@@ -81,7 +81,7 @@ export const actions = {
             if (!checked) {
                 commit('UPDATE_DIE_VALUE', {
                     index,
-                    value: (Math.random() * 5 | 0) + 1
+                    value: /*(Math.random() * 5 | 0) +*/ 1
                 });
             }
         });
