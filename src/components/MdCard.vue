@@ -38,6 +38,7 @@
     }
 
     .md-card {
+        background: #fff;
         @include shadow(2);
         padding: 16px 8px 8px;
         margin: 8px 20px;
