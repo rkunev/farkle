@@ -1,20 +1,42 @@
 <template>
     <div class="player-generator">
         <div class="player-generator__form">
-            <md-input class="player-generator__new-player-input" v-model="playerName" :label="playerLabel" @on-submit="addPlayer()"></md-input>
-            <md-button class="player-generator__create-player" primary @click="addPlayer()">+1</md-button>
+            <md-input class="player-generator__new-player-input"
+                      v-model="playerName"
+                      :label="playerLabel"
+                      @on-submit="addPlayer()">
+            </md-input>
+
+            <md-button class="player-generator__create-player"
+                       primary
+                       @click="addPlayer()">
+                +1
+            </md-button>
 
             <md-button class="player-generator__start" accent>Start</md-button>
         </div>
 
         <transition-group name="player-generator__players" tag="div" class="player-generator__players">
             <md-card v-for="player of players" :key="player.id" class="player-generator__player">
-                <span slot="title">{{ player.name }}</span>
-                <span slot="subtitle">{{ player.isRobot ? 'Dice Robot' : 'Human' }}</span>
-                <span slot="actions">
-                    <md-button class="md-card__action-button" no-ink @click="removePlayer(player)" :disabled="players.length < 2">Discard</md-button>
-                    <md-button class="md-card__action-button" @click="player.isRobot = !player.isRobot">Change to human</md-button>
-                </span>
+                <template slot="title">
+                    {{ player.name }}
+                </template>
+
+                <template slot="subtitle">{{ player.isRobot ? 'Dice Robot' : 'Human' }}</template>
+
+                <template slot="actions">
+                    <md-button class="md-card__action-button"
+                               no-ink
+                               @click="removePlayer(player)"
+                               :disabled="players.length < 2">
+                        Discard
+                    </md-button>
+
+                    <md-button class="md-card__action-button"
+                               @click="togglePlayerType(player)">
+                        Change to human
+                    </md-button>
+                </template>
             </md-card>
         </transition-group>
     </div>
@@ -33,12 +55,6 @@
                 playerName: '',
                 players: [
                     { name: 'Happy Plum 1', isRobot: true, id: 1 },
-                    { name: 'Happy Plum 2', isRobot: true, id: 2 },
-                    { name: 'Happy Plum 3', isRobot: true, id: 3 },
-                    { name: 'Happy Plum 4', isRobot: true, id: 4 },
-                    { name: 'Happy Plum 5', isRobot: true, id: 5 },
-                    { name: 'Happy Plum 6', isRobot: true, id: 6 },
-                    { name: 'Happy Plum 7', isRobot: true, id: 7 },
                 ]
             }
         },
@@ -56,6 +72,9 @@
             },
             removePlayer(player) {
                 this.players = this.players.filter(p => p.id !== player.id)
+            },
+            togglePlayerType(player) {
+                player.isRobot = !player.isRobot;
             }
         }
     }
