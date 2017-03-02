@@ -12,7 +12,7 @@
                 <span slot="title">{{ player.name }}</span>
                 <span slot="subtitle">{{ player.isRobot ? 'Dice Robot' : 'Human' }}</span>
                 <span slot="actions">
-                    <md-button class="md-card__action-button" @click="removePlayer(player)" :disabled="players.length < 2">Discard</md-button>
+                    <md-button class="md-card__action-button" no-ink @click="removePlayer(player)" :disabled="players.length < 2">Discard</md-button>
                     <md-button class="md-card__action-button" @click="player.isRobot = !player.isRobot">Change to human</md-button>
                 </span>
             </md-card>

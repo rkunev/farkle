@@ -36,7 +36,8 @@
             type: { type: String, default: 'button' },
             activeClass: { type: String, default: 'router-link-active' },
             exact: Boolean,
-            disabled: Boolean
+            disabled: Boolean,
+            noInk: Boolean,
         },
         mounted() {
             const wavesColor = (this.$el.hasAttribute('primary') || this.$el.hasAttribute('accent'))
@@ -57,13 +58,15 @@
         },
         methods: {
             ripple(e) {
-                const position = this.$el.hasAttribute('icon')
-                    ? null
-                    : { x: e.offsetX, y: e.offsetY };
+                if (!this.noInk) {
+                    const position = this.$el.hasAttribute('icon')
+                        ? null
+                        : { x: e.offsetX, y: e.offsetY };
 
-                Waves.ripple(this.$el.firstChild, { position });
+                    Waves.ripple(this.$el.firstChild, { position });
+                }
 
-                delay(e => this.$emit('click', e), 250, e);
+                delay(e => this.$emit('click', e), this.noInk ? 0 : 250, e);
             }
         },
         destroyed() {
