@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import delay from 'lodash/delay';
     import wavesCss from 'assets/scss/waves.scss';
     import Waves from 'node-waves/src/js/waves.js';
 
@@ -62,7 +63,7 @@
 
                 Waves.ripple(this.$el.firstChild, { position });
 
-                this.$emit('click', e);
+                delay(e => this.$emit('click', e), 250, e);
             }
         },
         destroyed() {
