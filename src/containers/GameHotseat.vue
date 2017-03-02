@@ -1,5 +1,5 @@
 <template>
-    <div class="robot-game-page">
+    <div class="hotseat-page">
         <h2 class="robots-config__title">Last one buys</h2>
 
         <player-generator></player-generator>
@@ -22,7 +22,6 @@
   .robots-config__title {
       @include font-display-1;
       margin-top: 10px;
-      margin-bottom: 30px;
       text-align: center;
   }
 </style>
