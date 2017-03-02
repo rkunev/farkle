@@ -64,6 +64,9 @@
 
                 this.$emit('click', e);
             }
+        },
+        destroyed() {
+            Waves.calm(this.$el.firstChild);
         }
     };
 </script>

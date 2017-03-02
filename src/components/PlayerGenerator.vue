@@ -8,7 +8,7 @@
         </div>
 
         <div class="player-generator__players">
-            <md-card v-for="player of players">
+            <md-card v-for="player of players" :key="player.id">
                 <span slot="title">{{ player.name }}</span>
                 <span slot="subtitle">{{ player.isRobot ? 'Dice Robot' : 'Human' }}</span>
                 <span slot="actions">
