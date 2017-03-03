@@ -6,7 +6,6 @@
             <div class="navigation-drawer__panel-header">
                 <div class="navigation-drawer__logo">
                     <svg-icon icon="dice"></svg-icon>
-
                     Farkle
                 </div>
 
@@ -22,60 +21,16 @@
             </div>
 
             <ul class="navigation-drawer__list">
-                <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/" exact active-class="navigation-drawer__link--active">
-                        <svg-icon icon="dashboard"></svg-icon>
-
-                        <span>Dashboard</span>
-                    </md-button>
+                <li class="navigation-drawer__item" :class="{ 'navigation-drawer__item--subheader': !link.to }" v-for="link in navigationLinks">
+                    <router-link v-if="link.to" class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact :to="link.to" @click.native="closeMenu">
+                        <svg-icon :icon="link.icon"></svg-icon>
+                        {{ link.title }}
+                    </router-link>
+                    <template v-else>{{ link.title }}</template>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
-                        <svg-icon icon="play"></svg-icon>
-
-                        <span>New Game</span>
-                    </md-button>
-                </li>
-                <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
-                        <svg-icon icon="load"></svg-icon>
-
-                        <span>Load Game</span>
-                    </md-button>
-                </li>
-                <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" :to="profileLink" exact active-class="navigation-drawer__link--active">
-                        <svg-icon icon="profile"></svg-icon>
-
-                        <span>Profile</span>
-                    </md-button>
-                </li>
-                <li class="navigation-drawer__item ">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
-                        <svg-icon icon="leaderboard"></svg-icon>
-
-                        <span>Leaderboard</span>
-                    </md-button>
-                </li>
-                <li class="navigation-drawer__item navigation-drawer__item--subheader">
-                    <h2>Help &amp; Feadback</h2>
-                </li>
-                <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
-                        <svg-icon icon="settings"></svg-icon>
-
-                        <span>Settings</span>
-                    </md-button>
-                </li>
-                <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
-                        <svg-icon icon="info"></svg-icon>
-
-                        <span>About</span>
-                    </md-button>
-                </li>
-                <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="logOut" class="navigation-drawer__link">
+                    <md-button :tabindex="linkTabIndex" @click="logOut" class="navigation-drawer__button">
                         <svg-icon icon="exit"></svg-icon>
 
                         <span>Sign Out</span>
@@ -104,12 +59,22 @@
             userInitials: function() {
                 return this.user.name ? this.user.name[0] : '';
             },
-            profileLink: function() {
-                return '/users/' + this.user.id + '/profile'
-            },
             linkTabIndex: function() {
                 return this.isOpen ? 0 : -1;
-            }
+            },
+            navigationLinks: function() {
+                return [
+                    { title: 'Dashboard',   icon: 'dashboard',   to: '/' },
+                    { title: 'New Game',    icon: 'play',        to: '/play/new' },
+                    { title: 'Load Game',   icon: 'load',        to: '/play/hotseat/1234567' },
+                    { title: 'Profile',     icon: 'profile',     to: `/users/${this.user.id}/profile` },
+                    { title: 'Leaderboard', icon: 'leaderboard', to: '/users' },
+                    { title: 'Help & Feadback' },
+                    { title: 'Settings',    icon: 'settings',    to: '/users' },
+                    { title: 'About',       icon: 'info',        to: '/about' },
+                    { title: '' },
+                ]
+            },
         },
         methods: {
             closeMenu(event) {
@@ -267,16 +232,18 @@
         color: rgba(0, 0, 0, .54);
     }
 
-    .navigation-drawer__link.md-button {
+    .navigation-drawer__link {
         @include font-body-2;
 
         color: rgba(0, 0, 0, .87);
         height: 48px;
         line-height: 48px;
         text-align: left;
+        padding: 0 16px;
         text-decoration: none;
         text-transform: none;
         width: 100%;
+        display: inline-block;
 
         &.navigation-drawer__link--active,
         &:hover, &:focus {
@@ -289,6 +256,15 @@
         &.navigation-drawer__link--active:hover {
             color: $primary-color-dark;
             svg { fill: $primary-color-dark }
+        }
+    }
+
+    .navigation-drawer__item .navigation-drawer__button {
+        @extend .navigation-drawer__link;
+
+        .waves-effect {
+            padding-left: 0;
+            padding-right: 0;
         }
     }
 

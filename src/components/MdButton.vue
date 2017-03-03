@@ -2,6 +2,9 @@
     <button v-if="!to" class="md-button"
             :type="type"
             :disabled="disabled"
+            :primary="primary"
+            :accent="accent"
+            :icon="icon"
             @click="ripple">
         <span class="waves-effect">
             <slot></slot>
@@ -12,10 +15,11 @@
                  :exact="exact"
                  :active-class="activeClass"
                  :to="to"
-                 :disabled="disabled"
+                 :primary="primary"
+                 :accent="accent"
+                 :icon="icon"
                  :target="target"
-                 :rel="rel"
-                 @click.native="ripple">
+                 :rel="rel">
         <span class="waves-effect">
             <slot></slot>
         </span>
@@ -23,7 +27,6 @@
 </template>
 
 <script>
-    import delay from 'lodash/delay';
     import wavesCss from 'assets/scss/waves.scss';
     import Waves from 'node-waves/src/js/waves.js';
 
@@ -37,17 +40,15 @@
             activeClass: { type: String, default: 'router-link-active' },
             exact: Boolean,
             disabled: Boolean,
-            noInk: { type: Boolean, default: false },
+            primary: Boolean,
+            accent: Boolean,
+            icon: Boolean,
+            noInk: Boolean,
         },
         mounted() {
             if (!this.noInk) {
-                const wavesColor = (this.$el.hasAttribute('primary') || this.$el.hasAttribute('accent'))
-                    ? 'waves-light'
-                    : '';
-
-                const btnType = this.$el.hasAttribute('icon')
-                    ? 'waves-circle'
-                    : '';
+                const wavesColor = (this.primary || this.accent) ? 'waves-light' : '';
+                const btnType = this.icon ? 'waves-circle' : '';
 
                 if (wavesColor) {
                     this.$el.firstChild.classList.add(wavesColor);
@@ -60,15 +61,13 @@
         },
         methods: {
             ripple(e) {
-                if (!this.noInk) {
-                    const position = this.$el.hasAttribute('icon')
-                        ? null
-                        : { x: e.offsetX, y: e.offsetY };
-
-                    Waves.ripple(this.$el.firstChild, { position });
+                if (!this.noInk || !this.to) {
+                    Waves.ripple(this.$el.firstChild, {
+                        position: !this.icon ? { x: e.offsetX, y: e.offsetY } : null
+                    });
                 }
 
-                delay(e => this.$emit('click', e), this.noInk ? 0 : 250, e);
+                this.$emit('click', e);
             }
         },
         destroyed() {
