@@ -4,7 +4,9 @@
 
         <app-bar v-show="isUserAuthenticated" @open-menu="openMenu"></app-bar>
 
-        <router-view></router-view>
+        <main>
+            <router-view></router-view>
+        </main>
     </div>
 </template>
 
@@ -44,5 +46,13 @@
 <style lang="scss">
     .app-wrapper {
         height: 100%;
+        background-color: #fafafa;
+    }
+
+    // @todo make a mixin for media queries
+    @media screen and (min-width: 960px) {
+        .app-wrapper main {
+            padding-top: 60px;
+        }
     }
 </style>

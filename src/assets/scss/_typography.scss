@@ -11,9 +11,21 @@ $display-1-size: 34px;
 $display-1-height: 1.176;
 $display-1-weight: $_regular;
 
+@mixin font-display-1 {
+    font-size: $display-1-size;
+    line-height: $display-1-height;
+    font-weight: $display-1-weight;
+}
+
 $headline-size: 24px;
 $headline-height: 1.333;
 $headline-weight: $_regular;
+
+@mixin font-headline {
+    font-size: $headline-size;
+    line-height: $headline-height;
+    font-weight: $headline-weight;
+}
 
 $title-size: 20px;
 $title-weight: $_medium;

@@ -1,0 +1,88 @@
+{
+    "players": {
+        // user uid
+        "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1": {
+            "name": "Rosen Kunev",
+            "email": "rkunev@gmail.com",
+            "avatar": "https://lh4.googleusercontent.com/-OImtR3zhKfA/AAAAAAAAAAI/AAAAAAAAAAo/C4dEq_tasTE/photo.jpg",
+            "gameInProgress": "1pXBEDWdO3tjnhKepeUN5aO2E2lU",
+            "achievements": {
+                "3Ok4dcLFW62L6TadJOAVKi0Dk4BS": true
+            }
+        }
+    },
+    "stats": {
+        // user uid; updated on every player roll
+        "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1": {
+            "gamesPlayed": 24,
+            "gamesWon": 22, // any non completed game counts as loss
+
+            "pointsWon": 230150,
+            "highestScore": 14050,
+            "highestTurn": 3450,
+
+            // used in leaderboards
+            "rankingScore": 1260, // based on number of wins and win percentage
+
+            "lastPlayed": 1485634083977, // timestamp (GMT+0000)
+            "timePlayed": 3600, // seconds (1h)
+            "averageTimePerGame": 205,
+
+            "rolls": 245,
+            "consecutiveRolls": 6,
+
+            "zilches": 8,
+            "threeOfAKinds": 14,
+            "fourOfAKinds": 3,
+            "fiveOfAKinds": 1,
+            "sixOfAKinds": 0,
+            "threePairs": 2,
+            "straights": 1,
+            "piggybacks": 9
+        }
+    },
+    "achievements": {
+        // achievement uid
+        "3Ok4dcLFW62L6TadJOAVKi0Dk4BS": {
+            "name": "Zilcher",
+            "description": "Score 250 zilches",
+            "icon": "" // some URL
+        }
+    },
+    "leaderboards": {
+        // begin timestamp (GMT+0000), each range is 1 week long
+        // inserts new record after each game
+        "1485634083977": {
+            "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1": 1260 // ranking score of the player
+        }
+    },
+    "games": {
+        // game uid
+        "1pXBEDWdO3tjnhKepeUN5aO2E2lU": {
+            "timestamp": 1485634083977, // start time
+            "players": {
+                "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1": {
+                    "type": "human",
+                    "score": 2550,
+                    "turn": true,
+                    "rolls": 1,
+                },
+                "UN5aO2E2lUDCV0dzY9jYy5S1EM2a": {
+                    "type": "robot",
+                    "score": -100,
+                    "turn": false,
+                    "rolls": 0
+                },
+            },
+            "dice": {
+                // each die has an uid and a value
+                "AN5aO2E2lUDCV0dzY9jYy5S1EM2a": 1,
+                "BN5aO2E2lUDCV0dzY9jYy5S1EM2a": 2,
+                "CN5aO2E2lUDCV0dzY9jYy5S1EM2a": 2,
+                "DN5aO2E2lUDCV0dzY9jYy5S1EM2a": 5,
+                "EN5aO2E2lUDCV0dzY9jYy5S1EM2a": 6,
+                "FN5aO2E2lUDCV0dzY9jYy5S1EM2a": 6,
+            },
+        }
+    }
+}

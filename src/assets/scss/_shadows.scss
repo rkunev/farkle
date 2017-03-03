@@ -1,3 +1,6 @@
+// @todo These are partially correct and are tested only with buttons
+//       Research what shoud the shadow be with the provided guidelines
+// @link https://material.io/guidelines/material-design/elevation-shadows.html#elevation-shadows-elevation-android
 @mixin shadow($dp) {
     @if $dp == 2 {
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);

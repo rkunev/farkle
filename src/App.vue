@@ -13,7 +13,8 @@
 <style lang="scss" src="assets/scss/_reset.scss"></style>
 <style lang="scss" src="assets/scss/fonts.scss"></style>
 <style lang="scss">
-    #app {
-        height: 100%;
-    }
+    @import '~assets/scss/_palette';
+
+    body { color: $primary-text-color }
+    #app { height: 100% }
 </style>
