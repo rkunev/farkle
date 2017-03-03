@@ -1,6 +1,6 @@
 <template>
     <span class="die">
-        <md-button class="die__button" :no-ripple="true" :class="{ 'checked': die.checked }" @click="emit">
+        <md-button class="die__button" no-ink :class="{ 'checked': die.checked }" @click="emit">
             {{ die.value }}
         </md-button>
     </span>

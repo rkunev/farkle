@@ -1,9 +1,8 @@
 <template>
     <div class="new-game-page">
-        <h2>Pick your opponent</h2>
+        <h2 class="opponents-picker__title">Pick your opponent</h2>
 
         <div class="opponents-picker">
-            <md-button to="/play/robot" raised class="opponents-picker__item">Robot</md-button>
             <md-button to="/play/hotseat" raised class="opponents-picker__item">Hotseat</md-button>
             <md-button disabled raised class="opponents-picker__item opponents-picker__item--disabled">Online</md-button>
         </div>
@@ -14,7 +13,7 @@
     import MdButton from 'components/MdButton';
 
     export default {
-        name: 'Game',
+        name: 'new-game',
         components: { MdButton }
     }
 </script>
@@ -22,7 +21,7 @@
 <style lang="scss">
     @import '~assets/scss/_typography';
 
-    h2 {
+    .opponents-picker__title {
         @include font-display-1;
         margin-top: 10px;
         margin-bottom: 30px;
@@ -31,12 +30,14 @@
 
     .opponents-picker {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     .opponents-picker__item {
         height: auto;
         line-height: normal;
+        margin: 20px;
 
         > .waves-effect {
             width: 144px;

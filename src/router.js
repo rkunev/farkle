@@ -5,8 +5,7 @@ import AppWrapper from 'containers/AppWrapper';
 
 import Login from 'containers/Login';
 import Dashboard from 'containers/Dashboard';
-import Game from 'containers/Game';
-import GameRobot from 'containers/GameRobot';
+import NewGame from 'containers/NewGame';
 import GameHotseat from 'containers/GameHotseat';
 import LoadGame from 'containers/LoadGame';
 import User from 'containers/User';
@@ -45,16 +44,9 @@ export const routes = [
             },
             {
                 path: '/play/new',
-                component: Game,
+                component: NewGame,
                 meta: {
                     title: 'New Game',
-                },
-            },
-            {
-                path: '/play/robot',
-                component: GameRobot,
-                meta: {
-                    title: 'Game Room',
                 },
             },
             {
@@ -70,6 +62,10 @@ export const routes = [
                 meta: {
                     title: 'Go',
                 },
+            },
+            {
+                path: '/play/*',
+                redirect: '/play/new'
             },
             {
                 path: '/about',

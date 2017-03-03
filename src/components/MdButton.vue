@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import delay from 'lodash/delay';
     import wavesCss from 'assets/scss/waves.scss';
     import Waves from 'node-waves/src/js/waves.js';
 
@@ -32,23 +33,14 @@
             to: String,
             target: String,
             rel: String,
-            type: {
-                type: String,
-                default: 'button'
-            },
-            activeClass: {
-                type: String,
-                default: 'router-link-active'
-            },
+            type: { type: String, default: 'button' },
+            activeClass: { type: String, default: 'router-link-active' },
             exact: Boolean,
             disabled: Boolean,
-            noRipple: {
-                type: Boolean,
-                default: false
-            },
+            noInk: { type: Boolean, default: false },
         },
         mounted() {
-            if (!this.noRipple) {
+            if (!this.noInk) {
                 const wavesColor = (this.$el.hasAttribute('primary') || this.$el.hasAttribute('accent'))
                     ? 'waves-light'
                     : '';
@@ -68,7 +60,7 @@
         },
         methods: {
             ripple(e) {
-                if (!this.noRipple) {
+                if (!this.noInk) {
                     const position = this.$el.hasAttribute('icon')
                         ? null
                         : { x: e.offsetX, y: e.offsetY };
@@ -76,8 +68,11 @@
                     Waves.ripple(this.$el.firstChild, { position });
                 }
 
-                this.$emit('click', e);
+                delay(e => this.$emit('click', e), this.noInk ? 0 : 250, e);
             }
+        },
+        destroyed() {
+            Waves.calm(this.$el.firstChild);
         }
     };
 </script>
