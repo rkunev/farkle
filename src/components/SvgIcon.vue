@@ -1,5 +1,5 @@
 <template>
-    <span class="svg-icon" v-html="svg"></span>
+    <span class="svg-icon" v-html="svg" v-once></span>
 </template>
 
 <script>
@@ -15,6 +15,7 @@
         info:        require('assets/svg/info.svg'),
         exit:        require('assets/svg/exit.svg'),
         more:        require('assets/svg/more.svg'),
+        delete:        require('assets/svg/delete.svg'),
     };
 
     export default {

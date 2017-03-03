@@ -100,10 +100,3 @@ export function isUsingAnonymousAccount() {
         return userType;
     }
 }
-
-function _generateUniqueId(salt = '') {
-    const shortSalt = salt.slice(0, 2);
-    const shortTimestamp = ((new Date()).getTime()).toString().slice(-4);
-
-    return btoa(shortSalt + shortTimestamp).replace(/\//g, '-');
-}

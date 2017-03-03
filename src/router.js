@@ -5,7 +5,8 @@ import AppWrapper from 'containers/AppWrapper';
 
 import Login from 'containers/Login';
 import Dashboard from 'containers/Dashboard';
-import Game from 'containers/Game';
+import NewGame from 'containers/NewGame';
+import GameHotseat from 'containers/GameHotseat';
 import User from 'containers/User';
 import About from 'containers/About';
 import GameRules from 'containers/GameRules';
@@ -42,10 +43,21 @@ export const routes = [
             },
             {
                 path: '/play/new',
-                component: Game,
+                component: NewGame,
                 meta: {
                     title: 'New Game',
                 },
+            },
+            {
+                path: '/play/hotseat',
+                component: GameHotseat,
+                meta: {
+                    title: 'Game Room',
+                },
+            },
+            {
+                path: '/play/*',
+                redirect: '/play/new'
             },
             {
                 path: '/about',
