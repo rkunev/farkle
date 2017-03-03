@@ -63,6 +63,8 @@
                 return this.isOpen ? 0 : -1;
             },
             navigationLinks: function() {
+                // @todo: Perform more tests to see if v-for is the main culprit for frame drops
+                // @todo Revert back to static HTML if v-for is trashing the perf
                 return [
                     { title: 'Dashboard',   icon: 'dashboard',   to: '/' },
                     { title: 'New Game',    icon: 'play',        to: '/play/new' },

@@ -44,6 +44,10 @@
 </script>
 
 <style lang="scss">
+    .navigation-drawer--is-open + .main-content {
+        overflow-y: auto;
+    }
+
     .app-wrapper {
         height: 100%;
         background-color: #fafafa;
@@ -57,12 +61,5 @@
 
     .main-content {
         flex: 1 1 auto;
-    }
-
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 960px) {
-        .app-wrapper main {
-            // padding-top: 60px;
-        }
     }
 </style>

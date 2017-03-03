@@ -32,6 +32,7 @@
     @import "~assets/scss/_typography";
 
     .app-bar {
+        flex-shrink: 0;
         background-color: $primary-color;
         display: flex;
         align-items: center;
