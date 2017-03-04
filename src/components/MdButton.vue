@@ -61,7 +61,7 @@
         },
         methods: {
             ripple(e) {
-                if (!this.noInk || !this.to) {
+                if (!this.noInk) {
                     Waves.ripple(this.$el.firstChild, {
                         position: !this.icon ? { x: e.offsetX, y: e.offsetY } : null
                     });

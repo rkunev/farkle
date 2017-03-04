@@ -21,14 +21,59 @@
             </div>
 
             <ul class="navigation-drawer__list">
-                <li class="navigation-drawer__item" :class="{ 'navigation-drawer__item--subheader': !link.to }" v-for="link in navigationLinks">
-                    <router-link v-if="link.to" class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact :to="link.to" @click.native="closeMenu">
-                        <svg-icon :icon="link.icon"></svg-icon>
-                        {{ link.title }}
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/" @click.native="closeMenu">
+                        <svg-icon icon="dashboard"></svg-icon>
+                        Dashboard
                     </router-link>
-                    <template v-else>{{ link.title }}</template>
                 </li>
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/play/new" @click.native="closeMenu">
+                        <svg-icon icon="play"></svg-icon>
+                        New Game
+                    </router-link>
+                </li>
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/play/hotseat/1234567" @click.native="closeMenu">
+                        <svg-icon icon="load"></svg-icon>
+                        Load Game
+                    </router-link>
+                </li>
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact :to="profileLink" @click.native="closeMenu">
+                        <svg-icon icon="profile"></svg-icon>
+                        Profile
+                    </router-link>
+                </li>
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/users" @click.native="closeMenu">
+                        <svg-icon icon="leaderboard"></svg-icon>
+                        Leaderboard
+                    </router-link>
+                </li>
+                <li class="navigation-drawer__item navigation-drawer__item--subheader">
+                    Help & Feadback
+                </li>
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/users" @click.native="closeMenu">
+                        <svg-icon icon="settings"></svg-icon>
+                        Settings
+                    </router-link>
+                </li>
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/about" @click.native="closeMenu">
+                        <svg-icon icon="info"></svg-icon>
+                        About
+                    </router-link>
+                </li>
+                <li class="navigation-drawer__item navigation-drawer__item--subheader"></li>
                 <li class="navigation-drawer__item">
                     <md-button :tabindex="linkTabIndex" @click="logOut" class="navigation-drawer__button">
                         <svg-icon icon="exit"></svg-icon>
@@ -62,20 +107,8 @@
             linkTabIndex: function() {
                 return this.isOpen ? 0 : -1;
             },
-            navigationLinks: function() {
-                // @todo: Perform more tests to see if v-for is the main culprit for frame drops
-                // @todo Revert back to static HTML if v-for is trashing the perf
-                return [
-                    { title: 'Dashboard',   icon: 'dashboard',   to: '/' },
-                    { title: 'New Game',    icon: 'play',        to: '/play/new' },
-                    { title: 'Load Game',   icon: 'load',        to: '/play/hotseat/1234567' },
-                    { title: 'Profile',     icon: 'profile',     to: `/users/${this.user.id}/profile` },
-                    { title: 'Leaderboard', icon: 'leaderboard', to: '/users' },
-                    { title: 'Help & Feadback' },
-                    { title: 'Settings',    icon: 'settings',    to: '/users' },
-                    { title: 'About',       icon: 'info',        to: '/about' },
-                    { title: '' },
-                ]
+            profileLink: function() {
+                return `/users/${this.user.id}/profile`;
             },
         },
         methods: {
