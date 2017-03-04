@@ -2,6 +2,15 @@ import uniq from 'lodash/uniq';
 import countBy from 'lodash/countBy';
 import findKey from 'lodash/findKey';
 
+const primitives = {
+    1: 1000,
+    2: 200,
+    3: 300,
+    4: 400,
+    5: 500,
+    6: 600,
+};
+
 export const getPrimitives = dice => {
     return dice
         .filter(d => d === 5 || d === 1)
@@ -23,51 +32,15 @@ export const getThreePairs = dice => {
 };
 
 export const getRepeatedPrimitives = dice => {
-    const primitives = {
-        1: 1000,
-        2: 200,
-        3: 300,
-        4: 400,
-        5: 500,
-        6: 600,
-    };
     const counted = countBy(dice);
+    const multipliers = { 1: 0, 2: 0, 3: 1, 4: 2, 5: 4, 6: 8 };
 
-    const mapped = Object.keys(counted).map(die => {
-        const repetitionCount = counted[die];
-        const basePoints = primitives[die];
-        let value = 0;
-
-        if (repetitionCount === 3) {
-            value = basePoints;
-        } else if (repetitionCount === 4) {
-            value = basePoints * 2;
-        } else if (repetitionCount === 5) {
-            value = (basePoints * 2) * 2;
-        } else if (repetitionCount === 6) {
-            value = ((basePoints * 2) * 2) * 2;
-        }
-
-        return value;
-    });
+    const mapped = Object.keys(counted).map(die => primitives[die] * multipliers[counted[die]]);
 
     return Math.max(...mapped);
 };
 
-
-
-// We have full house if the hash has only 2 entries or if 3 entries && hash.values include(3)
-// 1, 1, 2, 2, 3, 3
-// rolledScore = scoreService.calculate([1, 1, 1, 2, 2, 3]); // 1000 + 250 = 1250
 export const getFullHouse = dice => {
-    const primitives = {
-        1: 1000,
-        2: 200,
-        3: 300,
-        4: 400,
-        5: 500,
-        6: 600,
-    };
     const counted = countBy(dice);
     const keys = Object.keys(counted);
     const values = Object.values(counted);
@@ -89,6 +62,20 @@ export const getFullHouse = dice => {
     return result;
 };
 
+export const getLuckyRoll = dice => {
+    if (dice.length < 6) {
+        return 0;
+    }
+
+    return (!getPrimitives(dice)         &&
+            !getStraight(dice)           &&
+            !getThreePairs(dice)         &&
+            !getRepeatedPrimitives(dice) &&
+            !getFullHouse(dice))
+        ? 500
+        : 0;
+};
+
 export default {
-    getPrimitives, getStraight, getThreePairs, getRepeatedPrimitives, getFullHouse
+    getPrimitives, getStraight, getThreePairs, getRepeatedPrimitives, getFullHouse, getLuckyRoll
 }
