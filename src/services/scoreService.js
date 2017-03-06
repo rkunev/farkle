@@ -77,5 +77,7 @@ export const getLuckyRoll = dice => {
 };
 
 export default {
-    getPrimitives, getStraight, getThreePairs, getRepeatedPrimitives, getFullHouse, getLuckyRoll
+    getPrimitives, getStraight,
+    getThreePairs, getRepeatedPrimitives,
+    getFullHouse, getLuckyRoll,
 }

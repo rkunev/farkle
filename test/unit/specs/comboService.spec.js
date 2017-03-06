@@ -1,67 +1,115 @@
-// import comboService from 'services/comboService';
+// import { getCombos } from 'services/comboService';
 
-// describe('comboService', () => {
-//     // describe('getCombos:', () => {
-//     //     it('should return an array', () => {
-//     //         const dice = [5, 2, 3, 4, 4, 6];
+// describe('getCombos', () => {
+//     it('[5, 2, 3, 4, 4, 6] should get [50] points', () => {
+//         const dice = [5, 2, 3, 4, 4, 6];
+//         const expected = [50];
+//         const result = getCombos(dice);
 
-//     //         expect(comboService.getCombos(dice)).to.be.an('array');
-//     //     });
-//     // });
-
-//     describe('get50s:', () => {
-//         it('should include only 50 points', () => {
-//             const dice = [5, 2, 3, 4, 4, 6];
-//             const result = comboService.get50s(dice);
-
-//             expect(result).to.eql([50]);
-//         });
-
-//         it('should have only 100 and 50 points', () => {
-//             const dice = [5, 5, 3, 4, 4, 6];
-//             const result = comboService.get50s(dice);
-
-//             expect(result).to.eql([50, 100]);
-//         });
+//         expect(result).to.eql(expected);
 //     });
 
-//     describe('get100s:', () => {
-//         it('should have only 100 points', () => {
-//             const dice = [1, 2, 3, 4, 4, 6];
-//             const result = comboService.get100s(dice);
+//     it('[1, 2, 3, 4, 4, 6] should get [100] points', () => {
+//         const dice = [1, 2, 3, 4, 4, 6];
+//         const expected = [100];
+//         const result = getCombos(dice);
 
-//             expect(result).to.eql([100]);
-//         });
-
-//         it('should have only 200 and 100 points', () => {
-//             const dice = [1, 1, 3, 4, 4, 6];
-//             const result = comboService.get100s(dice);
-
-//             expect(result).to.eql([100, 200]);
-//         });
+//         expect(result).to.eql(expected);
 //     });
 
-//     describe('get50sAnd100s:', () => {
-//         it('should have only 150, 100 and 50 points', () => {
-//             const dice = [1, 2, 3, 3, 5, 6];
-//             const result = comboService.get50sAnd100s(dice);
+//     it('[1, 2, 3, 3, 5, 6] should get [150, 100, 50] points', () => {
+//         const dice = [1, 2, 3, 3, 5, 6];
+//         const expected = [150, 100, 50];
+//         const result = getCombos(dice);
 
-//             expect(result).to.eql([50, 100, 150]);
-//         });
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[1, 2, 3, 4, 5, 6] should get [1500, 150, 100, 50] points', () => {
+//         const dice = [1, 2, 3, 4, 5, 6];
+//         const expected = [1500, 150, 100, 50];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[1, 1, 2, 2, 3, 3] should get [1500, 200, 100] points', () => {
+//         const dice = [1, 1, 2, 2, 3, 3];
+//         const expected = [1500, 200, 100];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[1, 1, 1, 2, 2, 3] should get [1250, 1000, 200, 100] points', () => {
+//         const dice = [1, 1, 1, 2, 2, 3];
+//         const expected = [1250, 1000, 200, 100];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[1, 1, 1, 1, 2, 2] should get [2000, 1500, 1250, 1000, 200, 100] points', () => {
+//         const dice = [1, 1, 1, 1, 2, 2];
+//         const expected = [2000, 1500, 1250, 1000, 200, 100];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[2, 2, 3, 4, 6, 6] should get [500] points', () => {
+//         const dice = [2, 2, 3, 4, 6, 6];
+//         const expected = [500];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[2, 2, 3, 4, 6, 6] should get [500] points', () => {
+//         const dice = [2, 2, 3, 4, 6, 6];
+//         const expected = [500];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[3, 3, 3] should get [300] points', () => {
+//         const dice = [3, 3, 3];
+//         const expected = [300];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[3, 3, 3, 3] should get [600, 300] points', () => {
+//         const dice = [3, 3, 3, 3];
+//         const expected = [600, 300];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[3, 3, 3, 1] should get [700, 600, 300, 100] points', () => {
+//         const dice = [3, 3, 3, 1];
+//         const expected = [700, 600, 300, 100];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[3, 3, 3, 3, 3] should get [1200, 600, 300] points', () => {
+//         const dice = [3, 3, 3, 3, 3];
+//         const expected = [1200, 600, 300];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
+//     });
+
+//     it('[3, 3, 3, 3, 3, 3] should get [2400, 1200, 600, 300] points', () => {
+//         const dice = [3, 3, 3, 3, 3, 3];
+//         const expected = [2400, 1200, 600, 300];
+//         const result = getCombos(dice);
+
+//         expect(result).to.eql(expected);
 //     });
 // });
-
-// // Test cases: scoreService calls comboService to get an array of all combos in DESC order (highest -> lowest)
-// // comboService.getCombos([5, 2, 3, 4, 4, 6]); // [50]
-// // comboService.getCombos([1, 2, 3, 4, 4, 6]); // [100]
-// // comboService.getCombos([1, 2, 3, 3, 5, 6]); // [150, 100, 50]
-// // comboService.getCombos([1, 2, 3, 4, 5, 6]); // [1500, 150, 100, 50]
-// // comboService.getCombos([1, 1, 2, 2, 3, 3]); // [1500, 200, 100]
-// // comboService.getCombos([1, 1, 1, 2, 2, 3]); // [1250, 1000, 200, 100]
-// // comboService.getCombos([1, 1, 1, 1, 2, 2]); // [2000, 1250, 1000, 200, 100]
-// // comboService.getCombos([2, 2, 3, 4, 6, 6]); // [500]
-// // comboService.getCombos([3, 3, 3]);          // [300]
-// // comboService.getCombos([3, 3, 3, 3]);       // [600, 300]
-// // comboService.getCombos([3, 3, 3, 1]);       // [700, 600, 300, 100]
-// // comboService.getCombos([3, 3, 3, 3, 3]);    // [1200, 600, 300]
-// // comboService.getCombos([3, 3, 3, 3, 3, 3]); // [2400, 1200, 600, 300]

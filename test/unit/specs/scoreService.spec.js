@@ -34,16 +34,14 @@ describe('scoreService', () => {
             const dice = [1, 5, 3, 4, 4, 6];
             const result = scoreService.getPrimitives(dice);
 
-            expect(result)
-                .to.equal(150);
+            expect(result).to.equal(150);
         });
 
         it('[1, 5, 1, 4, 4, 6] should get 250 points', () => {
             const dice = [1, 5, 1, 4, 4, 6];
             const result = scoreService.getPrimitives(dice);
 
-            expect(result)
-                .to.equal(250);
+            expect(result).to.equal(250);
         });
     });
 
@@ -171,6 +169,7 @@ describe('scoreService', () => {
             expect(result).to.equal(2400);
         });
 
+        // Should get 1500 for 3 pairs, but also has 700 for [4, 4, 4] and [3, 3, 3]
         it('[4, 4, 3, 3, 3, 4] should get 400 points', () => {
             const dice = [4, 4, 3, 3, 3, 4];
             const result = scoreService.getRepeatedPrimitives(dice);
@@ -178,6 +177,7 @@ describe('scoreService', () => {
             expect(result).to.equal(400);
         });
 
+        // Full House: [4, 4, 4, 3, 3] = 800 + 250 = 1050
         it('[4, 4, 4, 3, 3, 4] should get 800 points', () => {
             const dice = [4, 4, 4, 3, 3, 4];
             const result = scoreService.getRepeatedPrimitives(dice);
@@ -330,3 +330,6 @@ describe('scoreService', () => {
         });
     });
 });
+
+// [1, 1, 1, 5] should get 1050
+//

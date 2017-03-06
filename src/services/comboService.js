@@ -1,34 +1,36 @@
-// export const getCombos = dice => {
-//     let result = [50];
+import {
+    getPrimitives,
+    getStraight,
+    getThreePairs,
+    getRepeatedPrimitives,
+    getFullHouse
+} from 'services/scoreService';
 
-//     return result;
-// };
+export const getCombos = dice => {
+    const combos = [getPrimitives, getStraight, getThreePairs, getRepeatedPrimitives, getFullHouse];
 
-// export const get50s = dice => {
-//     return dice
-//         .filter(d => d === 5)
-//         .map((d, i) => (d * 10) * (i + 1))
-// };
+    return combos
+        .map(c => c(dice))
+        .filter(r => r > 0)
+        .sort(orderByDesc);
+};
 
-// export const get100s = dice => {
-//     return dice
-//         .filter(d => d === 1)
-//         .map((d, i) => (d * 100) * (i + 1))
-// };
+export const orderByDesc = (a, b) => {
+    if (a > b) return -1;
+    if (a < b) return 1;
 
-// export const get50sAnd100s = dice => {
-//     // comboService.getCombos([1, 2, 3, 3, 5, 6]); // [150, 100, 50]
-//     // -> [1, 5] // [150, 100, 50]
-//     // comboService.getCombos([1, 1, 5]); // [250, 200, 150, 100, 50]
+    return 0;
+}
 
-//     return dice
-//         .filter(d => d === 1 || d === 5)
-//         .map((d, i) => {
-//             // if (d) {}
-//         })
-//     // return [...get50s(dice), ...get100s(dice)];
-// }
+export default {
+    getCombos
+}
 
-// export default {
-//     getCombos, get50s, get100s, get50sAnd100s
-// }
+// Primitives only:
+// [1, 2, 3, 1, 5, 6] -> [250, 200, 150, 100, 50]
+// * Remove dice which are not 1 or 5. Dice are now [1, 1, 5]
+// * Get best result and add it to the array [250]. Break if the dice.length === 1
+// * Remove the die with the lowest value (could be 5 or 1). Dice are now [1, 1]
+// * Get best result and add it to the array [250, 200]
+// * Remove the die with the lowest value. Dice are now [1]
+// * Get best result and add it to the array [250, 200, 100]
