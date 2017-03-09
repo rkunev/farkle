@@ -28,6 +28,7 @@
 </script>
 
 <style lang="scss">
+    @import "~assets/scss/_media-queries";
     @import "~assets/scss/_palette";
     @import "~assets/scss/_typography";
 
@@ -38,11 +39,8 @@
         height: 56px;
         color: #fff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .26);
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 960px) {
-        .app-bar {
+        @include tablet-landscape-up {
             height: 64px;
         }
     }

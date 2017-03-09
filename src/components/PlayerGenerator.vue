@@ -26,15 +26,16 @@
 
                 <template slot="actions">
                     <md-button class="md-card__action-button"
-                               no-ink
-                               @click="removePlayer(player)"
-                               :disabled="players.length < 2">
-                        Discard
+                               @click="togglePlayerType(player)">
+                       Change to {{ player.isRobot ? 'Human' : 'Robot' }}
                     </md-button>
 
                     <md-button class="md-card__action-button"
-                               @click="togglePlayerType(player)">
-                        Change to human
+                               no-ink
+                               icon
+                               @click="removePlayer(player)"
+                               :disabled="players.length < 2">
+                        <svg-icon icon="delete"></svg-icon>
                     </md-button>
                 </template>
             </md-card>
@@ -46,10 +47,11 @@
     import MdButton from 'components/MdButton';
     import MdInput from 'components/MdInput';
     import MdCard from 'components/MdCard';
+    import SvgIcon from 'components/SvgIcon';
 
     export default {
         name: 'player-generator',
-        components: { MdButton, MdInput, MdCard },
+        components: { MdButton, MdInput, MdCard, SvgIcon },
         data() {
             return {
                 playerName: '',
@@ -81,6 +83,8 @@
 </script>
 
 <style lang="scss">
+    @import "~assets/scss/_media-queries";
+
     .player-generator {
         display: flex;
         flex-direction: column;
@@ -91,24 +95,32 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 635px) {
-        .player-generator__players {
-            justify-content: space-around;
+        align-self: center;
+        width: 100%;
+        max-width: 552px; // 2 cards per row
+
+        @include tablet-landscape-up {
+            max-width: 828px; // 3 cards per row
         }
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 1024px) {
-        .player-generator__players {
-            justify-content: flex-start;
+        @include desktop-up {
+            max-width: 1104px; // 4 cards per row
         }
     }
 
     .player-generator__player {
+        min-width: 260px;
         transition: transform 0.3s;
+    }
+
+    .player-generator__player .md-card__action-button:first-child {
+        min-width: 164px; // equalize "Change To <type>" width
+    }
+
+    .player-generator__player .md-card__action-button:last-child {
+        margin-left: auto;
+        svg { fill: crimson }
     }
 
     .player-generator__players-enter {
