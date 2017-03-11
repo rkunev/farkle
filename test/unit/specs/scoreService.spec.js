@@ -285,18 +285,32 @@ describe('scoreService', () => {
             expect(result).to.equal(1250);
         });
 
-        it('[1, 1, 1, 1, 2, 2] should get 1250 points', () => {
+        it('[1, 1, 1, 1, 2, 2] should get 2250 points', () => {
             const dice = [1, 1, 1, 1, 2, 2];
+            const result = scoreService.getFullHouse(dice);
+
+            expect(result).to.equal(2250);
+        });
+
+        it('[5, 5, 5, 5, 3, 3] should get 1250 points', () => {
+            const dice = [5, 5, 5, 5, 3, 3];
             const result = scoreService.getFullHouse(dice);
 
             expect(result).to.equal(1250);
         });
 
-        it('[1, 1, 2, 2, 2, 2] should get 450 points', () => {
+        it('[2, 2, 2, 3, 3, 3] should get 550 points', () => {
+            const dice = [2, 2, 2, 3, 3, 3];
+            const result = scoreService.getFullHouse(dice);
+
+            expect(result).to.equal(550);
+        });
+
+        it('[1, 1, 2, 2, 2, 2] should get 650 points', () => {
             const dice = [1, 1, 2, 2, 2, 2];
             const result = scoreService.getFullHouse(dice);
 
-            expect(result).to.equal(450);
+            expect(result).to.equal(650);
         });
 
         it('[1, 1, 2, 2, 3, 3] should get 0 points', () => {
@@ -329,7 +343,48 @@ describe('scoreService', () => {
             expect(result).to.equal(0);
         });
     });
-});
 
-// [1, 1, 1, 5] should get 1050
-//
+    describe('getMixed', () => {
+        it('[1, 2, 3, 1, 5, 1] should get 1050 points', () => {
+            const dice = [1, 2, 3, 1, 5, 1];
+            const result = scoreService.getMixed(dice);
+
+            expect(result).to.equal(1050);
+        });
+
+        it('[1, 5, 3, 1, 5, 1] should get 1100 points', () => {
+            const dice = [1, 5, 3, 1, 5, 1];
+            const result = scoreService.getMixed(dice);
+
+            expect(result).to.equal(1100);
+        });
+
+        it('[2, 2, 5, 3, 3, 3] should get 350 points', () => {
+            const dice = [2, 2, 5, 3, 3, 3];
+            const result = scoreService.getMixed(dice);
+
+            expect(result).to.equal(350);
+        });
+
+        it('[1, 1, 1, 2, 2, 2] should get 1200 points', () => {
+            const dice = [1, 1, 1, 2, 2, 2];
+            const result = scoreService.getMixed(dice);
+
+            expect(result).to.equal(1200);
+        });
+
+        it('[1, 1, 1, 1, 1, 5] should get 4050 points', () => {
+            const dice = [1, 1, 1, 1, 1, 5];
+            const result = scoreService.getMixed(dice);
+
+            expect(result).to.equal(4050);
+        });
+
+        it('[1, 1, 1, 5] should get 1050 points', () => {
+            const dice = [1, 1, 1, 5];
+            const result = scoreService.getMixed(dice);
+
+            expect(result).to.equal(1050);
+        });
+    });
+});

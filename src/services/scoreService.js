@@ -1,15 +1,16 @@
 import uniq from 'lodash/uniq';
 import countBy from 'lodash/countBy';
 import findKey from 'lodash/findKey';
+import toPairs from 'lodash/toPairs';
 
 const primitives = {
-    1: 1000,
-    2: 200,
-    3: 300,
-    4: 400,
-    5: 500,
-    6: 600,
-};
+   1: { 1: 0, 2: 0, 3: 1000, 4: 2000, 5: 4000, 6: 8000 },
+   2: { 1: 0, 2: 0, 3: 200, 4: 400, 5: 800, 6: 1600 },
+   3: { 1: 0, 2: 0, 3: 300, 4: 600, 5: 1200, 6: 2400 },
+   4: { 1: 0, 2: 0, 3: 400, 4: 800, 5: 1600, 6: 3200 },
+   5: { 1: 0, 2: 0, 3: 500, 4: 1000, 5: 2000, 6: 4000 },
+   6: { 1: 0, 2: 0, 3: 600, 4: 1200, 5: 2400, 6: 4800 },
+}
 
 export const getPrimitives = dice => {
     return dice
@@ -33,9 +34,7 @@ export const getThreePairs = dice => {
 
 export const getRepeatedPrimitives = dice => {
     const counted = countBy(dice);
-    const multipliers = { 1: 0, 2: 0, 3: 1, 4: 2, 5: 4, 6: 8 };
-
-    const mapped = Object.keys(counted).map(die => primitives[die] * multipliers[counted[die]]);
+    const mapped = Object.keys(counted).map(die => primitives[die][counted[die]]);
 
     return Math.max(...mapped);
 };
@@ -55,8 +54,8 @@ export const getFullHouse = dice => {
     } else if (hasThreeOfAKind || hasFourOfAKind) {
         // [1, 1, 1, 2, 2, 3]
         // [1, 1, 1, 1, 2, 2]
-        const base = findKey(counted, v => v > 2);
-        result = primitives[base] + 250;
+        const repeatedDie = findKey(counted, v => v > 2);
+        result = primitives[repeatedDie][counted[repeatedDie]] + 250;
     }
 
     return result;
@@ -76,8 +75,35 @@ export const getLuckyRoll = dice => {
         : 0;
 };
 
+export const getMixed = dice => {
+    const counted = countBy(dice);
+    const pairs = toPairs(counted);
+
+    // @todo maybe move to a separate fn
+    const bestRepeated = pairs
+        .filter(p => p[1] > 2)
+        .map(p => {
+            const [die, repetition] = p;
+
+            return [die, primitives[die][repetition]]
+        })
+        .reduce((current, next) => {
+            if (!current) return next;
+
+            return current[1] > next[1] ? current : next;
+        }, null);
+
+    const repeatedDie = +bestRepeated[0];
+    const plucked = dice.filter(d => d !== repeatedDie);
+    const repeatedDice = Array(dice.length - plucked.length).fill(repeatedDie);
+
+    return getRepeatedPrimitives(repeatedDice) +
+        Math.max(getRepeatedPrimitives(plucked), getPrimitives(plucked));
+};
+
 export default {
     getPrimitives, getStraight,
     getThreePairs, getRepeatedPrimitives,
     getFullHouse, getLuckyRoll,
+    getMixed
 }
