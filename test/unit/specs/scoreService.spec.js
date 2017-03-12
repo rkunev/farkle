@@ -387,4 +387,34 @@ describe('scoreService', () => {
             expect(result).to.equal(1050);
         });
     });
+
+    describe('getBestScore', () => {
+        it('[1, 2, 5, 3, 1, 6] should get 250 points', () => {
+            const dice = [1, 2, 5, 3, 1, 6];
+            const result = scoreService.getBestScore(dice);
+
+            expect(result).to.equal(250);
+        });
+
+        it('[1, 2, 3, 1, 5, 5] should get 300 points', () => {
+            const dice = [1, 2, 3, 1, 5, 5];
+            const result = scoreService.getBestScore(dice);
+
+            expect(result).to.equal(300);
+        });
+
+        it('[1, 2, 3, 1, 5, 1] should get 1050 points', () => {
+            const dice = [1, 2, 3, 1, 5, 1];
+            const result = scoreService.getBestScore(dice);
+
+            expect(result).to.equal(1050);
+        });
+
+        it('[1, 1, 2, 2, 3, 3] should get 1500 points', () => {
+            const dice = [1, 1, 2, 2, 3, 3];
+            const result = scoreService.getBestScore(dice);
+
+            expect(result).to.equal(1500);
+        });
+    });
 });

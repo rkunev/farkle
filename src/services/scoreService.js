@@ -19,9 +19,11 @@ export const getPrimitives = dice => {
         .reduce((acc, next) => acc + next, 0);
 };
 
-export const getStraight = dice => uniq(dice).length == 6 ? 1500 : 0;
+export const getStraight = dice => dice.length === 6 ? uniq(dice).length === 6 ? 1500 : 0 : 0;
 
 export const getThreePairs = dice => {
+    if (dice.length < 6) return 0;
+
     const sorted = dice.slice().sort();
     const groupA = sorted.slice(0, 2);
     const groupB = sorted.slice(2, 4);
@@ -33,6 +35,8 @@ export const getThreePairs = dice => {
 };
 
 export const getRepeatedPrimitives = dice => {
+    if (dice.length < 3) return 0;
+
     const counted = countBy(dice);
     const mapped = Object.keys(counted).map(die => primitives[die][counted[die]]);
 
@@ -40,31 +44,33 @@ export const getRepeatedPrimitives = dice => {
 };
 
 export const getFullHouse = dice => {
+    if (dice.length < 5) return 0;
+
     const counted = countBy(dice);
     const keys = Object.keys(counted);
     const values = Object.values(counted);
+    const hasPair = values.includes(2);
     const hasThreeOfAKind = values.includes(3);
     const hasFourOfAKind = values.includes(4);
 
     let result = 0;
 
-    if (keys.length === 2 && hasThreeOfAKind) {
-        // [1, 1, 1, 2, 2, 2]
-        result = getRepeatedPrimitives(dice) + 250;
-    } else if (hasThreeOfAKind || hasFourOfAKind) {
-        // [1, 1, 1, 2, 2, 3]
-        // [1, 1, 1, 1, 2, 2]
-        const repeatedDie = findKey(counted, v => v > 2);
-        result = primitives[repeatedDie][counted[repeatedDie]] + 250;
-    }
+        if (keys.length === 2 && hasThreeOfAKind) {
+            // [1, 1, 1, 2, 2, 2]
+            result = getRepeatedPrimitives(dice) + 250;
+        } else if (hasPair && (hasThreeOfAKind || hasFourOfAKind)) {
+            // [1, 1, 1, 2, 2, 3]
+            // [1, 1, 1, 1, 2, 2]
+            const repeatedDie = findKey(counted, v => v > 2);
+            result = primitives[repeatedDie][counted[repeatedDie]] + 250;
+        }
+
 
     return result;
 };
 
 export const getLuckyRoll = dice => {
-    if (dice.length < 6) {
-        return 0;
-    }
+    if (dice.length < 6) return 0;
 
     return (!getPrimitives(dice)         &&
             !getStraight(dice)           &&
@@ -76,22 +82,22 @@ export const getLuckyRoll = dice => {
 };
 
 export const getMixed = dice => {
+    if (dice.length < 3) return getPrimitives(dice);
+
     const counted = countBy(dice);
     const pairs = toPairs(counted);
 
     // @todo maybe move to a separate fn
     const bestRepeated = pairs
-        .filter(p => p[1] > 2)
-        .map(p => {
-            const [die, repetition] = p;
-
-            return [die, primitives[die][repetition]]
-        })
+        .filter(([, repetition]) => repetition > 2)
+        .map(([die, repetition]) => [die, primitives[die][repetition]])
         .reduce((current, next) => {
             if (!current) return next;
 
             return current[1] > next[1] ? current : next;
         }, null);
+
+    if (!bestRepeated) return getPrimitives(dice);
 
     const repeatedDie = +bestRepeated[0];
     const plucked = dice.filter(d => d !== repeatedDie);
@@ -101,9 +107,46 @@ export const getMixed = dice => {
         Math.max(getRepeatedPrimitives(plucked), getPrimitives(plucked));
 };
 
+export const getAllUniqueCombos = dice => {
+    const combos = [];
+    const setCount = 1 << dice.length; // There are 2^N unique combinations
+
+    // starting from 0 will add an empty array to the combos
+    for (let mask = 1; mask < setCount; mask++) {
+        let combo = [];
+
+        for (let j = 0; j < dice.length; j++) {
+            let pos = 1 << j;
+
+            if ((mask & pos) == pos) {
+                combo.push(dice[j]);
+            }
+        }
+
+        combos.push(combo);
+    }
+
+    return combos;
+};
+
+export const getBestScore = dice => {
+    const allScores = [
+        getPrimitives(dice),
+        getStraight(dice),
+        getThreePairs(dice),
+        getRepeatedPrimitives(dice),
+        getFullHouse(dice),
+        getLuckyRoll(dice),
+        ...getAllUniqueCombos(dice).map(getMixed)
+    ];
+
+    return Math.max(...allScores);
+}
+
 export default {
     getPrimitives, getStraight,
     getThreePairs, getRepeatedPrimitives,
     getFullHouse, getLuckyRoll,
-    getMixed
+    getMixed, getAllUniqueCombos,
+    getBestScore
 }
