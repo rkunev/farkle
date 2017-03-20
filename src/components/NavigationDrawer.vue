@@ -6,7 +6,6 @@
             <div class="navigation-drawer__panel-header">
                 <div class="navigation-drawer__logo">
                     <svg-icon icon="dice"></svg-icon>
-
                     Farkle
                 </div>
 
@@ -23,59 +22,60 @@
 
             <ul class="navigation-drawer__list">
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/" exact active-class="navigation-drawer__link--active">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/" @click.native="closeMenu">
                         <svg-icon icon="dashboard"></svg-icon>
-
-                        <span>Dashboard</span>
-                    </md-button>
+                        Dashboard
+                    </router-link>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/play/new" @click.native="closeMenu">
                         <svg-icon icon="play"></svg-icon>
-
-                        <span>New Game</span>
-                    </md-button>
+                        New Game
+                    </router-link>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/play/hotseat/1234567" @click.native="closeMenu">
                         <svg-icon icon="load"></svg-icon>
-
-                        <span>Load Game</span>
-                    </md-button>
+                        Load Game
+                    </router-link>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" :to="profileLink" exact active-class="navigation-drawer__link--active">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact :to="profileLink" @click.native="closeMenu">
                         <svg-icon icon="profile"></svg-icon>
-
-                        <span>Profile</span>
-                    </md-button>
+                        Profile
+                    </router-link>
                 </li>
-                <li class="navigation-drawer__item ">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/users" @click.native="closeMenu">
                         <svg-icon icon="leaderboard"></svg-icon>
-
-                        <span>Leaderboard</span>
-                    </md-button>
+                        Leaderboard
+                    </router-link>
                 </li>
                 <li class="navigation-drawer__item navigation-drawer__item--subheader">
-                    <h2>Help &amp; Feadback</h2>
+                    Help & Feadback
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/users" @click.native="closeMenu">
                         <svg-icon icon="settings"></svg-icon>
-
-                        <span>Settings</span>
-                    </md-button>
+                        Settings
+                    </router-link>
                 </li>
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="closeMenu" class="navigation-drawer__link" to="/users" exact active-class="navigation-drawer__link--active">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/about" @click.native="closeMenu">
                         <svg-icon icon="info"></svg-icon>
-
-                        <span>About</span>
-                    </md-button>
+                        About
+                    </router-link>
                 </li>
+                <li class="navigation-drawer__item navigation-drawer__item--subheader"></li>
                 <li class="navigation-drawer__item">
-                    <md-button :tabindex="linkTabIndex" @click="logOut" class="navigation-drawer__link">
+                    <md-button :tabindex="linkTabIndex" @click="logOut" class="navigation-drawer__button">
                         <svg-icon icon="exit"></svg-icon>
 
                         <span>Sign Out</span>
@@ -104,12 +104,12 @@
             userInitials: function() {
                 return this.user.name ? this.user.name[0] : '';
             },
-            profileLink: function() {
-                return '/users/' + this.user.id + '/profile'
-            },
             linkTabIndex: function() {
                 return this.isOpen ? 0 : -1;
-            }
+            },
+            profileLink: function() {
+                return `/users/${this.user.id}/profile`;
+            },
         },
         methods: {
             closeMenu(event) {
@@ -262,16 +262,18 @@
         color: rgba(0, 0, 0, .54);
     }
 
-    .navigation-drawer__link.md-button {
+    .navigation-drawer__link {
         @include font-body-2;
 
         color: rgba(0, 0, 0, .87);
         height: 48px;
         line-height: 48px;
         text-align: left;
+        padding: 0 16px;
         text-decoration: none;
         text-transform: none;
         width: 100%;
+        display: inline-block;
 
         &.navigation-drawer__link--active,
         &:hover, &:focus {
@@ -284,6 +286,15 @@
         &.navigation-drawer__link--active:hover {
             color: $primary-color-dark;
             svg { fill: $primary-color-dark }
+        }
+    }
+
+    .navigation-drawer__item .navigation-drawer__button {
+        @extend .navigation-drawer__link;
+
+        .waves-effect {
+            padding-left: 0;
+            padding-right: 0;
         }
     }
 

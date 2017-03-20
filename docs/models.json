@@ -63,26 +63,37 @@
             "players": {
                 "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1": {
                     "type": "human",
-                    "score": 2550,
-                    "turn": true,
-                    "rolls": 1,
+                    "name": "Rosen Kunev",
                 },
                 "UN5aO2E2lUDCV0dzY9jYy5S1EM2a": {
                     "type": "robot",
-                    "score": -100,
-                    "turn": false,
-                    "rolls": 0
+                    "name": "Disco Robot",
                 },
             },
             "dice": {
-                // each die has an uid and a value
-                "AN5aO2E2lUDCV0dzY9jYy5S1EM2a": 1,
-                "BN5aO2E2lUDCV0dzY9jYy5S1EM2a": 2,
-                "CN5aO2E2lUDCV0dzY9jYy5S1EM2a": 2,
-                "DN5aO2E2lUDCV0dzY9jYy5S1EM2a": 5,
-                "EN5aO2E2lUDCV0dzY9jYy5S1EM2a": 6,
-                "FN5aO2E2lUDCV0dzY9jYy5S1EM2a": 6,
+                // die uid and it's state
+                "AN5aO2E2lUDCV0dzY9jYy5S1EM2a": { "checked": true, "value": 1 },
+                "BN5aO2E2lUDCV0dzY9jYy5S1EM2a": { "checked": false, "value": 2 },
+                "CN5aO2E2lUDCV0dzY9jYy5S1EM2a": { "checked": false, "value": 4 },
+                "DN5aO2E2lUDCV0dzY9jYy5S1EM2a": { "checked": true, "value": 5 },
+                "EN5aO2E2lUDCV0dzY9jYy5S1EM2a": { "checked": false, "value": 6 },
+                "FN5aO2E2lUDCV0dzY9jYy5S1EM2a": { "checked": false, "value": 6 },
             },
+            "scoresheet": {
+                // player uid
+                "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1": {
+                    // each row has unique id
+                    "1pXBEDWdO3tjnhKepeUN5aO2E2lU": { "current": 100, "next": 500 },
+                    "3Ok4dcLFW62L6TadJOAVKi0Dk4BS": { "current": 600, "next": null },
+                },
+                "UN5aO2E2lUDCV0dzY9jYy5S1EM2a": {
+                    // each row has unique id
+                    "1pXBEDWdO3tjnhKepeUN5aO2E2lU": { "current": 500, "next": 0 },
+                    "3Ok4dcLFW62L6TadJOAVKi0Dk4BS": { "current": 500, "next": null },
+                },
+            },
+            // which player is in turn
+            "turn": "xc3ocpLFcPPw9N7GeuZ6x4iLdaj1"
         }
     }
 }

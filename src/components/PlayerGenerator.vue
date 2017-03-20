@@ -7,20 +7,13 @@
                       @on-submit="addPlayer()">
             </md-input>
 
-            <md-button class="player-generator__create-player"
-                       primary
-                       @click="addPlayer()">
-                +1
-            </md-button>
-
+            <md-button class="player-generator__create-player" primary @click="addPlayer()">+1</md-button>
             <md-button class="player-generator__start" accent>Start</md-button>
         </div>
 
         <transition-group name="player-generator__players" tag="div" class="player-generator__players">
             <md-card v-for="player of players" :key="player.id" class="player-generator__player">
-                <template slot="title">
-                    {{ player.name }}
-                </template>
+                <template slot="title">{{ player.name }}</template>
 
                 <template slot="subtitle">{{ player.isRobot ? 'Dice Robot' : 'Human' }}</template>
 

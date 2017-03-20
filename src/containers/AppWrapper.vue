@@ -2,11 +2,11 @@
     <div class="app-wrapper">
         <navigation-drawer v-show="isUserAuthenticated" :is-open="isOpen" @close-menu="closeMenu"></navigation-drawer>
 
-        <app-bar v-show="isUserAuthenticated" @open-menu="openMenu"></app-bar>
+        <div class="main-content">
+            <app-bar v-show="isUserAuthenticated" @open-menu="openMenu"></app-bar>
 
-        <main>
             <router-view></router-view>
-        </main>
+        </div>
     </div>
 </template>
 
@@ -45,15 +45,27 @@
 
 <style lang="scss">
     @import "~assets/scss/_media-queries";
+    .navigation-drawer--is-open + .main-content {
+        overflow-y: auto;
+    }
+
+    .app-wrapper,
+    .main-content {
+        display: flex;
+        flex-direction: column;
+    }
 
     .app-wrapper {
         height: 100%;
         background-color: #fafafa;
-
         main {
             @include tablet-landscape-up {
                 padding-top: 60px;
             }
         }
+    }
+
+    .main-content {
+        flex: 1 1 auto;
     }
 </style>
