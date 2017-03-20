@@ -106,10 +106,6 @@
         transition: transform 0.3s;
     }
 
-    .player-generator__player .md-card__action-button:first-child {
-        min-width: 164px; // equalize "Change To <type>" width
-    }
-
     .player-generator__player .md-card__action-button:last-child {
         margin-left: auto;
         svg { fill: crimson }
