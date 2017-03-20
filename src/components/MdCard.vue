@@ -42,7 +42,7 @@
         background: #fff;
         @include shadow(2);
         padding: 16px 8px 8px;
-        margin: 8px 8px;
+        margin: 8px;
         border-radius: 4px;
         min-height: 150px;
         display: flex;

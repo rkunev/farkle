@@ -95,7 +95,6 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-
         align-self: center;
         width: 100%;
         max-width: 552px; // 2 cards per row
