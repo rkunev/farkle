@@ -129,6 +129,7 @@
     @import '~assets/scss/_settings.scss';
     @import '~assets/scss/_palette.scss';
     @import '~assets/scss/_typography.scss';
+    @import "~assets/scss/_media-queries";
 
     .navigation-drawer {
         position: fixed;
@@ -170,17 +171,17 @@
 
     .navigation-drawer__logo {
         display: none;
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 960px) {
-        .navigation-drawer__logo {
+        @include tablet-landscape-up {
             display: block;
             padding: 16px;
             height: 64px;
+        }
 
-            svg {
-                vertical-align: middle;
+        .svg-icon svg {
+            vertical-align: middle;
+
+            @include tablet-landscape-up {
                 height: 100%;
                 width: auto;
                 margin-right: 10px;
@@ -193,25 +194,19 @@
         background-size: cover;
         border-bottom: 1px solid $divider-color;
         color: #fff;
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 960px) {
-        .navigation-drawer__panel-header {
+        @include tablet-landscape-up {
             background: #fff;
             color: #333;
         }
     }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 960px) {
-        .navigation-drawer__user {
-            display: none;
-        }
-    }
-
     .navigation-drawer__user {
         padding: 16px;
+
+        @include tablet-landscape-up {
+            display: none;
+        }
     }
 
     .navigation-drawer__user-avatar {

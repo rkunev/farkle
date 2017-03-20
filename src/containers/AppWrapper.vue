@@ -44,15 +44,16 @@
 </script>
 
 <style lang="scss">
+    @import "~assets/scss/_media-queries";
+
     .app-wrapper {
         height: 100%;
         background-color: #fafafa;
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 960px) {
-        .app-wrapper main {
-            padding-top: 60px;
+        main {
+            @include tablet-landscape-up {
+                padding-top: 60px;
+            }
         }
     }
 </style>
