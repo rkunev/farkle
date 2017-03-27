@@ -1,6 +1,6 @@
 <template>
     <header class="app-bar">
-        <md-button icon class="app-bar__nav-drawer-toggle" @click="openMenu">
+        <md-button icon class="app-bar__nav-drawer-toggle" no-ink @click="openMenu">
             <svg-icon icon="menu"></svg-icon>
         </md-button>
 
@@ -33,6 +33,7 @@
     @import "~assets/scss/_typography";
 
     .app-bar {
+        flex-shrink: 0;
         background-color: $primary-color;
         display: flex;
         align-items: center;

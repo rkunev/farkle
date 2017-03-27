@@ -62,6 +62,11 @@
     .md-card__action-button {
         margin-right: 8px;
 
+        .waves-effect {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
         &:last-child {
             margin-right: 0;
         }

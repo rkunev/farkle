@@ -1,5 +1,6 @@
 // @todo Research what are the durations
-$transition-duration-quick: .28s;
+$transition-duration-default: .28s;
+$transition-duration-quick: .14s;
 
 $transition-timing-function-standard: cubic-bezier(.4, 0, .2, 1);
 $transition-timing-function-deceleration: cubic-bezier(0, 0, .2, 1);
