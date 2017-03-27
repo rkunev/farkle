@@ -36,16 +36,16 @@ webpackConfig.module.preLoaders = webpackConfig.module.preLoaders || [];
 webpackConfig.module.preLoaders.unshift({
     test: /\.js$/,
     loader: 'isparta',
-    include: path.resolve(projectRoot, 'src')
+    include: path.resolve('src/services'),
 });
 
 // only apply babel for test files when using isparta
-webpackConfig.module.loaders.some(function (loader, i) {
-    if (loader.loader === 'babel') {
-        loader.include = path.resolve(projectRoot, 'test/unit');
-        return true;
-    }
-});
+// webpackConfig.module.loaders.some(function (loader, i) {
+//     if (loader.loader === 'babel') {
+//         loader.include = path.resolve(projectRoot, 'test/unit');
+//         return true;
+//     }
+// });
 
 module.exports = function (config) {
     config.set({
@@ -56,7 +56,7 @@ module.exports = function (config) {
         browsers: ['PhantomJS'],
         frameworks: ['mocha', 'sinon-chai'],
         reporters: ['spec', 'coverage'],
-        files: ['./index.js'],
+        files: ['../../node_modules/babel-polyfill/dist/polyfill.js', './index.js'],
         preprocessors: {
             './index.js': ['webpack', 'sourcemap']
         },
