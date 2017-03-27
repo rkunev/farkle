@@ -37,6 +37,11 @@
                 rollScore: 0,
             }
         },
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                // redirect to new game if there are no players in Vuex store
+            });
+        },
         computed: {
             ...mapGetters({
                 dice: 'diceByRows',
