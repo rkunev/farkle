@@ -158,6 +158,17 @@ const getters = {
             ? scoresheets[scoresheets.length - 2].next
             : 0;
     },
+    playerHasZilched: (state, getters) => playerId => {
+        const lastThreeScores = getters.scoresheetByPlayerId(playerId)
+            .map(s => s.next)
+            .slice(-4);
+
+        if (lastThreeScores.length < 4) {
+            return false;
+        }
+
+        return lastThreeScores.some(e => e !== 0);
+    }
 };
 
 export default {

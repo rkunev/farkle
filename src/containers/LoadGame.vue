@@ -67,6 +67,7 @@
                 rolledDicePoints: 'rolledDicePoints', // D
                 playerInTurn: 'playerInTurn',
                 lastSavedScore: 'lastSavedScore',
+                playerHasZilched: 'playerHasZilched',
             })
         },
         methods: {
@@ -104,8 +105,16 @@
 
                 if (!this.rolledDicePoints) {
                     this.turnPoints = 0;
-                    this.canRoll = this.canEndTurn = true;
                     this.addPoints({ playerId: this.playerInTurn.id, points: 0 });
+
+                    const hasPenalty = this.playerHasZilched(this.playerInTurn.id);
+
+                    if (hasPenalty) {
+                        this.addPoints({ playerId: this.playerInTurn.id, points: -500 });
+                    }
+
+                    this.canRoll = this.canEndTurn = false;
+
                     this.rollAllDice();
                     this.changeTurn();
                 }
