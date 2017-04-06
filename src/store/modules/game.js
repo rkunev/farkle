@@ -168,6 +168,17 @@ const getters = {
         }
 
         return lastThreeScores.some(e => e !== 0);
+    },
+    isLastRound: state => {
+        return state.game.players
+            .map(p => {
+                return {
+                    name: p.name,
+                    turns: p.scoresheet.length,
+                    points: p.scoresheet[p.scoresheet.length - 1].current
+                };
+            })
+            .some(p => p.points >= 10000)
     }
 };
 

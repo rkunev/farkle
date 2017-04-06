@@ -128,6 +128,18 @@
                 this.canEndTurn = false;
                 this.canPiggyback = this.isFirstRoll = true;
                 this.saveAllDice();
+
+                if (this.playerInTurn.points > 10000) {
+                    // 1. Save the first player that reaches target
+                    // 2. Check who's next in turn,
+                    //   2.1. If it's the same saved player check if other players have the same amount of points
+                    //     2.1.1. If there are players with the same amount of points - disable the other players (the losers)
+                    //     2.1.1.1. Remove the saved player
+                    //     2.1.2. Else - we have a winner
+                    //   2.2. Else - there are players that can still roll... proceed as usual
+                    console.log('Winner is', this.playerInTurn.name)
+                }
+
                 this.changeTurn();
             },
             stealPoints() {
