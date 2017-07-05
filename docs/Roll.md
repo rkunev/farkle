@@ -9,8 +9,8 @@ G Next Player Can Piggyback
 ---
 
 After every roll:
-1. D > 0 (normal row with points)
-1.1. E = C > 50 to allow rolling again
+1. D > 0 (normal roll with points)
+1.1. E = C > 0 to allow rolling again
 1.2. F = C >= 300 to allow end turn
 1.3. G = false
 

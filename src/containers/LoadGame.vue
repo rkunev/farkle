@@ -1,21 +1,37 @@
 <template>
     <div class="game-table-page">
-        <h2>{{ activePlayer.name }}</h2>
-
         <div class="game-table__score">
-            Score: {{ activePlayer.points }}
+            Score: {{ playerInTurn.points }}
             <br>
-            Turn score: {{ turnScore }}
-            Roll score: {{ rollScore }}
+            Turn score: {{ turnPoints }}
+            <br>
+            selectedDicePoints: {{ selectedDicePoints }}
+            <br>
+            rolledDicePoints: {{ rolledDicePoints }}
         </div>
 
         <div class="game-table__controls">
-            <md-button class="game-table__control-button" primary @click="roll">Roll</md-button>
-            <md-button class="game-table__control-button" :disabled="turnScore < 300" primary @click="endTurn">End Turn</md-button>
-<!--             <md-button class="game-table__control-button" :disabled="!isFirstRoll || !turnScore" accent @click="stealPoints">Piggyback</md-button> -->
+            <md-button class="game-table__control-button"
+                       primary
+                       :disabled="!canRoll"
+                       @click="roll()">
+                Roll
+            </md-button>
+
+            <md-button class="game-table__control-button"
+                       primary
+                       :disabled="!canEndTurn"
+                       @click="endTurn()">
+                End Turn
+            </md-button>
+
+            <md-button class="game-table__control-button"
+                       accent
+                       :disabled="!canPiggyback"
+                       @click="stealPoints()">Piggyback</md-button>
         </div>
 
-        <dice :disabled="disabledDice" :dice="dice" @checked="handleDiceCheck" class="game-table__dice"></dice>
+        <dice :disabled="areDiceDisabled" :dice="dice" @select="handleDiceSelect" class="game-table__dice"></dice>
     </div>
 </template>
 
@@ -30,11 +46,12 @@
         components: { Dice, MdButton },
         data() {
             return {
-                disabledDice: true,
                 isFirstRoll: true,
-                canEndTurn: false,
-                turnScore: 0,
-                rollScore: 0,
+                areDiceDisabled: true,
+                turnPoints: 0, // B
+                canRoll: true, // E
+                canEndTurn: false, // F
+                canPiggyback: false, // G
             }
         },
         beforeRouteEnter(to, from, next) {
@@ -45,84 +62,98 @@
         computed: {
             ...mapGetters({
                 dice: 'diceByRows',
-                activePlayer: 'playerInTurn',
+                unSavedDice: 'unSavedDice',
+                selectedDicePoints: 'selectedDicePoints', // C
+                rolledDicePoints: 'rolledDicePoints', // D
+                playerInTurn: 'playerInTurn',
+                lastSavedScore: 'lastSavedScore',
+                playerHasZilched: 'playerHasZilched',
             })
         },
         methods: {
             ...mapActions([
                 'toggleDie',
-                'rollUncheckedDice',
-                'resetDice',
                 'rollAllDice',
+                'rollFreeDice',
+                'lockAllDice',
+                'saveSelectedDice',
                 'changeTurn',
                 'addPoints',
+                'saveAllDice',
+                'unlockUnselectedDice',
             ]),
-            handleDiceCheck(die) {
+            handleDiceSelect(die) {
                 this.toggleDie(die.id);
-                this.turnScore = calculateCheckedDicePoints([...this.dice[0], ...this.dice[1]]);
-                this.canEndTurn = this.turnScore >= 300;
+                this.canRoll = this.selectedDicePoints > 0;
+                this.canEndTurn = (this.turnPoints + this.selectedDicePoints) >= 300;
             },
             roll() {
-                if (this.isFirstRoll) {
-                    this.turnScore = 0;
-                    this.rollScore = 0; // ?
-                    this.rollAllDice();
-                } else if (checkIfAllDiceAreSaved([...this.dice[0], ...this.dice[1]])) {
-                    this.rollAllDice();
-                } else {
-                    this.rollUncheckedDice();
-                    this.rollScore = 0;
+                this.turnPoints += this.selectedDicePoints;
+
+                if (!this.isFirstRoll) {
+                    this.saveSelectedDice();
                 }
 
-                this.isFirstRoll = false;
-                this.rollScore += calculateUncheckedDicePoints([...this.dice[0], ...this.dice[1]]);
 
-                if (this.rollScore === 0) {
-                    this.endTurn();
+                if (!this.unSavedDice.length) {
+                    this.rollAllDice();
                 } else {
-                    this.canEndTurn = this.turnScore >= 300; // this can be computed
-                    this.disabledDice = false;
+                    this.rollFreeDice();
+                }
+
+                this.canRoll = this.isFirstRoll = this.areDiceDisabled = this.canPiggyback = false;
+
+                if (!this.rolledDicePoints) {
+                    this.turnPoints = 0;
+                    this.addPoints({ playerId: this.playerInTurn.id, points: 0 });
+
+                    const hasPenalty = this.playerHasZilched(this.playerInTurn.id);
+
+                    if (hasPenalty) {
+                        this.addPoints({ playerId: this.playerInTurn.id, points: -500 });
+                    }
+
+                    this.canRoll = this.canEndTurn = false;
+
+                    this.rollAllDice();
+                    this.changeTurn();
                 }
             },
             endTurn() {
+                this.addPoints({
+                    playerId: this.playerInTurn.id,
+                    points: this.turnPoints + this.selectedDicePoints
+                });
+                this.turnPoints = 0;
                 this.canEndTurn = false;
-                this.isFirstRoll = true;
-                this.addPoints({ playerId: this.activePlayer.id, points: this.turnScore });
+                this.canPiggyback = this.isFirstRoll = true;
+                this.saveAllDice();
+
+                if (this.playerInTurn.points > 10000) {
+                    // 1. Save the first player that reaches target
+                    // 2. Check who's next in turn,
+                    //   2.1. If it's the same saved player check if other players have the same amount of points
+                    //     2.1.1. If there are players with the same amount of points - disable the other players (the losers)
+                    //     2.1.1.1. Remove the saved player
+                    //     2.1.2. Else - we have a winner
+                    //   2.2. Else - there are players that can still roll... proceed as usual
+                    console.log('Winner is', this.playerInTurn.name)
+                }
+
                 this.changeTurn();
-                this.roll();
             },
-            // @fixme Logic is FUBAR
             stealPoints() {
-                this.disabledDice = false;
-                this.isPiggybacking = true;
-                this.canEndTurn = false;
+                this.turnPoints = this.lastSavedScore;
+                this.canRoll = true;
+                this.canPiggyback = false;
+                this.unlockUnselectedDice();
                 this.roll();
             }
         },
         destroyed() {
             // @todo before unloading save the game state if the game is not finished
-            this.resetDice();
+            this.rollAllDice();
         }
-    }
-
-    function calculateCheckedDicePoints(dice) {
-        return dice
-            .filter(d => d.checked)
-            .filter(d => (d.value === 5 || d.value === 1))
-            .map(d => d.value === 1 ? 100 : 50)
-            .reduce((acc, next) => acc + next, 0);
-    }
-
-    function calculateUncheckedDicePoints(dice) {
-        return dice
-            .filter(d => !d.checked)
-            .filter(d => (d.value === 5 || d.value === 1))
-            .map(d => d.value === 1 ? 100 : 50)
-            .reduce((acc, next) => acc + next, 0);
-    }
-
-    function checkIfAllDiceAreSaved(dice) {
-        return dice.every(d => d.checked);
     }
 </script>
 

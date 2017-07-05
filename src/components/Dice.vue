@@ -1,7 +1,7 @@
 <template>
     <div class="dice" :class="{ 'dice--disabled': disabled }">
         <div class="dice__row" v-for="diceRow of dice">
-            <die v-for="die of diceRow" :die="die" @checked="onDieCheck(die)" />
+            <die v-for="die of diceRow" :die="die" @select="onDieSelect(die)" />
         </div>
     </div>
 </template>
@@ -14,9 +14,9 @@
         components: { Die },
         props: ['dice', 'disabled'],
         methods: {
-            onDieCheck(die) {
+            onDieSelect(die) {
                 if (!this.disabled) {
-                    this.$emit('checked', die);
+                    this.$emit('select', die);
                 }
             }
         }

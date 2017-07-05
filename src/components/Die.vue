@@ -1,6 +1,6 @@
 <template>
     <span class="die">
-        <md-button class="die__button" no-ink :class="{ 'checked': die.checked }" @click="emit">
+        <md-button class="die__button" no-ink :class="{ 'selected': die.isSelected }" @click="emit">
             {{ die.value }}
         </md-button>
     </span>
@@ -15,7 +15,7 @@
         props: ['die'],
         methods: {
             emit() {
-                this.$emit('checked', this.die);
+                this.$emit('select', this.die);
             }
         }
     }
@@ -39,7 +39,7 @@
         transition-duration: $transition-duration-quick;
         transition-timing-function: $transition-timing-function-deceleration;
 
-        &.checked {
+        &.selected {
             background-color: rgba(153, 153, 153, .2);
             @include shadow(2);
         }
