@@ -23,6 +23,7 @@
     @import '~assets/scss/_palette';
     @import '~assets/scss/_shadows';
     @import '~assets/scss/_typography';
+    @import "~assets/scss/_media-queries";
 
     .md-card__info {
         display: flex;
@@ -41,18 +42,14 @@
         background: #fff;
         @include shadow(2);
         padding: 16px 8px 8px;
-        margin: 8px 20px;
+        margin: 8px;
         border-radius: 4px;
-        width: 100%;
         min-height: 150px;
         display: flex;
         flex-direction: column;
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 420px) {
-        .md-card {
-            width: auto;
+        @include phone-only {
+            width: 100%;
         }
     }
 
@@ -64,6 +61,11 @@
 
     .md-card__action-button {
         margin-right: 8px;
+
+        .waves-effect {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
 
         &:last-child {
             margin-right: 0;

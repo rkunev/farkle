@@ -7,34 +7,28 @@
                       @on-submit="addPlayer()">
             </md-input>
 
-            <md-button class="player-generator__create-player"
-                       primary
-                       @click="addPlayer()">
-                +1
-            </md-button>
-
-            <md-button class="player-generator__start" accent>Start</md-button>
+            <md-button class="player-generator__create-player" primary @click="addPlayer()">+1</md-button>
+            <md-button :to="startGameLink" :disabled="!canPlay" class="player-generator__start" accent>Start</md-button>
         </div>
 
         <transition-group name="player-generator__players" tag="div" class="player-generator__players">
             <md-card v-for="player of players" :key="player.id" class="player-generator__player">
-                <template slot="title">
-                    {{ player.name }}
-                </template>
+                <template slot="title">{{ player.name }}</template>
 
                 <template slot="subtitle">{{ player.isRobot ? 'Dice Robot' : 'Human' }}</template>
 
                 <template slot="actions">
                     <md-button class="md-card__action-button"
-                               no-ink
-                               @click="removePlayer(player)"
-                               :disabled="players.length < 2">
-                        Discard
+                               @click="togglePlayerType(player)">
+                       Change to {{ player.isRobot ? 'Human' : 'Robot' }}
                     </md-button>
 
                     <md-button class="md-card__action-button"
-                               @click="togglePlayerType(player)">
-                        Change to human
+                               no-ink
+                               icon
+                               @click="removePlayer(player)"
+                               :disabled="!canPlay">
+                        <svg-icon icon="delete"></svg-icon>
                     </md-button>
                 </template>
             </md-card>
@@ -46,22 +40,29 @@
     import MdButton from 'components/MdButton';
     import MdInput from 'components/MdInput';
     import MdCard from 'components/MdCard';
+    import SvgIcon from 'components/SvgIcon';
 
     export default {
         name: 'player-generator',
-        components: { MdButton, MdInput, MdCard },
+        components: { MdButton, MdInput, MdCard, SvgIcon },
         data() {
             return {
                 playerName: '',
                 players: [
                     { name: 'Happy Plum 1', isRobot: true, id: 1 },
-                ]
+                ],
             }
         },
         computed: {
             playerLabel: function() {
                 return 'Player ' + (this.players.length + 1);
-            }
+            },
+            startGameLink: function() {
+              return this.canPlay ? '/play/hotseat/1234567' : '';
+            },
+            canPlay: function() {
+              return this.players.length > 1;
+            },
         },
         methods: {
             addPlayer() {
@@ -75,12 +76,14 @@
             },
             togglePlayerType(player) {
                 player.isRobot = !player.isRobot;
-            }
-        }
+            },
+        },
     }
 </script>
 
 <style lang="scss">
+    @import "~assets/scss/_media-queries";
+
     .player-generator {
         display: flex;
         flex-direction: column;
@@ -91,24 +94,27 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
+        align-self: center;
+        width: 100%;
+        max-width: 552px; // 2 cards per row
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 635px) {
-        .player-generator__players {
-            justify-content: space-around;
+        @include tablet-landscape-up {
+            max-width: 828px; // 3 cards per row
         }
-    }
 
-    // @todo make a mixin for media queries
-    @media screen and (min-width: 1024px) {
-        .player-generator__players {
-            justify-content: flex-start;
+        @include desktop-up {
+            max-width: 1104px; // 4 cards per row
         }
     }
 
     .player-generator__player {
+        min-width: 260px;
         transition: transform 0.3s;
+    }
+
+    .player-generator__player .md-card__action-button:last-child {
+        margin-left: auto;
+        svg { fill: crimson }
     }
 
     .player-generator__players-enter {
