@@ -26,7 +26,7 @@ body {
     font-family: $family;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    line-height: 1;
+    line-height: normal;
 }
 ol, ul {
     list-style: none;
