@@ -45,6 +45,10 @@ export function signIn() {
 export function signOut() {
     userService.removeAnonymousUser();
 
-    return firebase.auth().signOut()
-        .catch(error => console.log('Something went wrong while signing out the user', error));
+    if (firebase.apps.length) {
+        return firebase.auth().signOut()
+            .catch(error => console.log('Something went wrong while signing out the user', error));
+    } else {
+        return Promise.resolve();
+    }
 }

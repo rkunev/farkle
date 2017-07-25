@@ -11,8 +11,8 @@ var config = {
     messagingSenderId: "978310062335"
 };
 
-// if (!isOffline()) {
-//     firebase.initializeApp(config);
-// }
+if (!isOffline()) {
+    firebase.initializeApp(config);
+}
 
 export { firebase };
