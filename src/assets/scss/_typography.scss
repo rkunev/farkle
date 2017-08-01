@@ -4,8 +4,14 @@ $_medium: 500;
 $family: Roboto, Noto, sans-serif;
 
 $display-2-size: 45px;
-$display-1-height: 1.066;
+$display-2-height: 1.066;
 $display-2-weight: $_regular;
+
+@mixin font-display-2 {
+    font-size: $display-2-size;
+    line-height: $display-2-height;
+    font-weight: $display-2-weight;
+}
 
 $display-1-size: 34px;
 $display-1-height: 1.176;
@@ -76,4 +82,11 @@ $body-1-weight: $_regular;
 }
 
 $caption-size: 12px;
+$caption-height: 1.333;
 $caption-weight: $_regular;
+
+@mixin font-caption {
+    font-size: $caption-size;
+    font-weight: $caption-weight;
+    line-height: $caption-height;
+}

@@ -1,10 +1,20 @@
 <template>
     <div class="login-page">
-        <img src="static/dice-logo.svg">
-        <p>
-            <md-button primary v-if="!isUserOffline" @click="login">Google</md-button>
-            <md-button primary-inverted @click="loginAnonymously">Incognito</md-button>
-        </p>
+        <img class="login-page__logo" src="static/dice-logo.svg">
+
+        <div class="login-page__buttons">
+            <h1 class="login-page__title">Hey, welcome to Farkle!</h1>
+
+            <md-button primary v-if="!isUserOffline" @click="login">Log in with Google</md-button>
+
+            <div class="login-page__divider">OR</div>
+
+            <md-button primary-inverted @click="loginAnonymously">Play with a Local Account</md-button>
+        </div>
+
+        <div class="login-page__terms">
+            By continuing, you agree to our <b>Terms of Service</b> and <b>Privacy Policy</b>
+        </div>
     </div>
 </template>
 
@@ -42,10 +52,101 @@
 </script>
 
 <style lang="scss">
+    @import '~assets/scss/_typography';
+    @import '~assets/scss/_media-queries';
+    @import '~assets/scss/_palette';
+
     .login-page {
+        $old-light-green: rgb(0, 188, 212);
+        $old-dark-green: rgb(76, 175, 80);
+
         height: 100%;
         text-align: center;
-        padding-top: 60px;
-        background-image: repeating-radial-gradient(at right bottom, rgb(0, 188, 212) 0%, rgb(76, 175, 80) 100%);
+        background-image: repeating-radial-gradient(at right bottom, #459af4 0%, #64d9c7 100%);
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        align-items: center;
+        padding: 95px 20px 20px;
+        position: relative;
+
+        @media (min-height: 480px) and (min-width: 600px) {
+            padding-top: 125px;
+        }
+
+        @media (max-height: 320px) {
+            padding-top: 15px;
+        }
+    }
+
+    .login-page__logo {
+        width: 75px;
+        position: absolute;
+        top: 20px;
+
+        @media (min-height: 480px) and (min-width: 600px) {
+            width: 100px;
+        }
+
+        @media (max-height: 320px) {
+            top: 15px;
+            right: 20px;
+            width: 50px;
+        }
+    }
+
+    .login-page__buttons {
+        margin: auto;
+
+        @include tablet-portrait-up {
+            width: 440px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            margin: 0 auto 12px;
+            max-width: 320px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .login-page__title {
+        @include font-headline;
+        margin-bottom: 12px;
+
+        @media (min-height: 480px) and (min-width: 600px) {
+            margin-bottom: 48px;
+        }
+    }
+
+    .login-page__divider {
+        position: relative;
+        margin: 20px auto;
+        max-width: 320px;
+
+        &:before, &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-top: 1px solid #fff;
+            width: 50px;
+        }
+
+        &:before {
+            left: 0;
+        }
+
+        &:after {
+            right: 0;
+        }
+    }
+
+    .login-page__terms {
+        @include font-caption;
+        margin-top: 12px;
     }
 </style>
