@@ -1,5 +1,5 @@
 <template>
-    <div class="hotseat-page main-content--boxed">
+    <div class="hotseat-page">
         <h2 class="robots-config__title">Last one buys</h2>
 
         <player-generator></player-generator>

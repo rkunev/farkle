@@ -1,6 +1,6 @@
 <template>
     <header class="app-bar">
-        <md-button icon class="app-bar__nav-drawer-toggle" no-ink @click="openMenu">
+        <md-button icon class="app-bar__nav-drawer-toggle" @click="toggleMenu">
             <svg-icon icon="menu"></svg-icon>
         </md-button>
 
@@ -20,8 +20,8 @@
         name: 'app-bar',
         components: { SvgIcon, MdButton },
         methods: {
-            openMenu(event) {
-                this.$emit('open-menu', event);
+            toggleMenu(event) {
+                this.$emit('menu-toggle', event);
             }
         },
     }

@@ -1,9 +1,9 @@
 <template>
     <div class="app-wrapper">
-        <navigation-drawer v-show="true" :is-open="isOpen" @close-menu="closeMenu"></navigation-drawer>
+        <navigation-drawer :is-open="isOpen" @close-menu="closeMenu"></navigation-drawer>
 
         <div class="main-content-wrapper">
-            <app-bar v-show="true" @open-menu="openMenu"></app-bar>
+            <app-bar @menu-toggle="toggleMenu"></app-bar>
 
             <router-view class="main-content"></router-view>
         </div>
@@ -13,6 +13,7 @@
 <script>
     import { isAuthenticated } from 'services/authService';
     import { getCurrentUser } from 'services/userService';
+    import { isTabletAndUp, saveMenuState, getMenuState } from 'services/navigationDrawerService';
 
     import NavigationDrawer from 'components/NavigationDrawer';
     import MdButton from 'components/MdButton';
@@ -24,13 +25,19 @@
         components: { NavigationDrawer, MdButton, SvgIcon, AppBar },
         data() {
             return {
-                isOpen: false,
+                isOpen: isTabletAndUp() && getMenuState(),
                 isUserAuthenticated: false
             }
         },
         methods: {
-            openMenu() { this.isOpen = true },
-            closeMenu() { this.isOpen = false },
+            closeMenu() {
+                this.isOpen = false;
+                saveMenuState(this.isOpen);
+            },
+            toggleMenu() {
+                this.isOpen = !this.isOpen;
+                saveMenuState(this.isOpen);
+            },
         },
         created() {
             // Update store on every app load, because user might be already authenticated
