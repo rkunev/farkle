@@ -57,7 +57,7 @@
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item navigation-drawer__item--subheader">
-                    Help & Feadback
+                    Help & Feedback
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
@@ -89,6 +89,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import { signOut } from 'services/authService';
+    import { isTabletAndUp } from 'services/navigationDrawerService';
 
     import SvgIcon from 'components/SvgIcon';
     import MdButton from 'components/MdButton';
@@ -113,7 +114,9 @@
         },
         methods: {
             closeMenu(event) {
-                this.$emit('close-menu', event);
+                if (!isTabletAndUp()) {
+                    this.$emit('close-menu', event);
+                }
             },
             logOut() {
                 signOut().then(() => {
@@ -140,6 +143,10 @@
         overflow: hidden;
         pointer-events: none;
         z-index: 1;
+
+        @include tablet-landscape-up {
+            top: 64px;
+        }
     }
 
     .navigation-drawer--is-open {
@@ -167,6 +174,11 @@
         pointer-events: auto;
         transition: transform .28s cubic-bezier(0,0,0.3,1);
         overflow-y: auto;
+
+        @include tablet-landscape-up {
+            background: none;
+            box-shadow: none;
+        }
     }
 
     .navigation-drawer__logo {
@@ -196,8 +208,7 @@
         color: #fff;
 
         @include tablet-landscape-up {
-            background: #fff;
-            color: #333;
+            display: none;
         }
     }
 
@@ -309,5 +320,9 @@
         will-change: opacity;
         pointer-events: none;
         transition: opacity 0.3s cubic-bezier(0,0,0.3,1);
+
+        @include tablet-landscape-up {
+            display: none;
+        }
     }
 </style>
