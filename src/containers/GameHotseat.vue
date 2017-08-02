@@ -1,5 +1,5 @@
 <template>
-    <div class="hotseat-page">
+    <div class="hotseat-page main-content--boxed">
         <h2 class="robots-config__title">Last one buys</h2>
 
         <player-generator></player-generator>
@@ -17,11 +17,11 @@
 </script>
 
 <style lang="scss">
-  @import '~assets/scss/_typography';
+    @import '~assets/scss/_typography';
 
-  .robots-config__title {
-      @include font-display-1;
-      margin-top: 10px;
-      text-align: center;
-  }
+    .robots-config__title {
+        @include font-display-1;
+        margin-top: 10px;
+        text-align: center;
+    }
 </style>

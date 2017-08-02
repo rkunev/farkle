@@ -1,11 +1,11 @@
 <template>
     <div class="app-wrapper">
-        <navigation-drawer v-show="isUserAuthenticated" :is-open="isOpen" @close-menu="closeMenu"></navigation-drawer>
+        <navigation-drawer v-show="true" :is-open="isOpen" @close-menu="closeMenu"></navigation-drawer>
 
-        <div class="main-content">
-            <app-bar v-show="isUserAuthenticated" @open-menu="openMenu"></app-bar>
+        <div class="main-content-wrapper">
+            <app-bar v-show="true" @open-menu="openMenu"></app-bar>
 
-            <router-view></router-view>
+            <router-view class="main-content"></router-view>
         </div>
     </div>
 </template>
@@ -45,18 +45,18 @@
 
 <style lang="scss">
     @import "~assets/scss/_media-queries";
-    .navigation-drawer--is-open + .main-content {
+    .navigation-drawer--is-open + .main-content-wrapper {
         overflow-y: auto;
     }
 
     .app-wrapper,
-    .main-content {
+    .main-content-wrapper {
         display: flex;
         flex-direction: column;
     }
 
     .app-wrapper {
-        height: 100%;
+        min-height: 100%;
         background-color: #fafafa;
         main {
             @include tablet-landscape-up {
@@ -65,7 +65,18 @@
         }
     }
 
-    .main-content {
+    .main-content-wrapper {
         flex: 1 1 auto;
+    }
+
+    .main-content {
+        padding: 28px 24px 0;
+        width: 100%;
+    }
+
+    .main-content--boxed {
+        max-width: 660px;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>

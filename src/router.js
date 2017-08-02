@@ -11,6 +11,7 @@ import LoadGame from 'containers/LoadGame';
 import User from 'containers/User';
 import About from 'containers/About';
 import GameRules from 'containers/GameRules';
+import TermsOfService from 'containers/TermsOfService';
 
 import NotFound from 'containers/NotFound';
 
@@ -83,6 +84,14 @@ export const routes = [
                     requiresAuth: false
                 },
             },
+            {
+                path: '/terms-of-service',
+                component: TermsOfService,
+                meta: {
+                    title: 'Terms Of Service',
+                    requiresAuth: false
+                },
+            },
         ]
     },
     { path: '*', component: NotFound }
@@ -90,7 +99,16 @@ export const routes = [
 
 export const config = {
     mode: 'history',
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (to.hash) {
+            return {
+                selector: to.hash
+            };
+        } else if (savedPosition) {
+            return savedPosition;
+        }
+    }
 };
 
 export const router = new VueRouter(config);
