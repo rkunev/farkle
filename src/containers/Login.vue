@@ -13,7 +13,10 @@
         </div>
 
         <div class="login-page__terms">
-            By continuing, you agree to our <b>Terms of Service</b> and <b>Privacy Policy</b>
+            By continuing, you agree to our
+            <router-link class="login-page__terms-links" to="/terms-of-service">Terms of Service</router-link>
+            and
+            <router-link class="login-page__terms-links" to="/terms-of-service#privacy">Privacy Policy</router-link>
         </div>
     </div>
 </template>
@@ -60,7 +63,7 @@
         $old-light-green: rgb(0, 188, 212);
         $old-dark-green: rgb(76, 175, 80);
 
-        height: 100%;
+        min-height: 100%;
         text-align: center;
         background-image: repeating-radial-gradient(at right bottom, #459af4 0%, #64d9c7 100%);
         display: flex;
@@ -148,5 +151,11 @@
     .login-page__terms {
         @include font-caption;
         margin-top: 12px;
+    }
+
+    .login-page__terms-links {
+        color: inherit;
+        text-decoration: none;
+        font-weight: bold;
     }
 </style>
