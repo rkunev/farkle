@@ -4,7 +4,7 @@
             <svg-icon icon="menu"></svg-icon>
         </md-button>
 
-        <h1 class="app-bar__title">{{ $route.meta.title }}</h1>
+        <h1 class="app-bar__title"><router-link to="" @click.native="refreshView">{{ $route.meta.title }}</router-link></h1>
 
         <md-button icon class="app-bar__more">
             <svg-icon icon="more"></svg-icon>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+    import { EventBus } from 'services/eventBusService';
+
     import SvgIcon from 'components/SvgIcon';
     import MdButton from 'components/MdButton';
 
@@ -21,8 +23,11 @@
         components: { SvgIcon, MdButton },
         methods: {
             toggleMenu(event) {
-                this.$emit('menu-toggle', event);
-            }
+                this.$emit('menu-toggle');
+            },
+            refreshView() {
+                EventBus.$emit('soft-refresh');
+            },
         },
     }
 </script>
@@ -58,5 +63,10 @@
 
     .app-bar__title {
         @include font-title;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
     }
 </style>

@@ -37,6 +37,8 @@
 </template>
 
 <script>
+    import { EventBus } from 'services/eventBusService';
+
     import MdButton from 'components/MdButton';
     import MdInput from 'components/MdInput';
     import MdCard from 'components/MdCard';
@@ -47,10 +49,8 @@
         components: { MdButton, MdInput, MdCard, SvgIcon },
         data() {
             return {
-                playerName: '',
-                players: [
-                    { name: 'Happy Plum 1', isRobot: true, id: 1 },
-                ],
+                playerName: this.getDefaultPlayerName(),
+                players: this.getDefaultPlayers(),
             }
         },
         computed: {
@@ -77,6 +77,27 @@
             togglePlayerType(player) {
                 player.isRobot = !player.isRobot;
             },
+            onSoftRefresh() {
+                console.log('soft refresh');
+
+                this.playerName = this.getDefaultPlayerName();
+                this.players = this.getDefaultPlayers();
+            },
+            getDefaultPlayers() {
+                return [
+                    /** @todo Make the default player the current user and don't allow removing */
+                    { name: 'Happy Plum 1', isRobot: true, id: 1 },
+                ];
+            },
+            getDefaultPlayerName() {
+                return '';
+            }
+        },
+        created() {
+            EventBus.$on('soft-refresh', this.onSoftRefresh);
+        },
+        beforeDestroy() {
+            EventBus.$off('soft-refresh', this.onSoftRefresh);
         },
     }
 </script>

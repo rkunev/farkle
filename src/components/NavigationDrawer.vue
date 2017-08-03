@@ -90,6 +90,7 @@
     import { mapGetters } from 'vuex';
     import { signOut } from 'services/authService';
     import { isTabletAndUp } from 'services/navigationDrawerService';
+    import { EventBus } from 'services/eventBusService';
 
     import SvgIcon from 'components/SvgIcon';
     import MdButton from 'components/MdButton';
@@ -117,13 +118,15 @@
                 if (!isTabletAndUp()) {
                     this.$emit('close-menu', event);
                 }
+
+                EventBus.$emit('soft-refresh');
             },
             logOut() {
                 signOut().then(() => {
                     this.closeMenu();
                     this.$router.push('/auth');
                 });
-            }
+            },
         }
     }
 </script>
