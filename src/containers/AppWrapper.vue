@@ -72,6 +72,10 @@
         }
     }
 
+    .navigation-drawer--is-open + .main-content-wrapper .main-content {
+        transform: translateX(160px);
+    }
+
     .main-content-wrapper {
         flex: 1 1 auto;
     }
@@ -79,11 +83,9 @@
     .main-content {
         padding: 28px 24px 0;
         width: 100%;
-    }
-
-    .main-content--boxed {
         max-width: 660px;
         margin-left: auto;
         margin-right: auto;
+        transition: transform .28s cubic-bezier(0,0,0.3,1);
     }
 </style>
