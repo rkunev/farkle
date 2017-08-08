@@ -73,6 +73,13 @@
                         About
                     </router-link>
                 </li>
+                <li class="navigation-drawer__item">
+                    <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
+                                 :tabindex="linkTabIndex" exact to="/terms-of-service" @click.native="closeMenu">
+                        <svg-icon icon="terms"></svg-icon>
+                        Terms of Service
+                    </router-link>
+                </li>
                 <li class="navigation-drawer__item navigation-drawer__item--subheader"></li>
                 <li class="navigation-drawer__item">
                     <md-button :tabindex="linkTabIndex" @click="logOut" class="navigation-drawer__button">
@@ -90,6 +97,7 @@
     import { mapGetters } from 'vuex';
     import { signOut } from 'services/authService';
     import { isTabletAndUp } from 'services/navigationDrawerService';
+    import { EventBus } from 'services/eventBusService';
 
     import SvgIcon from 'components/SvgIcon';
     import MdButton from 'components/MdButton';
@@ -117,13 +125,15 @@
                 if (!isTabletAndUp()) {
                     this.$emit('close-menu', event);
                 }
+
+                EventBus.$emit('soft-refresh');
             },
             logOut() {
                 signOut().then(() => {
                     this.closeMenu();
                     this.$router.push('/auth');
                 });
-            }
+            },
         }
     }
 </script>

@@ -22,8 +22,8 @@
 </template>
 
 <script>
-    import { isOffline } from 'services/offlineService';
     import { mapGetters } from 'vuex';
+    import { isOffline } from 'services/offlineService';
 
     import MdButton from 'components/MdButton';
 
