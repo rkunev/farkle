@@ -13,7 +13,8 @@
 </template>
 
 <script>
-    import { EventBus } from 'services/eventBusService';
+    import EventBus from 'services/eventBusService';
+    import { SOFT_REFRESH } from 'mixins/softRefreshMixin';
 
     import SvgIcon from 'components/SvgIcon';
     import MdButton from 'components/MdButton';
@@ -26,7 +27,7 @@
                 this.$emit('menu-toggle');
             },
             refreshView() {
-                EventBus.$emit('soft-refresh');
+                EventBus.$emit(SOFT_REFRESH);
             },
         },
     }

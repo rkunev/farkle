@@ -37,7 +37,7 @@
 </template>
 
 <script>
-    import { EventBus } from 'services/eventBusService';
+    import softRefreshMixin from 'mixins/softRefreshMixin';
 
     import MdButton from 'components/MdButton';
     import MdInput from 'components/MdInput';
@@ -47,6 +47,7 @@
     export default {
         name: 'player-generator',
         components: { MdButton, MdInput, MdCard, SvgIcon },
+        mixins: [softRefreshMixin],
         data() {
             return {
                 playerName: this.getDefaultPlayerName(),
@@ -78,8 +79,6 @@
                 player.isRobot = !player.isRobot;
             },
             onSoftRefresh() {
-                console.log('soft refresh');
-
                 this.playerName = this.getDefaultPlayerName();
                 this.players = this.getDefaultPlayers();
             },
@@ -92,12 +91,6 @@
             getDefaultPlayerName() {
                 return '';
             }
-        },
-        created() {
-            EventBus.$on('soft-refresh', this.onSoftRefresh);
-        },
-        beforeDestroy() {
-            EventBus.$off('soft-refresh', this.onSoftRefresh);
         },
     }
 </script>

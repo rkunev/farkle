@@ -23,37 +23,47 @@
             <ul class="navigation-drawer__list">
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact to="/" @click.native="closeMenu">
-                        <svg-icon icon="dashboard"></svg-icon>
-                        Dashboard
+                                 :tabindex="linkTabIndex" exact to="/">
+                        <div @click="closeMenuWithSoftRefresh('/')">
+                            <svg-icon icon="dashboard"></svg-icon>
+                            Dashboard
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact to="/play/new" @click.native="closeMenu">
-                        <svg-icon icon="play"></svg-icon>
-                        New Game
+                                 :tabindex="linkTabIndex" exact to="/play/new">
+                        <div @click="closeMenuWithSoftRefresh('/play/new')">
+                            <svg-icon icon="play"></svg-icon>
+                            New Game
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact to="/play/hotseat/1234567" @click.native="closeMenu">
-                        <svg-icon icon="load"></svg-icon>
-                        Load Game
+                                 :tabindex="linkTabIndex" exact to="/play/hotseat/1234567">
+                        <div @click="closeMenuWithSoftRefresh">
+                            <svg-icon icon="load"></svg-icon>
+                            Load Game
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact :to="profileLink" @click.native="closeMenu">
-                        <svg-icon icon="profile"></svg-icon>
-                        Profile
+                                 :tabindex="linkTabIndex" exact :to="profileLink">
+                        <div @click="closeMenuWithSoftRefresh">
+                            <svg-icon icon="profile"></svg-icon>
+                            Profile
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact to="/users" @click.native="closeMenu">
-                        <svg-icon icon="leaderboard"></svg-icon>
-                        Leaderboard
+                                 :tabindex="linkTabIndex" exact to="/users">
+                        <div @click="closeMenuWithSoftRefresh">
+                            <svg-icon icon="leaderboard"></svg-icon>
+                            Leaderboard
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item navigation-drawer__item--subheader">
@@ -61,23 +71,29 @@
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact to="/users" @click.native="closeMenu">
-                        <svg-icon icon="settings"></svg-icon>
-                        Settings
+                                 :tabindex="linkTabIndex" exact to="/users">
+                        <div @click="closeMenuWithSoftRefresh">
+                            <svg-icon icon="settings"></svg-icon>
+                            Settings
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact to="/about" @click.native="closeMenu">
-                        <svg-icon icon="info"></svg-icon>
-                        About
+                                 :tabindex="linkTabIndex" exact to="/about">
+                        <div @click="closeMenuWithSoftRefresh">
+                            <svg-icon icon="info"></svg-icon>
+                            About
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item">
                     <router-link class="navigation-drawer__link" active-class="navigation-drawer__link--active"
-                                 :tabindex="linkTabIndex" exact to="/terms-of-service" @click.native="closeMenu">
-                        <svg-icon icon="terms"></svg-icon>
-                        Terms of Service
+                                 :tabindex="linkTabIndex" exact to="/terms-of-service">
+                        <div @click="closeMenuWithSoftRefresh">
+                            <svg-icon icon="terms"></svg-icon>
+                            Terms of Service
+                        </div>
                     </router-link>
                 </li>
                 <li class="navigation-drawer__item navigation-drawer__item--subheader"></li>
@@ -97,7 +113,8 @@
     import { mapGetters } from 'vuex';
     import { signOut } from 'services/authService';
     import { isTabletAndUp } from 'services/navigationDrawerService';
-    import { EventBus } from 'services/eventBusService';
+    import EventBus from 'services/eventBusService';
+    import { SOFT_REFRESH } from 'mixins/softRefreshMixin';
 
     import SvgIcon from 'components/SvgIcon';
     import MdButton from 'components/MdButton';
@@ -121,12 +138,10 @@
             },
         },
         methods: {
-            closeMenu(event) {
+            closeMenu() {
                 if (!isTabletAndUp()) {
-                    this.$emit('close-menu', event);
+                    this.$emit('close-menu');
                 }
-
-                EventBus.$emit('soft-refresh');
             },
             logOut() {
                 signOut().then(() => {
@@ -134,7 +149,14 @@
                     this.$router.push('/auth');
                 });
             },
-        }
+            closeMenuWithSoftRefresh(path) {
+                this.closeMenu();
+
+                if (path === this.$route.path) {
+                    EventBus.$emit(SOFT_REFRESH);
+                }
+            },
+        },
     }
 </script>
 
@@ -290,11 +312,15 @@
         height: 48px;
         line-height: 48px;
         text-align: left;
-        padding: 0 16px;
+
         text-decoration: none;
         text-transform: none;
         width: 100%;
         display: inline-block;
+
+        & > div {
+            padding: 0 16px;
+        }
 
         &.navigation-drawer__link--active,
         &:hover, &:focus {
@@ -312,6 +338,8 @@
 
     .navigation-drawer__item .navigation-drawer__button {
         @extend .navigation-drawer__link;
+
+        padding: 0 16px;
 
         .waves-effect {
             padding-left: 0;

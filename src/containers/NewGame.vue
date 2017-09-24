@@ -11,10 +11,18 @@
 
 <script>
     import MdButton from 'components/MdButton';
+    import softRefreshMixin from 'mixins/softRefreshMixin';
 
     export default {
         name: 'new-game',
-        components: { MdButton }
+        components: { MdButton },
+        mixins: [softRefreshMixin],
+        methods: {
+            onSoftRefresh() {
+                console.log('New Game: soft refresh');
+            }
+        },
+
     }
 </script>
 

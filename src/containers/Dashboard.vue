@@ -24,12 +24,14 @@
 <script>
     import { mapGetters } from 'vuex';
     import { isOffline } from 'services/offlineService';
+    import softRefreshMixin from 'mixins/softRefreshMixin';
 
     import MdButton from 'components/MdButton';
 
     export default {
         name: 'dashboard',
         components: { MdButton },
+        mixins: [softRefreshMixin],
         data() {
             return {
                 isUserOffline: isOffline(),
@@ -37,6 +39,11 @@
         },
         computed: {
             ...mapGetters(['user']),
+        },
+        methods: {
+            onSoftRefresh() {
+                console.log('Dashboard: soft refresh')
+            }
         },
     };
 </script>
